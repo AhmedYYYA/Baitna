@@ -18,9 +18,11 @@
   function syncMotion(){
     var motion = motionEnabled();
     body.classList.toggle('bm-no-motion',!motion);
-    toggle.textContent = motion
-      ? text('إيقاف الحركة','Pause motion')
-      : text('تشغيل الحركة','Enable motion');
+    toggle.disabled = reduction.matches;
+    toggle.textContent = reduction.matches
+      ? text('الحركة محدودة حسب إعدادات الجهاز','Motion reduced by device settings')
+      : motion ? text('إيقاف الحركة','Pause motion')
+               : text('تشغيل الحركة','Enable motion');
     toggle.setAttribute('aria-label', text('تبديل المؤثرات الحركية','Toggle animated effects'));
     toggle.setAttribute('aria-pressed',String(!motion));
     /* Stop SVG animation in the lifecycle graph without modifying graph navigation. */
