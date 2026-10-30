@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>بيتنا — متابعة بناء المسكن بندًا بندًا</title>
+<meta name="description" content="بيتنا منصة عربية تحوّل عقد بناء المسكن إلى بنود يتابعها المالك والمقاول والاستشاري معًا، ويرتبط كل بند بدليله ودفعته وفاتورته وضمانه.">
+<meta name="theme-color" content="#F3F5F2">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F5F2; --white:#FFFFFF;
+  --ink:#0F2A26; --soft:#344944; --muted:#56675F;
+  --line:#CBD5D0; --draw:#7E938C;
+  --emerald:#0B5E51; --emerald-2:#084A40; --emerald-tint:#E3EFEB;
+  --sand:#D9C4A1; --concrete:#AEB8B4;
+  --amber:#8A4205; --amber-tint:#FBEEDC;
+  --focus:#1E4BA8;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.85 'IBM Plex Sans Arabic',system-ui,-apple-system,'Segoe UI',Tahoma,sans-serif;-webkit-font-smoothing:antialiased}
+html[lang="en"] body{font-size:16px;line-height:1.65}
+h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+h1,h2,h3{font-family:'Reem Kufi','IBM Plex Sans Arabic',system-ui,sans-serif;font-weight:600;letter-spacing:0}
+a{color:var(--emerald)}
+a:hover{color:var(--emerald-2)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.skip{position:absolute;inset-inline-start:12px;top:-60px;background:var(--white);padding:8px 14px;border-radius:8px;z-index:20}
+.skip:focus{top:12px}
+.en-only{display:none}
+html[lang="en"] .en-only{display:block}
+
+/* ---------- Header ---------- */
+.top{position:sticky;top:0;z-index:10;background:rgba(243,245,242,.94);backdrop-filter:saturate(1.2) blur(8px);-webkit-backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:24px;min-height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.logo img{width:34px;height:34px;display:block}
+.logo span{font-family:'Reem Kufi',sans-serif;font-size:26px;font-weight:600;line-height:1}
+.nav{display:flex;gap:22px;margin-inline-start:auto}
+.nav a{color:var(--soft);text-decoration:none;font-size:15px;font-weight:500;padding:8px 0}
+.nav a:hover{color:var(--emerald)}
+.top .tools{display:flex;align-items:center;gap:10px}
+.lang{min-height:44px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--white);color:var(--ink);font:500 14px/1 'IBM Plex Sans Arabic',system-ui,sans-serif;cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 20px;border-radius:12px;font-weight:600;font-size:16px;text-decoration:none;border:1.5px solid transparent;white-space:nowrap}
+.btn.solid{background:var(--emerald);color:var(--white)}
+.btn.solid:hover{background:var(--emerald-2);color:var(--white)}
+.btn.line{border-color:var(--ink);color:var(--ink);background:transparent}
+.btn.line:hover{background:var(--white);color:var(--ink)}
+.top .btn{min-height:44px;font-size:15px;padding:0 16px}
+@media (max-width:960px){.nav{display:none}.top .tools{margin-inline-start:auto}}
+@media (max-width:420px){.top .btn{display:none}}
+
+/* ---------- Hero ---------- */
+.hero{padding:64px 0 72px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;align-items:center}
+.hero h1{font-size:clamp(34px,4.4vw,56px);line-height:1.32;font-weight:700;max-width:13em}
+html[lang="en"] .hero h1{line-height:1.12}
+.lead{margin-top:22px;font-size:19px;color:var(--soft);max-width:33em}
+html[lang="en"] .lead{font-size:18px}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.note{margin-top:14px;font-size:14px;color:var(--muted)}
+@media (max-width:960px){.hero{padding:40px 0 56px}.hero .wrap{grid-template-columns:minmax(0,1fr);gap:36px}}
+
+.sheet{background:var(--white);border:1px solid var(--line);border-radius:4px;padding:10px}
+.frame{position:relative}
+.elev{display:block;width:100%;height:auto;direction:ltr;unicode-bidi:isolate}
+.elev .s-found{animation:fade .6s ease-out .35s both}
+.elev .s-frame{animation:fade .6s ease-out .95s both}
+.elev .s-wall-g rect{transform-box:fill-box;transform-origin:50% 100%;animation:rise .7s cubic-bezier(.3,.6,.3,1) 1.55s both}
+.elev .s-wall-1 rect{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(.8);animation:rise80 .8s cubic-bezier(.3,.6,.3,1) 2.15s both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes rise{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes rise80{from{transform:scaleY(0)}to{transform:scaleY(.8)}}
+.tags{position:absolute;inset:0;pointer-events:none}
+.tag{position:absolute;left:74.6%;width:24.2%;transform:translateY(-50%);background:var(--white);border:1px solid var(--line);border-radius:6px;padding:5px 9px;display:flex;flex-direction:column;line-height:1.35}
+.tag b{font-size:13px;font-weight:600}
+.tag span{font-size:12px}
+.st-done{color:var(--emerald)}
+.st-prog{color:var(--amber)}
+.st-todo{color:var(--muted)}
+.tag.t1{top:18%;animation:fade .4s ease-out 2.75s both}
+.tag.t2{top:31.6%;animation:fade .4s ease-out 2.35s both}
+.tag.t3{top:45.6%;animation:fade .4s ease-out 1.15s both}
+.tag.t4{top:72%;animation:fade .4s ease-out .55s both}
+.leaders{animation:fade .4s ease-out .5s both}
+.tblock{position:absolute;left:1.6%;right:1.6%;top:86.6%;height:11.2%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);background:var(--white);animation:fade .5s ease-out 2.95s both}
+.tblock div{display:flex;flex-direction:column;justify-content:center;padding:0 12px;border-inline-start:1px solid var(--line);line-height:1.3}
+.tblock div:first-child{border-inline-start:0}
+.tblock span{font-size:12px;color:var(--muted)}
+.tblock b{font-size:15px;font-weight:700}
+.legend-m{display:none}
+@media (max-width:640px){
+  .tags,.leaders{display:none}
+  .tblock{position:static;height:auto;margin-top:8px}
+  .tblock div{padding:8px 10px}
+  .tblock b{font-size:13px}
+  .tblock span{font-size:11px}
+  .legend-m{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px;margin-top:12px;font-size:13px;line-height:1.4}
+  .legend-m li{display:flex;gap:8px;align-items:flex-start}
+  .legend-m i{width:12px;height:12px;border-radius:2px;flex-shrink:0;margin-top:3px}
+  .legend-m b{display:block;font-weight:600}
+}
+
+/* ---------- Sections ---------- */
+section.block{padding:84px 0;border-top:1px solid var(--line)}
+section.block h2{font-size:clamp(28px,3.2vw,40px);line-height:1.35;max-width:20em}
+html[lang="en"] section.block h2{line-height:1.2}
+.intro{margin-top:16px;color:var(--soft);max-width:36em}
+@media (max-width:640px){section.block{padding:60px 0}}
+
+/* How it works: a dimension line */
+.loop{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;margin-top:48px;position:relative}
+.loop li{position:relative;padding-top:40px;padding-inline-end:20px}
+.loop li::before{content:"";position:absolute;top:16px;inset-inline:0;border-top:1.5px solid var(--soft)}
+.loop li::after{content:"";position:absolute;top:8px;inset-inline-start:-1px;width:1.5px;height:17px;background:var(--soft);transform:rotate(45deg)}
+.loop::after{content:"";position:absolute;top:8px;inset-inline-end:-1px;width:1.5px;height:17px;background:var(--soft);transform:rotate(45deg)}
+.loop .n{position:absolute;top:2px;inset-inline-start:14px;background:var(--paper);padding:0 6px;font:600 15px/28px 'Reem Kufi',sans-serif;color:var(--emerald)}
+.loop h3{font-size:21px;line-height:1.4}
+.loop p{margin-top:6px;font-size:15px;line-height:1.75;color:var(--muted)}
+@media (max-width:960px){.loop{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:36px}.loop::after{display:none}}
+@media (max-width:560px){.loop{grid-template-columns:minmax(0,1fr);row-gap:28px}.loop li{padding-inline-end:0}}
+
+/* Parties */
+.parties{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:48px;margin-top:40px}
+.parties div{border-top:1px solid var(--line);padding:22px 0 24px}
+.parties dt{font:600 19px/1.5 'Reem Kufi',sans-serif}
+.parties dd{margin-top:6px;color:var(--soft);max-width:30em}
+@media (max-width:760px){.parties{grid-template-columns:minmax(0,1fr)}}
+
+/* Demo tour */
+.tour{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:48px;align-items:start;margin-top:40px}
+.scenes{display:flex;flex-direction:column;gap:4px}
+.scene{display:block;padding:14px 16px;border-radius:10px;text-decoration:none;color:var(--ink)}
+.scene:hover{background:var(--white);color:var(--ink)}
+.scene[aria-current="true"]{background:var(--white);box-shadow:inset 0 0 0 1.5px var(--emerald)}
+.scene b{display:block;font-size:17px;font-weight:600}
+.scene span{display:block;font-size:14px;color:var(--muted);line-height:1.6}
+.tour .more{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.portal{margin-top:28px;padding-top:22px;border-top:1px solid var(--line)}
+.portal p{font-size:15px;color:var(--muted);margin:4px 0 14px}
+.phone{width:390px;height:780px;margin-inline:auto;border:10px solid var(--ink);border-radius:46px;overflow:hidden;background:var(--white);box-sizing:content-box}
+.phone iframe{display:block;width:100%;height:100%;border:0}
+.tour .en-only{margin-top:14px;font-size:14px;color:var(--muted)}
+@media (max-width:960px){.tour{grid-template-columns:minmax(0,1fr)}.phone{display:none}}
+
+/* AI */
+.ai{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;align-items:start}
+.ai h3{font-size:19px;margin-bottom:12px}
+.bricks{display:flex;flex-direction:column;gap:12px}
+.bricks li{position:relative;padding-inline-start:24px;color:var(--soft)}
+.bricks li::before{content:"";position:absolute;inset-inline-start:0;top:.62em;width:11px;height:7px;background:var(--emerald);border-radius:1px}
+.bricks.sand li::before{background:var(--sand);box-shadow:inset 0 0 0 1px #B89F78}
+.ai .col + .col{display:flex;flex-direction:column;gap:36px}
+@media (max-width:960px){.ai{grid-template-columns:minmax(0,1fr);gap:36px}}
+
+/* Alignment */
+.align{margin-top:36px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:48px}
+.align li{border-top:1px solid var(--line);padding:18px 0}
+.align b{display:block;font-weight:600}
+.align span{color:var(--soft)}
+@media (max-width:760px){.align{grid-template-columns:minmax(0,1fr)}}
+
+/* Pilot: a small Gantt of the pilot itself */
+.plan{margin-top:44px;display:flex;flex-direction:column;gap:22px}
+.phase{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:24px;align-items:center}
+.phase .lbl b{display:block;font:600 19px/1.4 'Reem Kufi',sans-serif}
+.phase .lbl span{font-size:14px;color:var(--muted)}
+.phase .n{color:var(--emerald);margin-inline-end:8px}
+.track{position:relative;height:30px;background:repeating-linear-gradient(to left,transparent 0 calc(100% / 17.5 - 1px),var(--line) calc(100% / 17.5 - 1px) calc(100% / 17.5))}
+html[lang="en"] .track{background:repeating-linear-gradient(to right,transparent 0 calc(100% / 17.5 - 1px),var(--line) calc(100% / 17.5 - 1px) calc(100% / 17.5))}
+.track i{position:absolute;top:4px;bottom:4px;border-radius:4px;background:var(--emerald)}
+.phase p{grid-column:2;margin-top:-10px;font-size:15px;color:var(--soft)}
+.axis{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:24px;font-size:13px;color:var(--muted)}
+.axis div{display:flex;justify-content:space-between}
+.kpi{margin-top:52px}
+.kpi h3{font-size:19px}
+.kpi ul{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.kpi li{background:var(--white);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:15px}
+@media (max-width:760px){
+  .phase,.axis{grid-template-columns:minmax(0,1fr);gap:8px}
+  .phase p{grid-column:1;margin-top:0}
+  .axis div{grid-column:1}
+  .axis > span{display:none}
+}
+
+/* Footer */
+footer{border-top:1px solid var(--line);padding:40px 0 56px;font-size:14px;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:20px 40px;justify-content:space-between;align-items:flex-start}
+footer p{max-width:44em}
+footer nav{display:flex;gap:20px}
+footer nav a{font-weight:600}
+
+.settled .elev *,.settled .tag,.settled .tblock,.settled .leaders{animation:none !important}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .elev *,.tag,.tblock,.leaders{animation:none !important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">تخطَّ إلى المحتوى</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="بيتنا" data-i18n-aria="logo_aria"><img src="assets/favicon.svg" alt=""><span data-i18n="brand">بيتنا</span></a>
+    <nav class="nav" aria-label="أقسام الصفحة" data-i18n-aria="nav_aria">
+      <a href="#how" data-i18n="nav_how">كيف تعمل</a>
+      <a href="#parties" data-i18n="nav_parties">لكل طرف</a>
+      <a href="#demo" data-i18n="nav_demo">العرض التفاعلي</a>
+      <a href="#ai" data-i18n="nav_ai">الذكاء الاصطناعي</a>
+      <a href="#pilot" data-i18n="nav_pilot">التجربة الميدانية</a>
+    </nav>
+    <div class="tools">
+      <button class="lang" type="button" id="langBtn" lang="en">English</button>
+      <a class="btn solid" href="demo/" data-i18n="nav_cta">افتح العرض</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <h1 data-i18n="hero_h1">كل بند في بناء بيتك: أين وصل، ومن اعتمده، ومتى يُدفع.</h1>
+      <p class="lead" data-i18n="hero_lead">بيتنا منصة عربية تحوّل عقد بناء المسكن إلى بنود يتابعها المالك والمقاول والاستشاري معًا. ويرتبط كل بند بدليله الميداني ودفعته وفاتورته وضمانه، من الترخيص حتى ما بعد تسليم المفتاح.</p>
+      <div class="ctas">
+        <a class="btn solid" href="demo/" data-i18n="hero_cta1">افتح العرض التفاعلي</a>
+        <a class="btn line" href="demo/authority.html" data-i18n="hero_cta2">بوابة الجهة الرقابية</a>
+      </div>
+      <p class="note" data-i18n="hero_note">نموذج أولي ببيانات توضيحية، يعمل على الهاتف والحاسوب.</p>
+    </div>
+
+    <figure class="sheet">
+      <div class="frame">
+        <svg class="elev" viewBox="0 0 760 500" role="img" aria-label="واجهة مسكن من طابقين: الأساسات والهيكل الخرساني منجزان، وبلوك الطابق الأول عند 80%، والواجهات والتشطيبات لم تبدأ." data-i18n-aria="hero_svg">
+          <defs>
+            <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#7F8C87" stroke-width="1.6"/></pattern>
+          </defs>
+          <rect x="4" y="4" width="752" height="492" fill="none" stroke="#CBD5D0"/>
+          <!-- grid axes -->
+          <g fill="none" stroke="#A9B8B2" stroke-width="1" stroke-dasharray="10 4 2 4">
+            <line x1="150" y1="46" x2="150" y2="418"/><line x1="277" y1="46" x2="277" y2="418"/>
+            <line x1="403" y1="46" x2="403" y2="418"/><line x1="530" y1="46" x2="530" y2="418"/>
+          </g>
+          <g fill="#FFFFFF" stroke="#7E938C" stroke-width="1.2">
+            <circle cx="150" cy="33" r="13"/><circle cx="277" cy="33" r="13"/><circle cx="403" cy="33" r="13"/><circle cx="530" cy="33" r="13"/>
+          </g>
+          <g fill="#344944" font-size="13" font-weight="600" text-anchor="middle" font-family="IBM Plex Sans Arabic, system-ui, sans-serif">
+            <text x="150" y="38">A</text><text x="277" y="38">B</text><text x="403" y="38">C</text><text x="530" y="38">D</text>
+          </g>
+          <!-- levels -->
+          <g stroke="#344944" stroke-width="1" fill="none">
+            <line x1="84" y1="116" x2="140" y2="116"/><line x1="84" y1="228" x2="140" y2="228"/><line x1="84" y1="340" x2="140" y2="340"/>
+          </g>
+          <g fill="#344944"><path d="M124 108h12l-6 8z"/><path d="M124 220h12l-6 8z"/><path d="M124 332h12l-6 8z"/></g>
+          <g fill="#344944" font-size="12.5" font-family="IBM Plex Sans Arabic, system-ui, sans-serif" text-anchor="end">
+            <text x="118" y="110">+7.20</text><text x="118" y="222">+3.60</text><text x="118" y="334">±0.00</text>
+          </g>
+
+          <!-- foundations -->
+          <g class="s-found">
+            <rect x="138" y="340" width="404" height="12" fill="#AEB8B4"/>
+            <rect x="128" y="352" width="44" height="22" fill="#AEB8B4"/><rect x="255" y="352" width="44" height="22" fill="#AEB8B4"/>
+            <rect x="381" y="352" width="44" height="22" fill="#AEB8B4"/><rect x="508" y="352" width="44" height="22" fill="#AEB8B4"/>
+            <rect x="138" y="340" width="404" height="12" fill="url(#hatch)" opacity=".55"/>
+            <rect x="128" y="352" width="44" height="22" fill="url(#hatch)" opacity=".55"/><rect x="255" y="352" width="44" height="22" fill="url(#hatch)" opacity=".55"/>
+            <rect x="381" y="352" width="44" height="22" fill="url(#hatch)" opacity=".55"/><rect x="508" y="352" width="44" height="22" fill="url(#hatch)" opacity=".55"/>
+          </g>
+          <!-- concrete frame -->
+          <g class="s-frame" fill="#AEB8B4">
+            <rect x="144" y="110" width="12" height="230"/><rect x="271" y="110" width="12" height="230"/>
+            <rect x="397" y="110" width="12" height="230"/><rect x="524" y="110" width="12" height="230"/>
+            <rect x="138" y="222" width="404" height="12"/><rect x="138" y="110" width="404" height="12"/>
+          </g>
+          <!-- blockwork -->
+          <g class="s-wall-g" fill="#D9C4A1">
+            <rect x="156" y="234" width="115" height="106"/><rect x="283" y="234" width="114" height="106"/><rect x="409" y="234" width="115" height="106"/>
+          </g>
+          <g class="s-wall-1" fill="#D9C4A1">
+            <rect x="156" y="122" width="115" height="100"/><rect x="283" y="122" width="114" height="100"/><rect x="409" y="122" width="115" height="100"/>
+          </g>
+          <!-- openings -->
+          <g fill="#FFFFFF" stroke="#344944" stroke-width="1.2">
+            <path d="M193 312v-30a20 20 0 0 1 40 0v30z"/><path d="M320 340v-52a20 20 0 0 1 40 0v52z"/><path d="M447 312v-30a20 20 0 0 1 40 0v30z"/>
+            <path d="M193 198v-28a20 20 0 0 1 40 0v28z"/><path d="M318 202v-56h44v56z"/><path d="M447 198v-28a20 20 0 0 1 40 0v28z"/>
+          </g>
+          <!-- finishes, not started: dashed -->
+          <g fill="none" stroke="#7E938C" stroke-width="1.2" stroke-dasharray="4 3">
+            <rect x="138" y="86" width="404" height="24"/>
+            <path d="M144 86v-10h12v10M172 86v-10h12v10M200 86v-10h12v10M228 86v-10h12v10M256 86v-10h12v10M284 86v-10h12v10M312 86v-10h12v10M340 86v-10h12v10M368 86v-10h12v10M396 86v-10h12v10M424 86v-10h12v10M452 86v-10h12v10M480 86v-10h12v10M508 86v-10h12v10M524 86v-10h12v10"/>
+            <path d="M323 152h34M323 160h34M323 168h34M323 176h34M323 184h34M323 192h34M330 150v50M340 150v50M350 150v50"/>
+            <path d="M198 307v-25a15 15 0 0 1 30 0v25zM452 307v-25a15 15 0 0 1 30 0v25zM198 194v-24a15 15 0 0 1 30 0v24zM452 194v-24a15 15 0 0 1 30 0v24z"/>
+          </g>
+          <!-- linework -->
+          <g fill="none" stroke="#344944" stroke-width="1.4">
+            <rect x="144" y="110" width="12" height="230"/><rect x="271" y="110" width="12" height="230"/>
+            <rect x="397" y="110" width="12" height="230"/><rect x="524" y="110" width="12" height="230"/>
+            <rect x="138" y="222" width="404" height="12"/><rect x="138" y="110" width="404" height="12"/>
+            <rect x="138" y="340" width="404" height="12"/>
+            <rect x="128" y="352" width="44" height="22"/><rect x="255" y="352" width="44" height="22"/><rect x="381" y="352" width="44" height="22"/><rect x="508" y="352" width="44" height="22"/>
+          </g>
+          <line x1="40" y1="340" x2="720" y2="340" stroke="#0F2A26" stroke-width="2"/>
+          <!-- dimension line -->
+          <g stroke="#344944" stroke-width="1.2" fill="none">
+            <line x1="150" y1="410" x2="530" y2="410"/>
+            <path d="M145 415l10-10M272 415l10-10M398 415l10-10M525 415l10-10"/>
+          </g>
+          <g fill="#344944" font-size="12.5" text-anchor="middle" font-family="IBM Plex Sans Arabic, system-ui, sans-serif">
+            <text x="213" y="402">6.70</text><text x="340" y="402">6.60</text><text x="467" y="402">6.70</text>
+          </g>
+          <!-- leaders -->
+          <g class="leaders" stroke="#0F2A26" stroke-width="1" fill="#0F2A26">
+            <line x1="542" y1="90" x2="566" y2="90"/><circle cx="542" cy="90" r="2.6"/>
+            <line x1="512" y1="158" x2="566" y2="158"/><circle cx="512" cy="158" r="2.6"/>
+            <line x1="542" y1="228" x2="566" y2="228"/><circle cx="542" cy="228" r="2.6"/>
+            <line x1="552" y1="360" x2="566" y2="360"/><circle cx="552" cy="360" r="2.6"/>
+          </g>
+        </svg>
+        <div class="tags" aria-hidden="true">
+          <div class="tag t1"><b data-i18n="tag_fin">الواجهات والتشطيبات</b><span class="st-todo" data-i18n="st_fin">لم تبدأ</span></div>
+          <div class="tag t2"><b data-i18n="tag_blk">البلوك</b><span class="st-prog" data-i18n="st_blk">الطابق الأول 80%</span></div>
+          <div class="tag t3"><b data-i18n="tag_frm">الهيكل الخرساني</b><span class="st-done" data-i18n="st_frm">منجز ومعتمد</span></div>
+          <div class="tag t4"><b data-i18n="tag_fnd">الأساسات</b><span class="st-done" data-i18n="st_fnd">منجزة ومعتمدة</span></div>
+        </div>
+        <div class="tblock">
+          <div><span data-i18n="tb_today">اليوم</span><b data-i18n="tb_today_v">30 أكتوبر 2026</b></div>
+          <div><span data-i18n="tb_prog">التقدم المعتمد</span><b>42%</b></div>
+          <div><span data-i18n="tb_hand">التسليم المتوقع</span><b data-i18n="tb_hand_v">28 أبريل 2027</b></div>
+        </div>
+      </div>
+      <ul class="legend-m">
+        <li><i style="background:#AEB8B4"></i><span><b data-i18n="tag_fnd">الأساسات</b><span data-i18n="st_fnd">منجزة ومعتمدة</span></span></li>
+        <li><i style="background:#AEB8B4"></i><span><b data-i18n="tag_frm">الهيكل الخرساني</b><span data-i18n="st_frm">منجز ومعتمد</span></span></li>
+        <li><i style="background:#D9C4A1"></i><span><b data-i18n="tag_blk">البلوك</b><span data-i18n="st_blk">الطابق الأول 80%</span></span></li>
+        <li><i style="background:#FFFFFF;box-shadow:inset 0 0 0 1px #7E938C"></i><span><b data-i18n="tag_fin">الواجهات والتشطيبات</b><span data-i18n="st_fin">لم تبدأ</span></span></li>
+      </ul>
+    </figure>
+  </div>
+</section>
+
+<section class="block" id="how" aria-labelledby="how-h">
+  <div class="wrap">
+    <h2 id="how-h" data-i18n="how_h2">حلقة واحدة تربط العقد بالمفتاح</h2>
+    <p class="intro" data-i18n="how_p">البند هو وحدة العمل في بيتنا. كل ما يحدث في الموقع يُسجَّل على بنده، فلا ينفصل الإنجاز عن دليله، ولا الدفعة عن قرارها.</p>
+    <ol class="loop">
+      <li><span class="n">1</span><h3 data-i18n="s1_t">البند</h3><p data-i18n="s1_p">يُستخرج من العقد وجدول الكميات، ويرتبط بالمخطط ورقم إصداره.</p></li>
+      <li><span class="n">2</span><h3 data-i18n="s2_t">الدليل</h3><p data-i18n="s2_p">صور مؤرخة بموقعها وبصمتها الرقمية، وتقارير الفحص والاختبار.</p></li>
+      <li><span class="n">3</span><h3 data-i18n="s3_t">القرار</h3><p data-i18n="s3_p">يعتمده صاحب الصلاحية: الاستشاري للمراحل، والمالك للدفعات.</p></li>
+      <li><span class="n">4</span><h3 data-i18n="s4_t">الدفعة</h3><p data-i18n="s4_p">تُطلب بحزمة إثبات مكتملة يراجعها البنك الممول.</p></li>
+      <li><span class="n">5</span><h3 data-i18n="s5_t">الفاتورة</h3><p data-i18n="s5_p">تُحفظ أصولها مرتبة لملف «مسكن»، دون بحث في اللحظة الأخيرة.</p></li>
+      <li><span class="n">6</span><h3 data-i18n="s6_t">الضمان</h3><p data-i18n="s6_p">يبقى مع المسكن بعد التسليم، بمكوّنه والجهة الملتزمة به.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="block" id="parties" aria-labelledby="par-h">
+  <div class="wrap">
+    <h2 id="par-h" data-i18n="par_h2">قيمة لكل طرف في المشروع</h2>
+    <p class="intro" data-i18n="par_p">يرى كل طرف ما يخصه وفي حدود صلاحيته، ويبقى القرار الفني والقانوني لأصحاب الاختصاص.</p>
+    <dl class="parties">
+      <div><dt data-i18n="p1_t">المالك وأسرته</dt><dd data-i18n="p1_p">يعرف في دقيقة ما أُنجز، وما ينتظر قراره، وما يُستحق دفعه.</dd></div>
+      <div><dt data-i18n="p2_t">المقاول</dt><dd data-i18n="p2_p">طلبات دفعات بأدلة مكتملة تُعتمد أسرع، ونزاعات أقل.</dd></div>
+      <div><dt data-i18n="p3_t">الاستشاري المشرف</dt><dd data-i18n="p3_p">طلبات فحص مرتبطة بالبند والمخطط، وتقارير مراحل جاهزة للاعتماد.</dd></div>
+      <div><dt data-i18n="p4_t">البنك الممول</dt><dd data-i18n="p4_p">حزمة رقمية لإثبات الإنجاز مع كل دفعة، وزيارات أقل غير ضرورية.</dd></div>
+      <div><dt data-i18n="p5_t">جهة الإسكان</dt><dd data-i18n="p5_p">محفظة المساكن الممولة بحالاتها، وإنذار مبكر بالتعثر.</dd></div>
+      <div><dt data-i18n="p6_t">البلدية والجهات الرقابية</dt><dd data-i18n="p6_p">اطلاع على تقارير المراحل ومؤشرات الامتثال، وتوجيه الزيارات الميدانية بحسب المخاطر.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="block" id="demo" aria-labelledby="demo-h">
+  <div class="wrap">
+    <h2 id="demo-h" data-i18n="demo_h2">جرّب الرحلة كما يعيشها المالك</h2>
+    <p class="intro" data-i18n="demo_p">اختر مشهدًا لتراه في الهاتف، أو افتح العرض بملء الشاشة. الأسماء والأرقام كلها توضيحية.</p>
+    <div class="tour">
+      <div>
+        <div class="scenes" id="scenes">
+          <a class="scene" href="demo/#home" data-scene="home" aria-current="true"><b data-i18n="sc1_t">الرئيسية للمالك</b><span data-i18n="sc1_p">ما أُنجز، وما ينتظر قراره، وما يُستحق دفعه.</span></a>
+          <a class="scene" href="demo/#request" data-scene="request"><b data-i18n="sc2_t">طلب الدفعة رقم 4</b><span data-i18n="sc2_p">مراجعة حزمة الإثبات، ثم الموافقة والتوقيع.</span></a>
+          <a class="scene" href="demo/#item" data-scene="item"><b data-i18n="sc3_t">سجل البند وأدلته</b><span data-i18n="sc3_p">من فحص التمديدات إلى اعتماد اختبار الغمر.</span></a>
+          <a class="scene" href="demo/#sow" data-scene="sow"><b data-i18n="sc4_t">بيان نطاق العمل</b><span data-i18n="sc4_p">ما يشمله العقد وما لا يشمله، بلغة بسيطة.</span></a>
+          <a class="scene" href="demo/#gantt" data-scene="gantt"><b data-i18n="sc5_t">البرنامج الزمني</b><span data-i18n="sc5_p">العلاقات بين الأعمال، ومحاكاة أثر التأخير في موعد التسليم.</span></a>
+          <a class="scene" href="demo/#report" data-scene="report"><b data-i18n="sc6_t">التقرير اليومي الآلي</b><span data-i18n="sc6_p">مسودة يعدّها النظام من صور اليوم، ويراجعها المقاول قبل إرسالها.</span></a>
+          <a class="scene" href="demo/#pack" data-scene="pack"><b data-i18n="sc7_t">حزمة إثبات الإنجاز</b><span data-i18n="sc7_p">يجهّز المقاول طلبه ويعالج النواقص قبل الإرسال.</span></a>
+        </div>
+        <div class="more">
+          <a class="btn solid" href="demo/" data-i18n="demo_full">افتح العرض بملء الشاشة</a>
+        </div>
+        <div class="portal">
+          <b data-i18n="portal_t">بوابة الجهة الرقابية</b>
+          <p data-i18n="portal_p">المشاريع مرتبة بحسب المخاطر، مع سبب كل درجة، للاطلاع فقط ودون تعديل.</p>
+          <a class="btn line" href="demo/authority.html" data-i18n="portal_cta">افتح البوابة</a>
+        </div>
+      </div>
+      <div>
+        <div class="phone"><iframe id="phoneFrame" title="العرض التفاعلي لتطبيق بيتنا" data-i18n-title="frame_title" src="demo/#home" loading="lazy"></iframe></div>
+        <p class="en-only">The app itself is in Arabic: Baitna is Arabic-first.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="ai" aria-labelledby="ai-h">
+  <div class="wrap ai">
+    <div class="col">
+      <h2 id="ai-h" data-i18n="ai_h2">ذكاء اصطناعي نبنيه بأنفسنا، والقرار للإنسان</h2>
+      <p class="intro" data-i18n="ai_p">تُعدّ بيتنا المسودات وتقترح التحديثات وتكشف النواقص، ولا تعتمد شيئًا نيابةً عن أحد. ونكيّف نماذج قائمة على بيانات من مساكن الدولة، بموافقة ملاكها.</p>
+    </div>
+    <div class="col">
+      <div>
+        <h3 data-i18n="ai_pr_h">المبادئ</h3>
+        <ul class="bricks">
+          <li data-i18n="ai_pr1">النظام يقترح والإنسان يعتمد: لا صرف ولا قبول آليًا.</li>
+          <li data-i18n="ai_pr2">تُخفى الوجوه تلقائيًا، ولا تُصوَّر الغرف التي يستثنيها المالك.</li>
+          <li data-i18n="ai_pr3">نماذج مكيّفة على مساكن الدولة، ومستضافة داخلها.</li>
+          <li data-i18n="ai_pr4">كل ملاحظة مسندة إلى نصها ومرجعها ودرجة الثقة فيها.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 data-i18n="ai_cap_h">القدرات</h3>
+        <ul class="bricks sand">
+          <li data-i18n="ai_cap1">أرشيف بصري يربط كل صورة ببندها ومخططها وموقعها.</li>
+          <li data-i18n="ai_cap2">تقرير يومي من صور الموقع: العمالة والمعدات والأنشطة وفترات التوقف.</li>
+          <li data-i18n="ai_cap3">ربط التقدم المرئي بالبرنامج الزمني، والتنبيه قبل أن يمس التأخير موعد التسليم.</li>
+          <li data-i18n="ai_cap4">مساعد يقارن المواد المقدمة للاعتماد بالمواصفة وجدول الكميات.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" aria-labelledby="al-h">
+  <div class="wrap">
+    <h2 id="al-h" data-i18n="al_h2">تعمل مع توجهات الدولة، لا بجانبها</h2>
+    <ul class="align">
+      <li><b data-i18n="al1_t">القنوات الحكومية الموحدة</b><span data-i18n="al1_p">تعمل بيتنا محركًا خلف القنوات الرسمية، لا تطبيقًا إضافيًا.</span></li>
+      <li><b data-i18n="al2_t">الحكومة القائمة على الذكاء الاصطناعي</b><span data-i18n="al2_p">حالات استخدام جاهزة لجهات الإسكان والبلديات.</span></li>
+      <li><b data-i18n="al3_t">تنظيم أنشطة المقاولات</b><span data-i18n="al3_p">التحقق من تسجيل المقاول وتصنيفه، وحفظ العقود والسجلات.</span></li>
+      <li><b data-i18n="al4_t">الفوترة الإلكترونية الوطنية</b><span data-i18n="al4_p">استقبال الفواتير المنظمة مع بدء مراحلها الإلزامية في 2027.</span></li>
+      <li><b data-i18n="al5_t">عام الأسرة 2026</b><span data-i18n="al5_p">بناء البيت أكبر مشروع في حياة الأسرة.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="block" id="pilot" aria-labelledby="pi-h">
+  <div class="wrap">
+    <h2 id="pi-h" data-i18n="pi_h2">تجربة ميدانية محددة قبل أي التزام</h2>
+    <p class="intro" data-i18n="pi_p">نبدأ مع جهة إسكان وبنكها الممول على عينة من المساكن الجاري بناؤها، ونقيس الأثر مقابل خط أساس متفق عليه.</p>
+    <div class="plan">
+      <div class="phase">
+        <div class="lbl"><b><span class="n">0</span><span data-i18n="ph0_t">الاستكشاف</span></b><span data-i18n="ph0_d">8–10 أسابيع</span></div>
+        <div class="track" aria-hidden="true"><i style="inset-inline-start:0;width:14.3%"></i></div>
+        <p data-i18n="ph0_p">مقابلات مع الملاك والمقاولين والاستشاريين ومهندسي الجهة والبنك، وقياس خط الأساس.</p>
+      </div>
+      <div class="phase">
+        <div class="lbl"><b><span class="n">1</span><span data-i18n="ph1_t">المنتج الأولي</span></b><span data-i18n="ph1_d">4–6 أشهر</span></div>
+        <div class="track" aria-hidden="true"><i style="inset-inline-start:14.3%;width:34.3%"></i></div>
+        <p data-i18n="ph1_p">البنود والأدلة والدفعات والفواتير، وبيان نطاق العمل والبرنامج الزمني.</p>
+      </div>
+      <div class="phase">
+        <div class="lbl"><b><span class="n">2</span><span data-i18n="ph2_t">التجربة الميدانية</span></b><span data-i18n="ph2_d">6–9 أشهر</span></div>
+        <div class="track" aria-hidden="true"><i style="inset-inline-start:48.6%;width:51.4%"></i></div>
+        <p data-i18n="ph2_p">عينة من المساكن الجاري بناؤها، مع بوابة الجهة الرقابية والتقرير اليومي الآلي.</p>
+      </div>
+      <div class="axis" aria-hidden="true"><span></span><div><span data-i18n="ax0">الشهر 0</span><span data-i18n="ax1">الشهر 18 تقريبًا</span></div></div>
+    </div>
+    <div class="kpi">
+      <h3 data-i18n="kpi_h">ما نقيسه</h3>
+      <ul>
+        <li data-i18n="kpi1">زمن اعتماد الدفعة وصرفها</li>
+        <li data-i18n="kpi2">الطلبات المعادة للتصحيح</li>
+        <li data-i18n="kpi3">المشاريع المتأخرة عن البرنامج</li>
+        <li data-i18n="kpi4">النزاعات لكل مئة مشروع</li>
+        <li data-i18n="kpi5">رضا المالك</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p data-i18n="ft_text">بيتنا مبادرة مستقلة في مرحلة النموذج الأولي. البيانات في العرض توضيحية، ولا يعني ذكر أي جهة أو توجه حكومي أنه يعتمد المنصة.</p>
+    <nav aria-label="روابط العرض" data-i18n-aria="ft_aria">
+      <a href="demo/" data-i18n="ft_demo">العرض التفاعلي</a>
+      <a href="demo/authority.html" data-i18n="ft_portal">بوابة الجهة الرقابية</a>
+    </nav>
+    <p data-i18n="ft_copy">© 2026 بيتنا</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var EN = {
+    meta_title: 'Baitna: track the building of your home, item by item',
+    meta_desc: 'Baitna is an Arabic-first platform that turns a home-building contract into items that the owner, contractor and consultant follow together, each tied to its evidence, payment, invoice and warranty.',
+    skip: 'Skip to content', brand: 'Baitna', logo_aria: 'Baitna', nav_aria: 'Page sections',
+    nav_how: 'How it works', nav_parties: 'For each party', nav_demo: 'Demo', nav_ai: 'AI', nav_pilot: 'Pilot', nav_cta: 'Open the demo',
+    hero_h1: 'Every item in building your home: how far it has got, who approved it, and when it gets paid.',
+    hero_lead: 'Baitna turns a home-building contract into items that the owner, contractor and consultant follow together. Each item carries its site evidence, payment, invoice and warranty, from the permit until long after the keys are handed over.',
+    hero_cta1: 'Open the interactive demo', hero_cta2: 'Regulator portal',
+    hero_note: 'A prototype with sample data. Works on phone and desktop.',
+    hero_svg: 'Elevation of a two-storey home: foundations and concrete frame done, first-floor blockwork at 80%, façades and finishes not started.',
+    tag_fin: 'Finishes', st_fin: 'Not started', tag_blk: 'Blockwork', st_blk: 'First floor 80%',
+    tag_frm: 'Concrete frame', st_frm: 'Done and approved', tag_fnd: 'Foundations', st_fnd: 'Done and approved',
+    tb_today: 'Today', tb_today_v: '30 October 2026', tb_prog: 'Approved progress', tb_hand: 'Expected handover', tb_hand_v: '28 April 2027',
+    how_h2: 'One loop from contract to keys',
+    how_p: 'The item is Baitna’s unit of work. Everything that happens on site is recorded against its item, so progress never drifts from its evidence, and a payment never drifts from its decision.',
+    s1_t: 'Item', s1_p: 'Taken from the contract and bill of quantities, tied to its drawing and revision.',
+    s2_t: 'Evidence', s2_p: 'Photos stamped with time, place and a digital fingerprint, plus inspection and test reports.',
+    s3_t: 'Decision', s3_p: 'Approved by whoever holds the authority: the consultant for stages, the owner for payments.',
+    s4_t: 'Payment', s4_p: 'Requested with a complete evidence pack that the lending bank can review.',
+    s5_t: 'Invoice', s5_p: 'Originals filed in order for the Maskan VAT refund, with no last-minute search.',
+    s6_t: 'Warranty', s6_p: 'Stays with the home after handover, with its component and who is liable for it.',
+    par_h2: 'Value for everyone on the project',
+    par_p: 'Each party sees what concerns them, within their authority. Technical and legal decisions stay with the people qualified to make them.',
+    p1_t: 'Owner and family', p1_p: 'See in a minute what is done, what needs a decision and what is due.',
+    p2_t: 'Contractor', p2_p: 'Payment requests with complete evidence get approved faster, with fewer disputes.',
+    p3_t: 'Supervising consultant', p3_p: 'Inspection requests tied to item and drawing, and stage reports ready to approve.',
+    p4_t: 'Lending bank', p4_p: 'A digital evidence pack with every payment, and fewer unnecessary site visits.',
+    p5_t: 'Housing authority', p5_p: 'The portfolio of funded homes and their status, with early warning of stalled projects.',
+    p6_t: 'Municipality and regulators', p6_p: 'Read access to stage reports and compliance indicators, with site visits guided by risk.',
+    demo_h2: 'Try the journey the way an owner lives it',
+    demo_p: 'Pick a scene to load it in the phone, or open the demo full screen. All names and figures are sample data.',
+    sc1_t: 'Owner’s home', sc1_p: 'What is done, what needs a decision, what is due.',
+    sc2_t: 'Payment request no. 4', sc2_p: 'Review the evidence pack, then approve and sign.',
+    sc3_t: 'Item record and evidence', sc3_p: 'From the pipework inspection to the approved flood test.',
+    sc4_t: 'Statement of work', sc4_p: 'What the contract covers and what it does not, in plain language.',
+    sc5_t: 'Schedule', sc5_p: 'How the works depend on each other, and what a delay would do to handover.',
+    sc6_t: 'Automatic daily report', sc6_p: 'A draft built from today’s site photos, reviewed by the contractor before it goes out.',
+    sc7_t: 'Evidence pack', sc7_p: 'The contractor prepares a request and fixes the gaps before sending it.',
+    demo_full: 'Open the demo full screen',
+    portal_t: 'Regulator portal', portal_p: 'Projects ranked by risk, with the reason behind each score. Read only, no editing.', portal_cta: 'Open the portal',
+    frame_title: 'Interactive demo of the Baitna app',
+    ai_h2: 'AI we build ourselves, with people making the decisions',
+    ai_p: 'Baitna drafts, suggests and spots gaps; it never approves anything on anyone’s behalf. We adapt existing models on data from homes in the UAE, with their owners’ consent.',
+    ai_pr_h: 'Principles',
+    ai_pr1: 'The system suggests, people approve: no automatic payment or acceptance.',
+    ai_pr2: 'Faces are hidden automatically, and rooms the owner excludes are never filmed.',
+    ai_pr3: 'Models adapted on UAE homes and hosted in the UAE.',
+    ai_pr4: 'Every finding cites its text, its source and how confident it is.',
+    ai_cap_h: 'Capabilities',
+    ai_cap1: 'A photo archive that ties every picture to its item, drawing and location.',
+    ai_cap2: 'A daily report from site photos: workforce, equipment, activities and stoppages.',
+    ai_cap3: 'Visible progress linked to the schedule, with a warning before a delay reaches handover.',
+    ai_cap4: 'An assistant that checks submitted materials against the specification and bill of quantities.',
+    al_h2: 'Built to work with national direction, not beside it',
+    al1_t: 'Unified government channels', al1_p: 'Baitna runs as an engine behind official channels, not as one more app.',
+    al2_t: 'AI-native government', al2_p: 'Ready use cases for housing authorities and municipalities.',
+    al3_t: 'Regulation of contracting', al3_p: 'Checks on contractor registration and classification, with contracts and records kept.',
+    al4_t: 'National e-invoicing', al4_p: 'Structured invoices accepted as the mandatory phases begin in 2027.',
+    al5_t: 'Year of Family 2026', al5_p: 'Building a home is the biggest project in a family’s life.',
+    pi_h2: 'A defined pilot before any commitment',
+    pi_p: 'We start with one housing authority and its lending bank, on a sample of homes under construction, and measure impact against an agreed baseline.',
+    ph0_t: 'Discovery', ph0_d: '8–10 weeks', ph0_p: 'Interviews with owners, contractors, consultants and the authority’s and bank’s engineers; baseline measured.',
+    ph1_t: 'First product', ph1_d: '4–6 months', ph1_p: 'Items, evidence, payments and invoices, plus the statement of work and the schedule.',
+    ph2_t: 'Field pilot', ph2_d: '6–9 months', ph2_p: 'A sample of homes under construction, with the regulator portal and the automatic daily report.',
+    ax0: 'Month 0', ax1: 'About month 18',
+    kpi_h: 'What we measure',
+    kpi1: 'Time to approve and release a payment', kpi2: 'Requests sent back for correction', kpi3: 'Projects behind schedule', kpi4: 'Disputes per hundred projects', kpi5: 'Owner satisfaction',
+    ft_text: 'Baitna is an independent initiative at prototype stage. Demo data is illustrative, and mentioning any authority or government direction does not imply that it endorses the platform.',
+    ft_aria: 'Demo links', ft_demo: 'Interactive demo', ft_portal: 'Regulator portal', ft_copy: '© 2026 Baitna'
+  };
+
+  var root = document.documentElement;
+  var titleAr = document.title;
+  var descEl = document.querySelector('meta[name="description"]');
+  var descAr = descEl.getAttribute('content');
+  var btn = document.getElementById('langBtn');
+
+  function apply(lang) {
+    var en = lang === 'en';
+    root.lang = en ? 'en' : 'ar';
+    root.dir = en ? 'ltr' : 'rtl';
+    document.title = en ? EN.meta_title : titleAr;
+    descEl.setAttribute('content', en ? EN.meta_desc : descAr);
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var k = el.getAttribute('data-i18n');
+      if (el.dataset.ar == null) el.dataset.ar = el.textContent;
+      el.textContent = en && EN[k] ? EN[k] : el.dataset.ar;
+    });
+    [['data-i18n-aria', 'aria-label'], ['data-i18n-title', 'title']].forEach(function (pair) {
+      document.querySelectorAll('[' + pair[0] + ']').forEach(function (el) {
+        var k = el.getAttribute(pair[0]), store = 'ar' + pair[1].replace('-', '');
+        if (el.dataset[store] == null) el.dataset[store] = el.getAttribute(pair[1]);
+        el.setAttribute(pair[1], en && EN[k] ? EN[k] : el.dataset[store]);
+      });
+    });
+    btn.textContent = en ? 'العربية' : 'English';
+    btn.setAttribute('lang', en ? 'ar' : 'en');
+    try { localStorage.setItem('baitna-lang', root.lang); } catch (e) {}
+  }
+
+  var initial = 'ar';
+  var q = new URLSearchParams(location.search).get('lang');
+  if (q === 'en' || q === 'ar') initial = q;
+  else { try { initial = localStorage.getItem('baitna-lang') || 'ar'; } catch (e) {} }
+  if (initial === 'en') apply('en');
+  btn.addEventListener('click', function () { apply(root.lang === 'en' ? 'ar' : 'en'); });
+
+  // Freeze the hero once its sequence has played, so layout changes never replay it
+  setTimeout(function () { var f = document.querySelector('.frame'); if (f) f.classList.add('settled'); }, 3600);
+
+  // Demo tour: load scenes into the phone when it is visible
+  var frame = document.getElementById('phoneFrame');
+  var phone = frame.parentNode;
+  document.querySelectorAll('.scene').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      if (getComputedStyle(phone).display === 'none') return; // small screens open the demo itself
+      e.preventDefault();
+      document.querySelectorAll('.scene').forEach(function (s) { s.setAttribute('aria-current', s === a ? 'true' : 'false'); });
+      var hash = '#' + a.getAttribute('data-scene');
+      try { frame.contentWindow.location.hash = hash; }
+      catch (err) { frame.src = 'demo/' + hash; }
+    });
+  });
+})();
+</script>
+</body>
+</html>
