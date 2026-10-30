@@ -202,6 +202,7 @@ footer nav a{font-weight:600}
   .elev *,.tag,.tblock,.leaders{animation:none !important}
 }
 </style>
+<link rel="stylesheet" href="assets/experience.css">
 </head>
 <body>
 <a class="skip" href="#main" data-i18n="skip">تخطَّ إلى المحتوى</a>
@@ -210,6 +211,7 @@ footer nav a{font-weight:600}
   <div class="wrap">
     <a class="logo" href="#top" aria-label="بيتنا" data-i18n-aria="logo_aria"><img src="assets/favicon.svg" alt=""><span data-i18n="brand">بيتنا</span></a>
     <nav class="nav" aria-label="أقسام الصفحة" data-i18n-aria="nav_aria">
+      <a href="#network" data-ui-ar="المخطط التفاعلي" data-ui-en="Interactive graph">المخطط التفاعلي</a>
       <a href="#how" data-i18n="nav_how">كيف تعمل</a>
       <a href="#parties" data-i18n="nav_parties">لكل طرف</a>
       <a href="#demo" data-i18n="nav_demo">العرض التفاعلي</a>
@@ -227,6 +229,7 @@ footer nav a{font-weight:600}
 <section class="hero" id="top">
   <div class="wrap">
     <div>
+      <span class="eyebrow" data-ui-ar="منصة المستقبل لبناء المنزل" data-ui-en="THE FUTURE OF HOME BUILDING">منصة المستقبل لبناء المنزل</span>
       <h1 data-i18n="hero_h1">كل بند في بناء بيتك: أين وصل، ومن اعتمده، ومتى يُدفع.</h1>
       <p class="lead" data-i18n="hero_lead">بيتنا منصة عربية تحوّل عقد بناء المسكن إلى بنود يتابعها المالك والمقاول والاستشاري معًا. ويرتبط كل بند بدليله الميداني ودفعته وفاتورته وضمانه، من الترخيص حتى ما بعد تسليم المفتاح.</p>
       <div class="ctas">
@@ -341,6 +344,93 @@ footer nav a{font-weight:600}
         <li><i style="background:#FFFFFF;box-shadow:inset 0 0 0 1px #7E938C"></i><span><b data-i18n="tag_fin">الواجهات والتشطيبات</b><span data-i18n="st_fin">لم تبدأ</span></span></li>
       </ul>
     </figure>
+  </div>
+</section>
+
+
+<section class="block lifecycle" id="network" aria-labelledby="network-h">
+  <div class="wrap">
+    <span class="eyebrow" data-ui-ar="منظومة ذكية مترابطة" data-ui-en="THE CONNECTED BUILDING SYSTEM">منظومة ذكية مترابطة</span>
+    <h2 id="network-h" data-ui-ar="كل خطوة مرتبطة. كل قرار واضح." data-ui-en="Every step connected. Every decision visible.">كل خطوة مرتبطة. كل قرار واضح.</h2>
+    <p class="intro" data-ui-ar="استكشف دورة حياة البند من العقد حتى الضمان. انقر على أي مرحلة لتكبيرها واستعراض دورها، أو حرّك المخطط واستكشف العلاقات بينها." data-ui-en="Explore the complete lifecycle of a construction item, from contract to warranty. Select a stage to focus, or pan and zoom around the connected system.">استكشف دورة حياة البند من العقد حتى الضمان. انقر على أي مرحلة لتكبيرها واستعراض دورها، أو حرّك المخطط واستكشف العلاقات بينها.</p>
+    <div class="graph-shell" id="graphShell">
+      <div class="graph-toolbar">
+        <span class="graph-caption">BAITNA / LIVE WORKFLOW EXPLORER</span>
+        <div class="graph-controls" aria-label="Graph zoom controls">
+          <button id="graphMinus" type="button" aria-label="Zoom out" title="Zoom out">−</button>
+          <span id="zoomLevel" aria-live="polite">100%</span>
+          <button id="graphPlus" type="button" aria-label="Zoom in" title="Zoom in">+</button>
+          <button id="graphReset" type="button" aria-label="Reset graph zoom" title="Reset graph zoom">↺</button>
+        </div>
+      </div>
+      <div class="graph-viewport" id="graphViewport" tabindex="0" role="region" aria-label="Interactive construction lifecycle graph. Drag to pan, select a step or use zoom buttons.">
+        <svg viewBox="0 0 1000 520" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="graphTitle">
+          <title id="graphTitle">Construction item lifecycle: contract, evidence, approval, payment, invoice and warranty</title>
+          <defs>
+            <radialGradient id="graphHalo"><stop stop-color="#73CEA1" stop-opacity=".15"/><stop offset="1" stop-color="#73CEA1" stop-opacity="0"/></radialGradient>
+          </defs>
+          <circle cx="500" cy="255" r="275" fill="url(#graphHalo)" opacity=".8"/>
+          <g class="graph-world" id="graphWorld">
+            <path class="graph-edge-glow" d="M282 138 C365 138 384 112 388 112 M612 112 C688 112 687 138 708 138 M820 184 C886 238 886 276 820 329 M708 375 C650 375 652 410 612 410 M388 410 C318 410 312 375 282 375 M170 329 C70 294 70 220 170 184"/>
+            <path id="edge1" class="graph-edge" d="M282 138 C365 138 384 112 388 112"/>
+            <path id="edge2" class="graph-edge" d="M612 112 C688 112 687 138 708 138"/>
+            <path id="edge3" class="graph-edge" d="M820 184 C886 238 886 276 820 329"/>
+            <path id="edge4" class="graph-edge" d="M708 375 C650 375 652 410 612 410"/>
+            <path id="edge5" class="graph-edge" d="M388 410 C318 410 312 375 282 375"/>
+            <path id="edge6" class="graph-edge" d="M170 329 C70 294 70 220 170 184"/>
+            <g aria-hidden="true">
+              <circle class="graph-marker" r="4.5"><animateMotion dur="4s" repeatCount="indefinite"><mpath href="#edge1"/></animateMotion></circle>
+              <circle class="graph-marker" r="4.5"><animateMotion dur="4.6s" repeatCount="indefinite"><mpath href="#edge2"/></animateMotion></circle>
+              <circle class="graph-marker" r="4.5"><animateMotion dur="4.2s" repeatCount="indefinite"><mpath href="#edge3"/></animateMotion></circle>
+              <circle class="graph-marker" r="4.5"><animateMotion dur="5s" repeatCount="indefinite"><mpath href="#edge4"/></animateMotion></circle>
+              <circle class="graph-marker" r="4.5"><animateMotion dur="4.3s" repeatCount="indefinite"><mpath href="#edge5"/></animateMotion></circle>
+              <circle class="graph-marker" r="4.5"><animateMotion dur="5.1s" repeatCount="indefinite"><mpath href="#edge6"/></animateMotion></circle>
+            </g>
+            <g class="graph-node is-selected" role="button" tabindex="0" data-graph-node="0" transform="translate(170 138)" aria-label="Step 1: Contract item">
+              <rect class="node-rect" x="-112" y="-46" width="224" height="92" rx="18"/>
+              <circle class="node-spot" cx="-87" cy="-20" r="4"/>
+              <text class="node-index" x="82" y="-18" text-anchor="end">01</text>
+              <text class="node-label" text-anchor="middle" x="0" y="17" data-ui-ar="البند" data-ui-en="Contract item">البند</text>
+            </g>
+            <g class="graph-node" role="button" tabindex="0" data-graph-node="1" transform="translate(500 112)" aria-label="Step 2: Evidence">
+              <rect class="node-rect" x="-112" y="-46" width="224" height="92" rx="18"/>
+              <circle class="node-spot" cx="-87" cy="-20" r="4"/>
+              <text class="node-index" x="82" y="-18" text-anchor="end">02</text>
+              <text class="node-label" text-anchor="middle" x="0" y="17" data-ui-ar="الدليل" data-ui-en="Evidence">الدليل</text>
+            </g>
+            <g class="graph-node" role="button" tabindex="0" data-graph-node="2" transform="translate(820 138)" aria-label="Step 3: Approval">
+              <rect class="node-rect" x="-112" y="-46" width="224" height="92" rx="18"/>
+              <circle class="node-spot" cx="-87" cy="-20" r="4"/>
+              <text class="node-index" x="82" y="-18" text-anchor="end">03</text>
+              <text class="node-label" text-anchor="middle" x="0" y="17" data-ui-ar="القرار" data-ui-en="Approval">القرار</text>
+            </g>
+            <g class="graph-node" role="button" tabindex="0" data-graph-node="3" transform="translate(820 375)" aria-label="Step 4: Payment">
+              <rect class="node-rect" x="-112" y="-46" width="224" height="92" rx="18"/>
+              <circle class="node-spot" cx="-87" cy="-20" r="4"/>
+              <text class="node-index" x="82" y="-18" text-anchor="end">04</text>
+              <text class="node-label" text-anchor="middle" x="0" y="17" data-ui-ar="الدفعة" data-ui-en="Payment">الدفعة</text>
+            </g>
+            <g class="graph-node" role="button" tabindex="0" data-graph-node="4" transform="translate(500 410)" aria-label="Step 5: Invoice">
+              <rect class="node-rect" x="-112" y="-46" width="224" height="92" rx="18"/>
+              <circle class="node-spot" cx="-87" cy="-20" r="4"/>
+              <text class="node-index" x="82" y="-18" text-anchor="end">05</text>
+              <text class="node-label" text-anchor="middle" x="0" y="17" data-ui-ar="الفاتورة" data-ui-en="Invoice">الفاتورة</text>
+            </g>
+            <g class="graph-node" role="button" tabindex="0" data-graph-node="5" transform="translate(170 375)" aria-label="Step 6: Warranty">
+              <rect class="node-rect" x="-112" y="-46" width="224" height="92" rx="18"/>
+              <circle class="node-spot" cx="-87" cy="-20" r="4"/>
+              <text class="node-index" x="82" y="-18" text-anchor="end">06</text>
+              <text class="node-label" text-anchor="middle" x="0" y="17" data-ui-ar="الضمان" data-ui-en="Warranty">الضمان</text>
+            </g>
+          </g>
+        </svg>
+        <span class="graph-hint" data-ui-ar="اسحب للتحريك · اختر مرحلة · استخدم أزرار التكبير" data-ui-en="Drag to pan · Select a stage · Use zoom controls">اسحب للتحريك · اختر مرحلة · استخدم أزرار التكبير</span>
+      </div>
+      <div class="graph-detail" aria-live="polite">
+        <span class="graph-detail-index" id="graphDetailNumber">01</span>
+        <div><h3 id="graphDetailHeading">البند</h3><p id="graphDetailText">يُستخرج من العقد وجدول الكميات، ويرتبط بالمخطط ورقم إصداره.</p></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -622,5 +712,6 @@ footer nav a{font-weight:600}
   });
 })();
 </script>
+<script src="assets/experience.js" defer></script>
 </body>
 </html>
