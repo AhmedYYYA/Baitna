@@ -1,0 +1,41 @@
+/* BAITNA | Integrated motion & insight enhancements
+   Designed to extend experience.css and dashboard-polish.css without replacing
+   either or changing any existing application handler. */
+:root{--bm-luxe:#d6bc89;--bm-ease:cubic-bezier(.22,1,.36,1)}
+.bm-motion-switch{position:fixed;bottom:20px;inset-inline-end:20px;z-index:100;display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:9px 15px;border-radius:999px;border:1px solid #bad8c8;background:#0d3329;color:#eff9ee;font:600 12px/1.4 'IBM Plex Sans Arabic',system-ui,sans-serif;box-shadow:0 12px 34px #06291d44;backdrop-filter:blur(12px);cursor:pointer}
+.bm-motion-switch:hover{background:#18533e;transform:translateY(-2px)}
+.bm-motion-switch::before{content:"✦";color:var(--bm-luxe);font-size:17px}
+.bm-no-motion *, .bm-no-motion *::before,.bm-no-motion *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+.bm-no-motion .reveal,.bm-no-motion .bm-appear{opacity:1!important;transform:none!important}
+.bm-no-motion #ambientCanvas{display:none}
+.bm-no-motion .graph-edge{animation:none!important}
+.bm-appear{animation:bmArrive .65s var(--bm-ease) both}
+@keyframes bmArrive{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+body[data-ui-design="demo"] .bm-demo-orbit{border:1px solid #a3d0b4;border-radius:18px;background:radial-gradient(circle at 90% 0%,#effaf1,#e2f2e6);padding:15px;display:flex;align-items:center;gap:16px;min-height:98px;box-shadow:0 8px 28px #0d503518}
+body[data-ui-design="demo"] .bm-orbit-ring{width:70px;height:70px;flex:none;border-radius:50%;background:conic-gradient(#158466 42%,#c8ddcf 0);display:grid;place-items:center;position:relative;box-shadow:0 5px 24px #17705216}
+body[data-ui-design="demo"] .bm-orbit-ring::before{content:"";position:absolute;inset:8px;border-radius:50%;background:#f4fbf5}
+body[data-ui-design="demo"] .bm-orbit-ring b{z-index:1;color:#135443;font-size:17px;direction:ltr;font-weight:700}
+body[data-ui-design="demo"] .bm-demo-orbit .bm-orbit-copy{font-size:12px;line-height:1.7;color:#456757}
+body[data-ui-design="demo"] .bm-demo-orbit strong{display:block;font-size:14px;color:#164b3a}
+body[data-ui-design="demo"] .gbar{transition:background .28s,left .4s var(--bm-ease),width .4s var(--bm-ease)}
+body[data-ui-design="demo"] .scroll{scroll-behavior:smooth}
+body[data-ui-design="authority"] .bm-risk-board{display:grid;grid-template-columns:minmax(190px,1fr) minmax(300px,1.4fr);gap:20px;align-items:center;margin-top:22px;padding:25px clamp(20px,3vw,34px);background:radial-gradient(ellipse at 75% 15%,#205748,#102e2b 75%);color:#f0f8ef;border:1px solid #4b7964;border-radius:24px;box-shadow:0 16px 50px #0b372b23}
+body[data-ui-design="authority"] .bm-risk-board .bm-kicker{display:block;font-size:11px;letter-spacing:.13em;color:#d7c094;margin-bottom:9px}
+body[data-ui-design="authority"] .bm-risk-board h2{color:#f2faee;font-size:clamp(18px,2vw,24px);margin-bottom:7px}
+body[data-ui-design="authority"] .bm-risk-board p{color:#c1d9ce;font-size:13px;line-height:1.8}
+body[data-ui-design="authority"] .bm-risk-visual{display:flex;align-items:center;justify-content:center;gap:26px;flex-wrap:wrap}
+body[data-ui-design="authority"] .bm-risk-visual svg{display:block;width:152px;height:152px;overflow:visible}
+body[data-ui-design="authority"] .bm-risk-total{fill:#fff;font:bold 30px 'IBM Plex Sans Arabic',system-ui,sans-serif;text-anchor:middle}
+body[data-ui-design="authority"] .bm-risk-unit{fill:#b9d4c6;font:12px 'IBM Plex Sans Arabic',system-ui,sans-serif;text-anchor:middle}
+body[data-ui-design="authority"] .bm-risk-segment{cursor:pointer;transition:stroke-width .22s,stroke-dasharray .7s var(--bm-ease)}
+body[data-ui-design="authority"] .bm-risk-segment:hover{stroke-width:20}
+body[data-ui-design="authority"] .bm-risk-legend{display:grid;gap:8px}
+body[data-ui-design="authority"] .bm-risk-legend button{border:1px solid transparent;border-radius:12px;padding:6px 9px;background:transparent;color:#e4f7ed;text-align:start;cursor:pointer;display:flex;gap:10px;align-items:center;min-height:35px;font:600 13px 'IBM Plex Sans Arabic',system-ui,sans-serif}
+body[data-ui-design="authority"] .bm-risk-legend button:hover,body[data-ui-design="authority"] .bm-risk-legend button:focus-visible{background:#ffffff18;border-color:#a6c3b6}
+body[data-ui-design="authority"] .bm-risk-dot{width:10px;height:10px;border-radius:50%;flex:none}
+body[data-ui-design="authority"] .bm-risk-remark{font-size:12px!important;color:#a9cdbd!important;margin-top:10px}
+.bm-motion-switch:focus-visible,.bm-risk-legend button:focus-visible{outline:3px solid #e8c991!important;outline-offset:3px}
+@media (max-width:780px){body[data-ui-design="authority"] .bm-risk-board{grid-template-columns:1fr}}
+@media (max-width:760px){body[data-ui-design="demo"] .bm-motion-switch{display:none}}
+@media(max-width:520px){.bm-motion-switch{bottom:12px;inset-inline-end:12px;font-size:11px;padding-inline:12px}body[data-ui-design="authority"] .bm-risk-board{border-radius:17px;padding:20px}body[data-ui-design="authority"] .bm-risk-visual{gap:14px}}
+@media(prefers-reduced-motion:reduce){.bm-appear{animation:none!important}.bm-risk-segment{transition:none!important}}
