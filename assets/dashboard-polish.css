@@ -1,0 +1,60 @@
+/* Baitna 2.0 — matching product and authority surfaces */
+body[data-ui-design="demo"]{
+  --bg:#F0F5F1;--card:#FFFFFF;--line:#D9E5DE;--track:#E3EDE6;
+  --brand:#0B7259;--brand-2:#075A48;--brand-tint:#E0F3E8;--brand-light:#AEDBC1;
+  --ink:#143A2E;--soft:#3E5649;--muted:#6B8073;
+  --radius:19px;
+  background:radial-gradient(ellipse at 20% 20%,#D5E8DC,transparent 42%),linear-gradient(135deg,#EDF3EF,#DDE9E0);
+}
+body[data-ui-design="demo"] .stage{position:relative}
+body[data-ui-design="demo"] .device{box-shadow:0 0 0 10px #0C2D25,0 0 0 12px rgba(177,227,196,.4),0 55px 100px rgba(7,38,28,.28);transition:box-shadow .5s}
+body[data-ui-design="demo"] .presenter .kicker{letter-spacing:.08em}
+body[data-ui-design="demo"] .presenter h1{font-size:29px;line-height:1.35;color:#103D30}
+body[data-ui-design="demo"] .presenter ol{gap:8px}
+body[data-ui-design="demo"] .presenter ol a{border-radius:14px;background:rgba(255,255,255,.82);border-color:#D4E3D8;box-shadow:0 5px 14px rgba(13,62,40,.03);transition:transform .32s cubic-bezier(.22,1,.36,1),background .3s,box-shadow .3s,border-color .3s}
+body[data-ui-design="demo"] .presenter ol a:hover{transform:translateX(-5px);background:#fff;box-shadow:0 15px 28px rgba(12,56,39,.09)}
+body[data-ui-design="demo"] .presenter ol a[aria-current="true"]{background:#E6F5EB;border-color:#69B990;box-shadow:inset 4px 0 #0B8060,0 10px 24px rgba(18,88,61,.06)}
+body[data-ui-design="demo"] .presenter ol a .n{border-radius:10px;background:#E0F0E5}
+body[data-ui-design="demo"] .topbar{background:#FEFFFC;border-bottom-color:#DCE9DE}
+body[data-ui-design="demo"] .brand .mark{background:linear-gradient(135deg,#0B7058,#145F50);border-radius:10px;box-shadow:0 8px 18px rgba(8,99,72,.15)}
+body[data-ui-design="demo"] .screen.active{animation:baitnaSlide .42s cubic-bezier(.22,1,.36,1) both}
+body[data-ui-design="demo"] .card{box-shadow:0 6px 24px rgba(20,63,42,.04);border-color:#DCE7E0;transition:border-color .3s,box-shadow .3s,transform .3s}
+body[data-ui-design="demo"] .card:hover{border-color:#BFD9C7;box-shadow:0 11px 30px rgba(15,63,44,.075)}
+body[data-ui-design="demo"] .task{transition:transform .3s cubic-bezier(.22,1,.36,1),background .3s; background:#F1F6F2}
+body[data-ui-design="demo"] .task:hover{transform:translateX(-3px);background:#EAF5EC}
+body[data-ui-design="demo"] .task.hot{background:#FDF1DF}
+body[data-ui-design="demo"] .tabbar{background:rgba(254,255,251,.96);backdrop-filter:blur(15px)}
+body[data-ui-design="demo"] .bar span{transition:width .65s cubic-bezier(.22,1,.36,1)}
+body[data-ui-design="demo"] .badge.ok{background:#DBF3E2}
+body[data-ui-design="demo"] .big{letter-spacing:-.04em}
+body[data-ui-design="demo"] .scroll{scrollbar-color:#BDD6C5 transparent}
+body[data-ui-design="authority"]{
+  --bg:#EFF5F0;--card:#FFFFFF;--line:#D7E4DC;--track:#E2EDE5;
+  --brand:#0B7259;--brand-2:#075A48;--brand-tint:#E0F3E8;
+  --ink:#16392E;--soft:#425C4E;--muted:#678074;
+  background:linear-gradient(165deg,#F6FAF6,#EAF2EB 70%);
+}
+body[data-ui-design="authority"] .bar{position:sticky;top:0;z-index:20;background:rgba(9,42,33,.96);border-bottom-color:rgba(233,255,239,.12);backdrop-filter:blur(18px);box-shadow:0 8px 25px rgba(10,49,30,.15)}
+body[data-ui-design="authority"] .bar .ttl,
+body[data-ui-design="authority"] .brand,
+body[data-ui-design="authority"] .bar nav a{color:#E8FAF0}
+body[data-ui-design="authority"] .brand img{background:#DDF6E6;padding:4px;border-radius:11px;width:39px;height:39px}
+body[data-ui-design="authority"] .bar .sep{background:#507165}
+body[data-ui-design="authority"] .bar .ro{background:rgba(184,232,207,.12);color:#B7E5CA}
+body[data-ui-design="authority"] .bar nav a:hover{background:rgba(240,255,247,.1)}
+body[data-ui-design="authority"] .wrap{padding-top:36px}
+body[data-ui-design="authority"] .head h1{font-size:clamp(26px,2.5vw,36px);color:#124534}
+body[data-ui-design="authority"] .kpis{gap:14px}
+body[data-ui-design="authority"] .kpi{border-radius:20px;border-color:#D7E8DC;box-shadow:0 6px 22px rgba(12,57,35,.045);transition:transform .38s cubic-bezier(.22,1,.36,1),box-shadow .3s}
+body[data-ui-design="authority"] .kpi:hover{transform:translateY(-5px);box-shadow:0 19px 35px rgba(10,65,35,.09)}
+body[data-ui-design="authority"] .panel{border-radius:20px;border-color:#D9E8DD;box-shadow:0 12px 38px rgba(13,61,41,.055);overflow:hidden}
+body[data-ui-design="authority"] .chip{transition:background .25s,transform .25s}
+body[data-ui-design="authority"] .chip:hover{transform:translateY(-2px);background:#EAF5EB}
+body[data-ui-design="authority"] .chip[aria-pressed="true"]:hover{background:#0A7357}
+body[data-ui-design="authority"] tbody tr{transition:background .22s}
+body[data-ui-design="authority"] tbody tr:hover{background:#F0F8F1}
+body[data-ui-design="authority"] .detail{box-shadow:none}
+body[data-ui-design="authority"] .btn.primary{background:linear-gradient(120deg,#0C765B,#0D5D4E)}
+@keyframes baitnaSlide{from{opacity:.3;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:760px){body[data-ui-design="demo"]{background:var(--bg)}body[data-ui-design="demo"] .device{box-shadow:none}body[data-ui-design="demo"] .card:hover{transform:none}body[data-ui-design="authority"] .bar{position:relative}}
+@media(prefers-reduced-motion:reduce){body[data-ui-design="demo"] .screen.active{animation:none}body[data-ui-design="demo"] .card,body[data-ui-design="demo"] .task,body[data-ui-design="authority"] .kpi{transition:none}}
