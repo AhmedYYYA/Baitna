@@ -200,7 +200,7 @@
     graph.addEventListener('pointerdown',e => {
       if (e.button !== 0 && e.pointerType === 'mouse') return;
       pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
-      graph.setPointerCapture(e.pointerId);
+      if (!e.target.closest(".graph-node")) graph.setPointerCapture(e.pointerId);
       cancelAnimationFrame(raf);
       dragMoved = false;
       if (pointers.size === 1) dragging = {x:e.clientX,y:e.clientY,startX:transform.x,startY:transform.y};
@@ -262,6 +262,8 @@
     });
     draw();
   }
+
+  if (reduceMotion.matches) document.querySelectorAll("animateMotion").forEach(el => el.remove());
 
   // One small ambient canvas; frames halt outside the hero and honor reduced motion.
   const hero = document.querySelector('.hero');
