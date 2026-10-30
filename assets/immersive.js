@@ -72,6 +72,23 @@
       syncEyebrow();
     }
     attachGlow([].slice.call(document.querySelectorAll('.parties > div,.loop li')));
+    /* Gentle architectural parallax, only for fine pointers and opted-in motion. */
+    var heroSheet=document.querySelector('.hero .sheet');
+    if(heroSheet && window.matchMedia('(hover:hover) and (pointer:fine)').matches){
+      heroSheet.addEventListener('pointermove',function(e){
+        if(!enabled)return;
+        var rect=heroSheet.getBoundingClientRect();
+        var x=(e.clientX-rect.left)/rect.width-.5;
+        var y=(e.clientY-rect.top)/rect.height-.5;
+        heroSheet.style.animation='none';
+        heroSheet.style.transform='perspective(1100px) rotateY('+(-x*5).toFixed(2)+'deg) rotateX('+(y*5).toFixed(2)+'deg) translateY(-5px)';
+      },{passive:true});
+      heroSheet.addEventListener('pointerleave',function(){
+        heroSheet.style.transform='';
+        heroSheet.style.animation='';
+      });
+    }
+
 
     /* Real interactive SVG relationship map; preserves same 6-stage workflow. */
     var target=document.getElementById('how');
