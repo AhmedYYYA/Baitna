@@ -241,3 +241,5 @@ html{scroll-behavior:auto !important}
 .bm-demo .screen.active{animation:none !important}
 .bm-landing *,.bm-demo *,.bm-authority *{transition-duration:.01ms !important;animation-duration:.01ms !important;animation-iteration-count:1 !important}
 }
+/* Never leave unrevealed content hidden when motion is disabled. */
+.bm-no-motion .bm-reveal{opacity:1 !important;transform:none !important}
