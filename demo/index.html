@@ -1,0 +1,1509 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FFFFFF">
+<title>بيتنا — العرض التفاعلي</title>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F5F4; --card:#FFFFFF; --line:#DCE3E0; --track:#E4EAE7;
+  --ink:#10231F; --soft:#33433F; --muted:#56655F;
+  --brand:#0B5E51; --brand-2:#084A40; --brand-tint:#E7F1EE; --brand-light:#9CC9BF;
+  --amber:#8A4205; --amber-tint:#FDF6EC; --amber-line:#E8C99A;
+  --blue:#1E4BA8; --blue-tint:#E8EEF9;
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{
+  font-family:'IBM Plex Sans Arabic',system-ui,-apple-system,'Segoe UI',Tahoma,sans-serif;
+  background:#DCE2DF; color:var(--ink); -webkit-font-smoothing:antialiased; line-height:1.5;
+}
+h1,h2,h3,p,ol,ul{margin:0}
+ol,ul{padding:0;list-style:none}
+a{color:var(--brand)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid #1E4BA8;outline-offset:2px;border-radius:8px}
+svg{flex-shrink:0}
+
+/* ---------- Stage: phone frame on desktop, full screen on phone ---------- */
+.stage{min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;gap:48px;padding:32px}
+.device{
+  width:390px;height:844px;background:var(--bg);border-radius:44px;overflow:hidden;position:relative;
+  display:flex;flex-direction:column;
+  box-shadow:0 0 0 10px #10231F,0 0 0 11px #2B3B37,0 32px 64px rgba(16,35,31,.28);
+}
+.presenter{width:300px;display:flex;flex-direction:column;gap:12px}
+.presenter .kicker{font-size:13px;font-weight:600;color:var(--brand)}
+.presenter h1{font-size:24px;line-height:1.35}
+.presenter p{font-size:14px;color:var(--soft)}
+.presenter ol{display:flex;flex-direction:column;gap:6px}
+.presenter ol a{
+  display:flex;align-items:center;gap:12px;padding:8px 12px;min-height:48px;border-radius:12px;
+  background:#FFFFFF;border:1px solid var(--line);text-decoration:none;color:var(--ink);font-size:14px;font-weight:500
+}
+.presenter ol a .n{width:28px;height:28px;border-radius:8px;background:var(--brand-tint);color:var(--brand);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+.presenter ol a small{display:block;font-size:12px;color:var(--muted);font-weight:400}
+.presenter ol a[aria-current="true"]{border-color:var(--brand);box-shadow:inset 0 0 0 1px var(--brand)}
+.presenter .reset{align-self:flex-start;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:#FFFFFF;cursor:pointer;font-size:13px;font-weight:600}
+.presenter .fine{font-size:12px;color:var(--muted)}
+.presenter .back-site{align-self:flex-start;font-size:14px;font-weight:600;text-decoration:none;min-height:44px;display:flex;align-items:center}
+@media (max-width:760px){
+  body{background:var(--bg)}
+  .stage{display:block;padding:0}
+  .device{width:100%;height:100vh;height:100dvh;border-radius:0;box-shadow:none}
+  .presenter{display:none}
+}
+
+/* ---------- App shell ---------- */
+.screen{display:none;flex:1;min-height:0;flex-direction:column}
+.screen.active{display:flex}
+.topbar{background:#FFFFFF;border-bottom:1px solid var(--line);padding:16px;padding-top:calc(16px + env(safe-area-inset-top));display:flex;flex-direction:column;gap:10px}
+.topbar .row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.brand{display:flex;align-items:center;gap:8px}
+.brand .mark{width:30px;height:30px;border-radius:9px;background:var(--brand);display:flex;align-items:center;justify-content:center}
+.brand .name{font-size:19px;font-weight:700}
+.tag{font-size:11px;font-weight:500;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 8px;white-space:nowrap}
+.chip-link{font-size:12px;font-weight:600;text-decoration:none;padding:0 14px;min-height:44px;display:flex;align-items:center;border-radius:999px;background:var(--brand-tint);color:var(--brand-2)}
+.navtitle{display:flex;align-items:center;gap:8px}
+.back{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--ink);text-decoration:none;margin-inline-start:-8px}
+.navtitle h1{font-size:18px;font-weight:700}
+.sub{font-size:13px;color:var(--muted)}
+.scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px;padding-bottom:calc(16px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:10px}
+.card.amber{border-color:var(--amber-line)}
+.card h2{font-size:16px;font-weight:700}
+.between{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.muted{color:var(--muted)}
+.small{font-size:12px}
+.badge{font-size:12px;font-weight:700;color:var(--amber);background:var(--amber-tint);border-radius:999px;padding:2px 10px}
+.badge.ok{color:var(--brand-2);background:var(--brand-tint)}
+
+/* Progress */
+.big{font-size:40px;font-weight:700;line-height:1}
+.bar{position:relative;height:10px;border-radius:999px;background:var(--track);overflow:hidden}
+.bar span{position:absolute;inset-block:0;inset-inline-start:0;border-radius:999px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--soft)}
+.legend span{display:flex;align-items:center;gap:6px}
+.sw{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+/* Rows */
+.task{display:flex;align-items:center;gap:12px;padding:12px;min-height:64px;border-radius:12px;text-decoration:none;color:var(--ink);background:#F6F8F7;border:0;width:100%;text-align:start;cursor:pointer}
+.task.hot{background:var(--amber-tint)}
+.task .ic{width:38px;height:38px;border-radius:10px;background:#FFFFFF;border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.task.hot .ic{border-color:var(--amber-line)}
+.task .tx{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+.task .t1{font-size:14px;font-weight:600}
+.task .t2{font-size:12px;color:var(--muted)}
+.task.hot .t2{color:#5B4A33}
+.done-row{display:flex;align-items:center;gap:10px;min-height:44px;text-decoration:none;color:var(--ink)}
+.done-row .t{font-size:13px;flex:1}
+.done-row .d{font-size:12px;color:var(--muted)}
+
+/* Story */
+.story{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.story li{font-size:12px;font-weight:600;text-align:center;padding:9px 4px;border-radius:10px}
+.story .is-done{background:var(--brand);color:#FFFFFF}
+.story .is-now{background:var(--amber-tint);color:var(--amber);box-shadow:inset 0 0 0 1.5px var(--amber);font-weight:700}
+.story .is-next{background:#EEF2F0;color:#4A5A55;font-weight:500}
+
+/* Bottom nav */
+.tabbar{flex-shrink:0;background:#FFFFFF;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding-bottom:env(safe-area-inset-bottom)}
+.tabbar a,.tabbar button{border:0;background:none;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;font-weight:500;color:#4A5A55;cursor:pointer;text-decoration:none}
+.tabbar [aria-current="page"]{color:var(--brand);font-weight:700}
+
+/* Stepper */
+.steps{display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:start;position:relative;padding-bottom:14px}
+.step:last-child{padding-bottom:0}
+.step::before{content:"";position:absolute;inset-inline-start:11px;top:24px;bottom:0;width:2px;background:var(--track)}
+.step:last-child::before{display:none}
+.step.done::before{background:var(--brand)}
+.dot{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#FFFFFF;border:2px solid #A9B6B1;position:relative;z-index:1}
+.step.done .dot{background:var(--brand);border-color:var(--brand)}
+.step.now .dot{border-color:var(--amber);background:var(--amber-tint)}
+.step.now .dot::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--amber)}
+.step .lbl{font-size:14px;font-weight:600;padding-top:1px}
+.step.next .lbl{color:var(--muted);font-weight:500}
+.step.now .lbl{color:var(--amber)}
+.step .when{font-size:12px;color:var(--muted);padding-top:2px}
+
+/* Money */
+.money{display:flex;flex-direction:column;gap:8px}
+.money .r{display:flex;justify-content:space-between;font-size:14px}
+.money .r.total{border-top:1px solid var(--track);padding-top:10px;font-size:16px;font-weight:700}
+.note{display:flex;gap:10px;padding:12px;border-radius:12px;background:var(--amber-tint);font-size:13px;color:#4A3A22;line-height:1.6}
+.note.info{background:var(--blue-tint);color:#1C2E55}
+.note.ok{background:var(--brand-tint);color:#0C3B33}
+
+/* Items table */
+.items{display:flex;flex-direction:column}
+.item{display:flex;align-items:center;gap:10px;padding:12px 0;border-top:1px solid var(--track);text-decoration:none;color:var(--ink);min-height:56px}
+.item:first-child{border-top:0;padding-top:4px}
+.item .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.item .t1{font-size:14px;font-weight:600}
+.item .t2{font-size:12px;color:var(--muted)}
+.item .amt{font-size:13px;font-weight:600;white-space:nowrap}
+.flag{color:var(--amber);font-weight:600}
+
+/* Checklist */
+.check{display:flex;flex-direction:column}
+.check li{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--track)}
+.check li:first-child{border-top:0;padding-top:2px}
+.check .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.check .t1{font-size:14px;font-weight:600}
+.check .t2{font-size:12px;color:var(--muted)}
+.state-ic{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.state-ic.ok{background:var(--brand)}
+.state-ic.todo{background:var(--amber-tint);box-shadow:inset 0 0 0 2px var(--amber)}
+.state-ic.na{background:#EEF2F0}
+.mini-btn{min-height:44px;padding:0 14px;border-radius:999px;border:1px solid var(--amber);background:#FFFFFF;color:var(--amber);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+
+/* Buttons */
+.actions{flex-shrink:0;background:#FFFFFF;border-top:1px solid var(--line);padding:12px 16px;padding-bottom:calc(12px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:8px}
+.btn{min-height:52px;border-radius:14px;border:0;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 16px;text-decoration:none}
+.btn.primary{background:var(--brand);color:#FFFFFF}
+.btn.primary:hover{background:var(--brand-2)}
+.btn.ghost{background:#FFFFFF;color:var(--ink);border:1px solid var(--line)}
+.btn[disabled]{background:#C9D3CF;color:#4A5A55;cursor:not-allowed}
+
+/* Readiness */
+.ready{display:flex;align-items:center;gap:14px}
+.ring{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;background:conic-gradient(var(--brand) calc(var(--p)*1%),var(--track) 0)}
+.ring span{width:50px;height:50px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center}
+
+/* Evidence */
+.refs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ref{background:#F6F8F7;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.ref .k{font-size:11px;color:var(--muted)}
+.ref .v{font-size:13px;font-weight:600}
+.status4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.st{border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600}
+.st.yes{background:var(--brand-tint);color:#0C3B33}
+.st.no{background:#EEF2F0;color:#4A5A55}
+.st small{display:block;font-size:11px;font-weight:400}
+.photos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.ph{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#FFFFFF;display:flex;flex-direction:column}
+.ph .img{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
+  background:repeating-linear-gradient(135deg,#E9EEEC 0 8px,#E1E8E5 8px 16px)}
+.ph .meta{padding:6px 8px;display:flex;flex-direction:column;gap:2px;font-size:10.5px;color:var(--soft);line-height:1.35}
+.ph .meta b{font-size:11px;color:var(--ink)}
+.hash{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;direction:ltr;unicode-bidi:isolate;font-size:10.5px}
+.timeline{display:flex;flex-direction:column}
+
+/* Statement of work */
+.pill{font-size:11px;font-weight:700;border-radius:999px;padding:2px 9px;white-space:nowrap}
+.pill.done{background:var(--brand-tint);color:var(--brand-2)}
+.pill.prog{background:var(--amber-tint);color:var(--amber)}
+.pill.todo{background:#EEF2F0;color:#4A5A55}
+.pkgs{display:flex;flex-direction:column}
+.pkg{border-top:1px solid var(--track)}
+.pkg:first-child{border-top:0}
+.pkg summary{list-style:none;display:flex;align-items:center;gap:10px;padding:12px 0;min-height:60px;cursor:pointer}
+.pkg summary::-webkit-details-marker{display:none}
+.pkg summary .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
+.pkg summary .t1{font-size:14px;font-weight:600}
+.pkg summary .t2{font-size:12px;color:var(--muted)}
+.pkg .mini{height:5px;border-radius:999px;background:var(--track);position:relative;overflow:hidden}
+.pkg .mini span{position:absolute;inset-block:0;inset-inline-start:0;background:var(--brand);border-radius:999px}
+.pkg .chev{transition:transform .2s}
+.pkg[open] .chev{transform:rotate(-90deg)}
+.pkg .body{padding:0 0 16px;display:flex;flex-direction:column;gap:10px;font-size:13px;line-height:1.7}
+.pkg .body h3{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:2px}
+.pkg .body ul{display:flex;flex-direction:column;gap:2px}
+.pkg .body li{padding-inline-start:14px;position:relative}
+.pkg .body li::before{content:"";position:absolute;inset-inline-start:2px;top:.75em;width:5px;height:5px;border-radius:50%;background:#A9B6B1}
+.raci{width:100%;border-collapse:collapse;font-size:12px}
+.raci th{text-align:start;font-weight:600;color:var(--muted);padding:6px 4px;border-bottom:1px solid var(--line)}
+.raci td{padding:8px 4px;border-bottom:1px solid var(--track);vertical-align:top}
+.raci td:first-child{font-weight:600}
+.bul{display:flex;flex-direction:column;gap:6px;font-size:13px}
+.bul li{padding-inline-start:16px;position:relative;line-height:1.6}
+.bul li::before{content:"";position:absolute;inset-inline-start:3px;top:.7em;width:6px;height:6px;border-radius:50%;background:var(--brand)}
+
+/* Gantt */
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.kpi{background:#FFFFFF;border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:2px}
+.kpi .k{font-size:12px;color:var(--muted)}
+.kpi .v{font-size:15px;font-weight:700}
+.kpi.warn{border-color:var(--amber-line);background:var(--amber-tint)}
+.kpi.warn .v{color:#6E3504}
+.toggle{display:flex;align-items:center;gap:8px;font-size:13px;min-height:44px;cursor:pointer}
+.toggle input{width:20px;height:20px;accent-color:var(--brand)}
+.legend2{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;color:var(--soft)}
+.legend2 span{display:flex;align-items:center;gap:6px}
+.lg{width:18px;height:10px;border-radius:3px;display:inline-block}
+.gwrap{display:flex;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#FFFFFF}
+.gnames{width:124px;flex-shrink:0;border-inline-end:1px solid var(--line);background:#FBFCFC}
+.gnames .gh{height:34px;border-bottom:1px solid var(--line);font-size:11px;color:var(--muted);display:flex;align-items:center;padding:0 10px;font-weight:600}
+.gname{display:flex;align-items:center;height:44px;padding:0 10px;font-size:11.5px;line-height:1.3;border:0;border-bottom:1px solid #EEF2F0;background:none;width:100%;text-align:start;cursor:pointer;color:var(--ink);font-family:inherit}
+.gname.sel{background:var(--blue-tint)}
+.gname.crit{font-weight:700;color:#6E3504}
+.gchart{flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.gcanvas{position:relative;direction:ltr}
+.gaxis{position:absolute;top:0;left:0;right:0;height:34px;border-bottom:1px solid var(--line);background:#FBFCFC}
+.gmonth{position:absolute;top:0;height:34px;border-right:1px solid var(--line);font-size:10.5px;color:var(--muted);display:flex;align-items:center;justify-content:flex-end;padding-right:5px;direction:rtl;white-space:nowrap;overflow:hidden}
+.gline{position:absolute;width:1px;background:#EEF2F0}
+.grow{position:absolute;left:0;right:0;height:44px;border-bottom:1px solid #EEF2F0}
+.grow.sel{background:rgba(232,238,249,.6)}
+.gbar{position:absolute;top:12px;height:18px;border-radius:5px;border:0;padding:0;cursor:pointer;overflow:hidden}
+.gbar.done{background:var(--brand)}
+.gbar.prog{background:var(--brand-light)}
+.gbar.prog .fill{position:absolute;top:0;bottom:0;right:0;background:var(--brand)}
+.gbar.todo{background:#FFFFFF;box-shadow:inset 0 0 0 1.5px var(--brand)}
+.gbar.crit.prog{background:#F2C894}
+.gbar.crit.prog .fill{background:#9A4A06}
+.gbar.crit.todo{background:#FDF1E1;box-shadow:inset 0 0 0 2px #9A4A06}
+.gbar.sel{outline:2px solid #1E4BA8;outline-offset:2px}
+.gbase{position:absolute;top:34px;height:5px;border-radius:3px;background:#A9B6B1}
+.gms{position:absolute;top:13px;width:16px;height:16px;transform:rotate(45deg);border:0;padding:0;cursor:pointer}
+.gtoday{position:absolute;top:0;bottom:0;width:2px;background:#1E4BA8;z-index:2}
+.gtoday b{position:absolute;top:40px;left:50%;transform:translateX(-50%);background:#1E4BA8;color:#FFFFFF;font-size:10px;font-weight:700;border-radius:999px;padding:1px 7px;white-space:nowrap;direction:rtl}
+.gsvg{position:absolute;left:0;top:0;pointer-events:none;z-index:3}
+.dep{display:flex;flex-direction:column;gap:4px;padding:10px 12px;border-radius:12px;background:#F6F8F7}
+.dep .ty{align-self:flex-start;font-size:11px;font-weight:700;border-radius:6px;padding:1px 7px;background:var(--blue-tint);color:#1C2E55}
+.dep .ty.out{background:#EEF2F0;color:#33433F}
+.dep .s{font-size:13px;font-weight:600;line-height:1.6}
+.dep .why{font-size:12px;color:var(--muted)}
+.kv{display:flex;flex-direction:column;gap:6px}
+.kv div{display:flex;justify-content:space-between;gap:12px;font-size:13px}
+.kv span:first-child{color:var(--muted)}
+.kv span:last-child{font-weight:600;text-align:end}
+.gloss{display:flex;flex-direction:column;gap:10px}
+.gloss div{display:flex;flex-direction:column;gap:2px;font-size:13px;line-height:1.7}
+.gloss b{font-size:13px}
+
+/* Daily report */
+.crew{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.crew div{background:#F6F8F7;border-radius:12px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;gap:2px}
+.crew b{font-size:22px;line-height:1.1}
+.crew span{font-size:12px;color:var(--muted)}
+.sel{font:inherit;font-size:15px;min-height:48px;border:1px solid var(--line);border-radius:12px;padding:0 12px;background:#FFFFFF;color:var(--ink);width:100%}
+.chk{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--track);cursor:pointer}
+.chk:first-of-type{border-top:0;padding-top:2px}
+.chk input{width:22px;height:22px;accent-color:var(--brand);margin:2px 0 0;flex-shrink:0}
+.chk b{display:block;font-size:14px}
+.chk span span{font-size:12px;color:var(--muted)}
+.ph .img{position:relative}
+.blurtag{position:absolute;bottom:6px;inset-inline-start:6px;font-size:10px;background:rgba(16,35,31,.78);color:#FFFFFF;border-radius:999px;padding:1px 7px}
+
+/* Dialogs & toast */
+dialog{border:0;padding:0;border-radius:20px;width:min(360px,calc(100vw - 32px));color:var(--ink);font-family:inherit}
+dialog::backdrop{background:rgba(16,35,31,.45)}
+dialog form{padding:20px;display:flex;flex-direction:column;gap:14px}
+dialog h2{font-size:18px}
+dialog p{font-size:14px;color:var(--soft);line-height:1.7}
+dialog label{font-size:13px;font-weight:600}
+dialog textarea{font:inherit;font-size:15px;border:1px solid var(--line);border-radius:12px;padding:12px;min-height:110px;resize:vertical;width:100%}
+.dlg-actions{display:flex;flex-direction:column;gap:8px}
+.toast{position:absolute;inset-inline:16px;bottom:96px;z-index:10;background:#10231F;color:#FFFFFF;border-radius:14px;padding:12px 14px;font-size:14px;font-weight:500;opacity:0;transform:translateY(8px);transition:opacity .2s,transform .2s;pointer-events:none}
+.toast.show{opacity:1;transform:none}
+[hidden]{display:none !important}
+</style>
+</head>
+<body>
+<div class="stage">
+
+<!-- ================= Presenter panel (desktop only) ================= -->
+<aside class="presenter" aria-label="دليل العرض">
+  <a class="back-site" href="../">العودة إلى الموقع</a>
+  <span class="kicker">نموذج أولي تفاعلي · بيانات توضيحية</span>
+  <h1>متابعة بناء المسكن</h1>
+  <p>منصة «بيتنا» لمتابعة بنود بناء مساكن المواطنين، مُعدّة لعرض تجربة ميدانية على جهة إسكان شريكة وبنكها الممول.</p>
+  <ol id="presenterNav">
+    <li><a href="#home" data-screen="home"><span class="n">1</span><span>الرئيسية<small>المالك: ما الذي أُنجز وما ينتظر قراره</small></span></a></li>
+    <li><a href="#request" data-screen="request"><span class="n">2</span><span>طلب الدفعة رقم 4<small>المالك: المراجعة والموافقة</small></span></a></li>
+    <li><a href="#item" data-screen="item"><span class="n">3</span><span>سجل البند وأدلته<small>العزل المائي: من الفحص إلى الاعتماد</small></span></a></li>
+    <li><a href="#pack" data-screen="pack"><span class="n">4</span><span>حزمة إثبات الإنجاز<small>المقاول: تجهيز الطلب رقم 5</small></span></a></li>
+    <li><a href="#sow" data-screen="sow"><span class="n">5</span><span>بيان نطاق العمل<small>المالك: ما يشمله العقد وما لا يشمله</small></span></a></li>
+    <li><a href="#gantt" data-screen="gantt"><span class="n">6</span><span>البرنامج الزمني<small>المالك: العلاقات بين الأعمال وأثر التأخير</small></span></a></li>
+    <li><a href="#report" data-screen="report"><span class="n">7</span><span>التقرير اليومي الآلي<small>المقاول: مسودة من صور اليوم</small></span></a></li>
+    <li><a href="authority.html"><span class="n">8</span><span>بوابة الجهة الرقابية<small>الجهة: المشاريع مرتبة بحسب المخاطر</small></span></a></li>
+  </ol>
+  <button type="button" class="reset" id="resetBtn">إعادة ضبط العرض</button>
+  <p class="fine">الأسماء والأرقام والتواريخ توضيحية لأغراض العرض، ولا تمثل مشروعًا فعليًا.</p>
+</aside>
+
+<!-- ================= Device ================= -->
+<div class="device">
+
+<!-- ---------- 1. Home (owner) ---------- -->
+<section class="screen" id="screen-home" aria-label="الرئيسية">
+  <header class="topbar">
+    <div class="row">
+      <div class="brand">
+        <span class="mark"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><rect x="6" y="11" width="12" height="9"/><path d="M12 11v9M6 15.5h12"/></svg></span>
+        <span class="name">بيتنا</span>
+        <span class="tag">بيانات توضيحية</span>
+      </div>
+      <a class="chip-link" href="#pack">عرض المقاول</a>
+    </div>
+    <div>
+      <h1 style="font-size:22px;font-weight:700">مرحبًا، خالد</h1>
+      <p class="sub">مسكن الأسرة · الورقاء الرابعة · قطعة [رقم القطعة]</p>
+    </div>
+  </header>
+
+  <main class="scroll">
+    <section class="card" aria-label="التقدم المعتمد">
+      <div class="between" style="align-items:flex-end">
+        <div>
+          <p class="small muted" style="font-weight:500">التقدم المعتمد من الاستشاري</p>
+          <p class="big">42%</p>
+        </div>
+        <div style="text-align:end">
+          <p class="small muted">قيمة العقد</p>
+          <p style="font-size:15px;font-weight:600">1,280,000 درهم</p>
+        </div>
+      </div>
+      <div class="bar" aria-hidden="true">
+        <span style="width:46%;background:var(--brand-light)"></span>
+        <span style="width:42%;background:var(--brand)"></span>
+      </div>
+      <div class="legend">
+        <span><i class="sw" style="background:var(--brand)"></i>معتمد 42%</span>
+        <span><i class="sw" style="background:var(--brand-light)"></i>أبلغ عنه المقاول 46%</span>
+      </div>
+    </section>
+
+    <a class="card" href="#gantt" style="text-decoration:none;color:var(--ink);flex-direction:row;align-items:center;gap:12px">
+      <span style="width:42px;height:42px;border-radius:12px;background:var(--amber-tint);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A4205" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6H10M17 12H6M14 18H4"/></svg></span>
+      <span style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0">
+        <span style="font-size:14px;font-weight:600">التسليم المتوقع: <span id="homeForecast">—</span></span>
+        <span class="small" style="color:#5B4A33" id="homeDelay">—</span>
+      </span>
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+    </a>
+
+    <section class="card amber" aria-labelledby="h-decide">
+      <div class="between">
+        <h2 id="h-decide">ماذا ينتظر قراري؟</h2>
+        <span class="badge" id="decisionCount">2</span>
+      </div>
+      <a class="task hot" href="#request" id="reqTask">
+        <span class="ic"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A4205" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg></span>
+        <span class="tx"><span class="t1">طلب الدفعة رقم 4</span><span class="t2" id="reqTaskSub">اعتمده الاستشاري · بانتظار موافقتك</span></span>
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+      </a>
+      <button type="button" class="task" data-toast="اختيار العينات خارج نطاق هذا النموذج الأولي">
+        <span class="ic"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#33433F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/></svg></span>
+        <span class="tx"><span class="t1">اختيار عينة البلاط</span><span class="t2">3 عينات من المورد «ع» · مطلوب قبل [التاريخ]</span></span>
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+    </section>
+
+    <section class="card" aria-labelledby="h-due">
+      <h2 id="h-due">ماذا يُستحق دفعه؟</h2>
+      <p><span style="font-size:28px;font-weight:700">176,400</span> <span style="font-weight:600">درهم</span></p>
+      <p class="small muted">صافي الدفعة رقم 4 بعد خصم المحتجزات (10%)</p>
+      <div class="between small" style="border-top:1px solid var(--track);padding-top:8px;color:var(--soft)">
+        <span>المدفوع حتى الآن</span><span style="font-weight:600">307,440 من 1,280,000 درهم</span>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="h-done">
+      <div class="between">
+        <h2 id="h-done">ماذا أُنجز؟</h2>
+        <a href="#request" class="small" style="font-weight:600;text-decoration:none;min-height:44px;display:flex;align-items:center">بنود الدفعة 4</a>
+      </div>
+      <div class="done-row">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B5E51" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
+        <span class="t">صب سقف الطابق الأول</span><span class="d">اعتُمد 19 أكتوبر</span>
+      </div>
+      <a class="done-row" href="#item">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B5E51" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
+        <span class="t">العزل المائي لحمامات الطابق الأرضي</span><span class="d" style="color:var(--brand);font-weight:600">نجح اختبار الغمر</span>
+      </a>
+      <div class="done-row">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#56655F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <span class="t">أعمال البلوك للطابق الأول</span><span class="d">80% معتمد</span>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="h-story">
+      <h2 id="h-story">قصة المسكن</h2>
+      <ol class="story">
+        <li class="is-done">الترخيص</li>
+        <li class="is-done">الأساسات</li>
+        <li class="is-done">الهيكل الإنشائي</li>
+        <li class="is-now">التمديدات والعزل · الآن</li>
+        <li class="is-next">التشطيبات</li>
+        <li class="is-next">استلام المفتاح</li>
+      </ol>
+    </section>
+
+    <section class="card" aria-label="ملف مسكن" style="flex-direction:row;align-items:center;gap:12px">
+      <span style="width:42px;height:42px;border-radius:12px;background:var(--blue-tint);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E4BA8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg></span>
+      <div>
+        <p style="font-size:14px;font-weight:600">ملف «مسكن»: 38 فاتورة ضريبية مسجلة</p>
+        <p class="small muted">تُجمع عند الإنجاز، ويُقدَّم طلب الاسترداد خلال 12 شهرًا منه</p>
+      </div>
+    </section>
+  </main>
+
+  <nav class="tabbar" aria-label="التنقل الرئيسي">
+    <a href="#home" aria-current="page"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-5h4v5"/></svg>الرئيسية</a>
+    <a href="#sow"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h4"/></svg>نطاق العمل</a>
+    <a href="#gantt"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6H10M17 12H6M14 18H4"/></svg>البرنامج الزمني</a>
+    <button type="button" data-toast="شاشة المستندات خارج نطاق هذا النموذج الأولي"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h6l2 2h8v11H4z"/></svg>المستندات</button>
+  </nav>
+</section>
+
+<!-- ---------- 2. Payment request (owner review) ---------- -->
+<section class="screen" id="screen-request" aria-label="طلب الدفعة رقم 4">
+  <header class="topbar">
+    <div class="navtitle">
+      <a class="back" href="#home" aria-label="رجوع إلى الرئيسية"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></a>
+      <div>
+        <h1>طلب الدفعة رقم 4</h1>
+        <p class="sub">الفترة 1–21 أكتوبر · المقاول «س»</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="scroll">
+    <div class="note ok" id="approvedBanner" role="status" hidden>
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B5E51" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
+      <span>تمت موافقتك وتوقيعك. أُرسلت حزمة إثبات الإنجاز إلى البنك الممول للمراجعة.</span>
+    </div>
+    <div class="note info" id="queryBanner" role="status" hidden>
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E4BA8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/></svg>
+      <span>أُرسل استفسارك إلى الاستشاري والمقاول، ويبقى الطلب بانتظار موافقتك.</span>
+    </div>
+
+    <section class="card" aria-labelledby="h-status">
+      <h2 id="h-status">مسار الطلب</h2>
+      <ol class="steps">
+        <li class="step done"><span class="dot"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4L18 8"/></svg></span><span class="lbl">قدّمه المقاول</span><span class="when">22 أكتوبر</span></li>
+        <li class="step done"><span class="dot"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4L18 8"/></svg></span><span class="lbl">اعتمده الاستشاري «ص»</span><span class="when">27 أكتوبر</span></li>
+        <li class="step now" id="stepOwner"><span class="dot"><svg class="tick" hidden aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4L18 8"/></svg></span><span class="lbl">موافقة المالك</span><span class="when" id="stepOwnerWhen">الآن</span></li>
+        <li class="step next" id="stepBank"><span class="dot"></span><span class="lbl">مراجعة البنك الممول</span><span class="when"></span></li>
+        <li class="step next"><span class="dot"></span><span class="lbl">الصرف للمقاول</span><span class="when"></span></li>
+      </ol>
+    </section>
+
+    <section class="card" aria-labelledby="h-money">
+      <h2 id="h-money">المبالغ</h2>
+      <div class="money">
+        <div class="r"><span class="muted">مطالبة المقاول</span><span>214,000 درهم</span></div>
+        <div class="r"><span class="muted">المعتمد من الاستشاري</span><span style="font-weight:600">196,000 درهم</span></div>
+        <div class="r"><span class="muted">خصم المحتجزات (10%)</span><span>19,600 درهم</span></div>
+        <div class="r total"><span>الصافي المستحق</span><span>176,400 درهم</span></div>
+      </div>
+      <div class="note">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A4205" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>
+        <span>خفّض الاستشاري المطالبة 18,000 درهم: تمديدات الكهرباء موثقة بنسبة 60% لا 75% كما طُلب. ويمكن إدراج الفرق في دفعة لاحقة بعد استكمال الأدلة.</span>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="h-items">
+      <div class="between"><h2 id="h-items">بنود هذه الدفعة</h2><span class="small muted">مطالَب · معتمد</span></div>
+      <div class="items">
+        <div class="item"><span class="tx"><span class="t1">صب سقف الطابق الأول</span><span class="t2">100% · 100% · 14 دليلًا</span></span><span class="amt">96,000</span></div>
+        <a class="item" href="#item"><span class="tx"><span class="t1">العزل المائي لحمامات الطابق الأرضي</span><span class="t2">100% · 100% · 9 أدلة واختبار غمر</span></span><span class="amt">22,000</span><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></a>
+        <div class="item"><span class="tx"><span class="t1">تمديدات الكهرباء — الطابق الأرضي</span><span class="t2"><span class="flag">75% · 60%</span> · 8 أدلة</span></span><span class="amt">72,000</span></div>
+        <div class="item"><span class="tx"><span class="t1">أعمال البلوك — الطابق الأول</span><span class="t2">من 75% إلى 80% · 5 أدلة</span></span><span class="amt">6,000</span></div>
+      </div>
+      <p class="small muted">المبالغ المعتمدة بالدرهم.</p>
+    </section>
+
+    <section class="card" aria-labelledby="h-pack">
+      <div class="between"><h2 id="h-pack">حزمة إثبات الإنجاز</h2><span class="badge ok">مكتملة</span></div>
+      <ul class="small" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;color:var(--soft)">
+        <li>✓ نسبة إنجاز كل بند</li><li>✓ صور حديثة مؤرخة</li>
+        <li>✓ نتائج الفحوص</li><li>✓ اعتماد الاستشاري</li>
+        <li>✓ الفاتورة الضريبية</li><li>✓ التأمين والرخص سارية</li>
+      </ul>
+      <p class="small muted" style="line-height:1.7">تُشارك الحزمة مع البنك الممول بعد موافقتك، ولا تحل محل المعاينة الميدانية التي يجريها البنك.</p>
+    </section>
+  </main>
+
+  <div class="actions" id="reqActions">
+    <button type="button" class="btn primary" id="approveBtn">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+      الموافقة والتوقيع عبر UAE PASS
+    </button>
+    <button type="button" class="btn ghost" id="queryBtn">لديّ استفسار</button>
+  </div>
+</section>
+
+<!-- ---------- 3. Item detail ---------- -->
+<section class="screen" id="screen-item" aria-label="سجل البند">
+  <header class="topbar">
+    <div class="navtitle">
+      <a class="back" href="#request" aria-label="رجوع إلى طلب الدفعة"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></a>
+      <div>
+        <h1>العزل المائي — حمامات الطابق الأرضي</h1>
+        <p class="sub">البند ب-07-112 · 64 مترًا مربعًا · 22,000 درهم</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="scroll">
+    <section class="card" aria-labelledby="h-four">
+      <h2 id="h-four">حالات البند</h2>
+      <div class="status4">
+        <div class="st yes"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4L18 8"/></svg><span>أبلغ المقاول<small>8 أكتوبر</small></span></div>
+        <div class="st yes"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4L18 8"/></svg><span>اعتمده الاستشاري<small>13 أكتوبر</small></span></div>
+        <div class="st yes"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4L18 8"/></svg><span>أصبح مستحقًا<small>ضمن الدفعة 4</small></span></div>
+        <div class="st no" id="paidState"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 1.5"/></svg><span>لم يُصرف بعد<small id="paidSub">بانتظار موافقتك</small></span></div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="h-refs">
+      <h2 id="h-refs">المراجع والمسؤوليات</h2>
+      <div class="refs">
+        <div class="ref"><span class="k">المخطط</span><span class="v">A-201 · الإصدار C</span></div>
+        <div class="ref"><span class="k">المواصفة</span><span class="v">القسم 07 · العزل المائي</span></div>
+        <div class="ref"><span class="k">المادة</span><span class="v">نظام معتمد · العينة 4</span></div>
+        <div class="ref"><span class="k">المنفذ</span><span class="v">مقاول الباطن «ط»</span></div>
+        <div class="ref" style="grid-column:1 / -1"><span class="k">الجهة الملتزمة تجاه المالك</span><span class="v">المقاول الرئيسي «س»</span></div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="h-time">
+      <h2 id="h-time">من الفحص إلى الاعتماد</h2>
+      <ol class="steps timeline">
+        <li class="step done"><span class="dot"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4L18 8"/></svg></span><span class="lbl">قبول فحص التمديدات قبل التغطية</span><span class="when">6 أكتوبر</span></li>
+        <li class="step done"><span class="dot"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4L18 8"/></svg></span><span class="lbl">تطبيق طبقتي العزل · 6 صور</span><span class="when">8 أكتوبر</span></li>
+        <li class="step done"><span class="dot"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4L18 8"/></svg></span><span class="lbl">انقضاء مدة المعالجة وفق نشرة المنتج</span><span class="when">[وفق النشرة]</span></li>
+        <li class="step done"><span class="dot"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4L18 8"/></svg></span><span class="lbl">اختبار الغمر بالماء · 48 ساعة</span><span class="when">10–12 أكتوبر</span></li>
+        <li class="step done"><span class="dot"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4L18 8"/></svg></span><span class="lbl">النتيجة: لا تسرّب · اعتمدها الاستشاري</span><span class="when">13 أكتوبر</span></li>
+      </ol>
+      <div class="note info">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E4BA8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+        <span>انقضاء مدة المعالجة لا يُثبت نجاح الاختبار؛ النتيجة المعتمدة من صاحب الصلاحية هي ما يفتح أعمال البلاط.</span>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="h-ev">
+      <div class="between"><h2 id="h-ev">الأدلة الميدانية</h2><span class="small muted">9 أدلة</span></div>
+      <div class="photos">
+        <figure class="ph" style="margin:0">
+          <div class="img" role="img" aria-label="مكان صورة: الطبقة الأولى في الحمام 1"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#56655F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></div>
+          <figcaption class="meta"><b>الطبقة الأولى · حمام 1</b><span>8 أكتوبر · 09:42</span><span>الموقع مطابق ✓</span><span class="hash">9f3a…c21</span></figcaption>
+        </figure>
+        <figure class="ph" style="margin:0">
+          <div class="img" role="img" aria-label="مكان صورة: الطبقة الثانية في الحمام 2"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#56655F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></div>
+          <figcaption class="meta"><b>الطبقة الثانية · حمام 2</b><span>8 أكتوبر · 15:10</span><span>الموقع مطابق ✓</span><span class="hash">47be…0d9</span></figcaption>
+        </figure>
+        <figure class="ph" style="margin:0">
+          <div class="img" role="img" aria-label="مكان صورة: بداية اختبار الغمر"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#56655F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></div>
+          <figcaption class="meta"><b>بداية اختبار الغمر</b><span>10 أكتوبر · 08:05</span><span>الموقع مطابق ✓</span><span class="hash">c802…7aa</span></figcaption>
+        </figure>
+      </div>
+      <p class="small muted" style="line-height:1.7">لكل دليل ختم زمني وموقع جغرافي وبصمة رقمية؛ وأي تعديل على الملف بعد التقاطه يُكشف تلقائيًا.</p>
+    </section>
+
+    <section class="card" aria-labelledby="h-war" style="flex-direction:row;align-items:center;gap:12px">
+      <span style="width:42px;height:42px;border-radius:12px;background:var(--brand-tint);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B5E51" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg></span>
+      <div>
+        <h2 id="h-war" style="font-size:14px;font-weight:600">ضمان المنتج والتطبيق</h2>
+        <p class="small muted">[المدة وفق الشهادة] · يبدأ من تاريخ الاستلام · مرتبط بالفاتورة</p>
+      </div>
+    </section>
+  </main>
+</section>
+
+<!-- ---------- 4. Evidence pack (contractor) ---------- -->
+<section class="screen" id="screen-pack" aria-label="حزمة إثبات الإنجاز">
+  <header class="topbar">
+    <div class="row">
+      <div class="brand">
+        <span class="mark"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><rect x="6" y="11" width="12" height="9"/><path d="M12 11v9M6 15.5h12"/></svg></span>
+        <span class="name">بيتنا</span>
+        <span class="tag">المقاول «س»</span>
+      </div>
+      <a class="chip-link" href="#home">عرض المالك</a>
+    </div>
+    <div>
+      <h1 style="font-size:20px;font-weight:700">تجهيز طلب الدفعة رقم 5</h1>
+      <p class="sub">مسكن الأسرة · الورقاء الرابعة · الفترة 22 أكتوبر – 11 نوفمبر</p>
+    </div>
+  </header>
+
+  <main class="scroll">
+    <a class="task" href="#report" style="background:#FFFFFF;border:1px solid var(--line)">
+      <span class="ic"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B5E51" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
+      <span class="tx"><span class="t1">تقرير اليوم جاهز للمراجعة</span><span class="t2">مسودة أعدّها النظام من 46 صورة</span></span>
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+    </a>
+    <section class="card" aria-labelledby="h-ready">
+      <div class="ready">
+        <div class="ring" id="ring" style="--p:67"><span id="ringTxt">4/6</span></div>
+        <div>
+          <h2 id="h-ready">جاهزية الحزمة</h2>
+          <p class="small muted" id="readySub">أكمل البندين الناقصين قبل الإرسال إلى الاستشاري</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card amber" id="mismatch" aria-labelledby="h-mis">
+      <div class="note" style="padding:0;background:none">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A4205" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <h2 id="h-mis" style="font-size:15px;color:#6E3504">النسبة المطلوبة أعلى من الموثقة</h2>
+          <span>اللياسة الداخلية للطابق الأرضي: المطالبة 50%، والصور الحديثة تغطي 35% فقط. قد يخفّض الاستشاري المطالبة إلى النسبة الموثقة.</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button type="button" class="mini-btn" id="capBtn">التقاط الصور الناقصة</button>
+        <button type="button" class="mini-btn" id="adjBtn" style="border-color:var(--line);color:var(--ink)">تعديل المطالبة إلى 35%</button>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="h-pitems">
+      <div class="between"><h2 id="h-pitems">بنود الطلب</h2><span class="small muted">النسبة · الأدلة</span></div>
+      <div class="items">
+        <div class="item"><span class="tx"><span class="t1">تمديدات الكهرباء — الطابق الأرضي</span><span class="t2">من 60% إلى 90% · 12 صورة · فحص مقبول</span></span></div>
+        <div class="item"><span class="tx"><span class="t1">تمديدات السباكة — الطابق الأول</span><span class="t2">من 0% إلى 70% · 9 صور · اختبار الضغط مقبول</span></span></div>
+        <div class="item"><span class="tx"><span class="t1">اللياسة الداخلية — الطابق الأرضي</span><span class="t2" id="plasterLine"><span class="flag">من 0% إلى 50% · الصور تغطي 35%</span></span></span></div>
+        <div class="item"><span class="tx"><span class="t1">أعمال البلوك — الطابق الأول</span><span class="t2">من 80% إلى 100% · 7 صور</span></span></div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="h-chk">
+      <h2 id="h-chk">قائمة التحقق قبل الإرسال</h2>
+      <ul class="check">
+        <li><span class="state-ic ok"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4L18 8"/></svg></span><span class="tx"><span class="t1">نسبة إنجاز كل بند</span><span class="t2">محسوبة من سجل البنود</span></span></li>
+        <li id="chkPhotos"><span class="state-ic todo" data-ic></span><span class="tx"><span class="t1">صور حديثة لجميع الأعمال المنجزة</span><span class="t2" data-sub>ناقصة: اللياسة الداخلية</span></span></li>
+        <li><span class="state-ic ok"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4L18 8"/></svg></span><span class="tx"><span class="t1">نتائج الفحوص والاختبارات</span><span class="t2">فحص الكهرباء واختبار ضغط السباكة</span></span></li>
+        <li id="chkInvoice"><span class="state-ic todo" data-ic></span><span class="tx"><span class="t1">الفاتورة الضريبية للفترة</span><span class="t2" data-sub>لم تُرفق بعد</span></span><button type="button" class="mini-btn" id="invBtn">إرفاق</button></li>
+        <li><span class="state-ic ok"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4L18 8"/></svg></span><span class="tx"><span class="t1">تأمين الموقع والعمال</span><span class="t2">ساري حتى [التاريخ]</span></span></li>
+        <li><span class="state-ic ok"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4L18 8"/></svg></span><span class="tx"><span class="t1">الرخص التجارية للمقاول والاستشاري</span><span class="t2">سارية · تحقق من المصدر الرسمي</span></span></li>
+        <li><span class="state-ic na"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#56655F" stroke-width="3" stroke-linecap="round"><path d="M7 12h10"/></svg></span><span class="tx"><span class="t1">خطاب تمديد المدة أو الاستمرار</span><span class="t2">غير مطلوب: ضمن المدة الأصلية</span></span></li>
+      </ul>
+    </section>
+
+    <div class="note ok" id="sentBanner" role="status" hidden>
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B5E51" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
+      <span>أُرسل الطلب رقم 5 إلى الاستشاري «ص» للاعتماد، وسيصل إلى المالك بعده.</span>
+    </div>
+  </main>
+
+  <div class="actions">
+    <button type="button" class="btn primary" id="submitBtn" disabled>إرسال إلى الاستشاري</button>
+  </div>
+</section>
+
+<!-- ---------- 5. Statement of work (owner) ---------- -->
+<section class="screen" id="screen-sow" aria-label="بيان نطاق العمل">
+  <header class="topbar">
+    <div class="navtitle">
+      <a class="back" href="#home" aria-label="رجوع إلى الرئيسية"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></a>
+      <div>
+        <h1>بيان نطاق العمل</h1>
+        <p class="sub">مستخرج من العقد وجداول الكميات · الإصدار 3 المعتمد</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="scroll">
+    <div class="note info">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E4BA8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+      <span>هذا البيان ملخص مبسّط يساعدك على فهم ما اتفقت عليه؛ والمرجع عند الخلاف نصوص العقد وملاحقه المعتمدة.</span>
+    </div>
+
+    <section class="card" aria-labelledby="h-sum">
+      <h2 id="h-sum">ملخص المشروع</h2>
+      <div class="refs">
+        <div class="ref"><span class="k">نوع المبنى</span><span class="v">فيلا سكنية · أرضي وأول</span></div>
+        <div class="ref"><span class="k">المساحة المبنية</span><span class="v">[المساحة] م²</span></div>
+        <div class="ref"><span class="k">قيمة العقد</span><span class="v">1,280,000 درهم</span></div>
+        <div class="ref"><span class="k">المدة التعاقدية</span><span class="v" id="sowDur">—</span></div>
+        <div class="ref" style="grid-column:1 / -1"><span class="k">البدء والتسليم المخطط</span><span class="v" id="sowDates">—</span></div>
+        <div class="ref" style="grid-column:1 / -1"><span class="k">طريقة الدفع</span><span class="v">دفعات مرتبطة بالإنجاز المعتمد، مع محتجزات 10% تُصرف وفق العقد</span></div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="h-parties">
+      <h2 id="h-parties">الأطراف ومسؤولياتهم</h2>
+      <div class="kv">
+        <div><span>المالك</span><span>القرارات والموافقات والدفع</span></div>
+        <div><span>الاستشاري «ص»</span><span>التصميم والإشراف واعتماد المراحل</span></div>
+        <div><span>المقاول الرئيسي «س»</span><span>التنفيذ، ومسؤول تجاه المالك عن مقاولي الباطن</span></div>
+        <div><span>مقاولا الباطن «ط» و«ك»</span><span>العزل · الألمنيوم والواجهات</span></div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="h-pk">
+      <div class="between"><h2 id="h-pk">حزم الأعمال</h2><span class="small muted">اضغط الحزمة للتفاصيل</span></div>
+      <div class="pkgs">
+        <details class="pkg">
+          <summary><span class="tx"><span class="t1">أعمال الموقع والأساسات</span><span class="t2">150,000 درهم · 12% من العقد</span><span class="mini"><span style="width:100%"></span></span></span><span class="pill done">منجزة</span><svg class="chev" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></summary>
+          <div class="body">
+            <div><h3>تشمل</h3><ul><li>تجهيز الموقع والحفر والتسوية</li><li>القواعد والأساسات والميدات</li><li>عزل الأساسات والردم والدك</li></ul></div>
+            <div><h3>معيار القبول</h3><p>نتائج اختبارات الدك ومكعبات الخرسانة، واعتماد الاستشاري لكل مرحلة قبل الصب.</p></div>
+            <div><h3>المنفذ</h3><p>المقاول الرئيسي «س»</p></div>
+          </div>
+        </details>
+        <details class="pkg">
+          <summary><span class="tx"><span class="t1">الهيكل الخرساني</span><span class="t2">260,000 درهم · 20% من العقد</span><span class="mini"><span style="width:100%"></span></span></span><span class="pill done">منجزة</span><svg class="chev" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></summary>
+          <div class="body">
+            <div><h3>تشمل</h3><ul><li>الأعمدة والجسور وسقفا الطابقين الأرضي والأول</li><li>الدرج الخرساني والمظلات الخرسانية</li></ul></div>
+            <div><h3>معيار القبول</h3><p>فحص حديد التسليح قبل الصب، ونتائج مكعبات الخرسانة بعد 28 يومًا.</p></div>
+          </div>
+        </details>
+        <details class="pkg" open>
+          <summary><span class="tx"><span class="t1">البلوك واللياسة</span><span class="t2">140,000 درهم · 11% من العقد</span><span class="mini"><span style="width:40%"></span></span></span><span class="pill prog">40%</span><svg class="chev" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></summary>
+          <div class="body">
+            <div><h3>تشمل</h3><ul><li>جدران البلوك الخارجية والداخلية للطابقين</li><li>اللياسة الداخلية والخارجية</li></ul></div>
+            <div><h3>لا تشمل</h3><ul><li>التكسيات الحجرية للواجهة (ضمن حزمة الواجهات)</li></ul></div>
+            <div><h3>معيار القبول</h3><p>استقامة الجدران ضمن التفاوت المسموح في المواصفة، وفحص اللياسة قبل الدهان.</p></div>
+            <div><h3>بلغة بسيطة</h3><p>لا تُغطّى التمديدات باللياسة قبل فحصها واعتمادها؛ لذلك ترتبط هذه الحزمة بأعمال الكهرباء والسباكة في البرنامج الزمني.</p></div>
+            <a href="#gantt" class="small" style="font-weight:600;text-decoration:none;min-height:44px;display:flex;align-items:center">عرضها في البرنامج الزمني</a>
+          </div>
+        </details>
+        <details class="pkg">
+          <summary><span class="tx"><span class="t1">العزل المائي والحراري</span><span class="t2">60,000 درهم · 5% من العقد</span><span class="mini"><span style="width:25%"></span></span></span><span class="pill prog">25%</span><svg class="chev" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></summary>
+          <div class="body">
+            <div><h3>تشمل</h3><ul><li>عزل الحمامات والمطابخ والأسطح</li><li>العزل الحراري للسطح</li></ul></div>
+            <div><h3>معيار القبول</h3><p>اختبار الغمر بالماء 48 ساعة لكل منطقة مبللة وللسطح، واعتماد الاستشاري للنتيجة.</p></div>
+            <div><h3>المنفذ والضمان</h3><p>مقاول الباطن «ط» بإشراف المقاول الرئيسي · [مدة الضمان وفق الشهادة]</p></div>
+          </div>
+        </details>
+        <details class="pkg">
+          <summary><span class="tx"><span class="t1">الكهرباء والإنارة</span><span class="t2">190,000 درهم · 15% من العقد</span><span class="mini"><span style="width:20%"></span></span></span><span class="pill prog">20%</span><svg class="chev" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></summary>
+          <div class="body">
+            <div><h3>تشمل</h3><ul><li>التمديدات واللوحات والتأريض</li><li>نقاط الإنارة والمفاتيح والمقابس</li><li>توريد وحدات الإنارة المحددة في جدول الكميات وتركيبها</li></ul></div>
+            <div><h3>لا تشمل</h3><ul><li>أنظمة المنزل الذكي، وتُضاف بأمر تغيير مستقل عند طلبها</li></ul></div>
+            <div><h3>معيار القبول</h3><p>فحص التمديدات قبل التغطية، واختبار العزل والتأريض قبل التوصيل.</p></div>
+          </div>
+        </details>
+        <details class="pkg">
+          <summary><span class="tx"><span class="t1">السباكة والصرف</span><span class="t2">110,000 درهم · 9% من العقد</span><span class="mini"><span style="width:17%"></span></span></span><span class="pill prog">17%</span><svg class="chev" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></summary>
+          <div class="body">
+            <div><h3>تشمل</h3><ul><li>تمديدات المياه الباردة والساخنة والصرف</li><li>الخزانات والمضخات والسخانات</li><li>الأدوات الصحية المحددة في جدول الكميات</li></ul></div>
+            <div><h3>معيار القبول</h3><p>اختبار الضغط للتمديدات، واختبار التشغيل للمضخات والسخانات.</p></div>
+          </div>
+        </details>
+        <details class="pkg">
+          <summary><span class="tx"><span class="t1">التكييف والتهوية</span><span class="t2">95,000 درهم · 7% من العقد</span><span class="mini"><span style="width:0%"></span></span></span><span class="pill todo">لم تبدأ</span><svg class="chev" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></summary>
+          <div class="body">
+            <div><h3>تشمل</h3><ul><li>تمديدات التكييف ومجاري الهواء</li><li>توريد الوحدات وتركيبها وتشغيلها</li></ul></div>
+            <div><h3>معيار القبول</h3><p>اختبار التشغيل وقياس الأداء وفق المواصفة.</p></div>
+          </div>
+        </details>
+        <details class="pkg">
+          <summary><span class="tx"><span class="t1">الألمنيوم والزجاج والواجهات</span><span class="t2">85,000 درهم · 7% من العقد</span><span class="mini"><span style="width:0%"></span></span></span><span class="pill todo">لم تبدأ</span><svg class="chev" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></summary>
+          <div class="body">
+            <div><h3>تشمل</h3><ul><li>النوافذ والأبواب الخارجية</li><li>الدهانات والتكسيات الخارجية</li></ul></div>
+            <div><h3>المنفذ</h3><p>مقاول الباطن «ك»</p></div>
+          </div>
+        </details>
+        <details class="pkg">
+          <summary><span class="tx"><span class="t1">التشطيبات الداخلية</span><span class="t2">150,000 درهم · 12% من العقد</span><span class="mini"><span style="width:0%"></span></span></span><span class="pill todo">لم تبدأ</span><svg class="chev" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></summary>
+          <div class="body">
+            <div><h3>تشمل</h3><ul><li>البلاط والأرضيات</li><li>الدهانات الداخلية والجبس</li><li>الأبواب الداخلية والنجارة</li></ul></div>
+            <div><h3>مبالغ مخصصة لاختيار المالك</h3><p>البلاط: [القيمة] درهم للمتر المربع. ويُعالج أي فرق بين اختيارك والمبلغ المخصص بأمر تغيير.</p></div>
+            <div><h3>لا تشمل</h3><ul><li>الأثاث والستائر والأجهزة المنزلية</li></ul></div>
+            <div><h3>معيار القبول</h3><p>معاينة مشتركة مع المالك، وقائمة ملاحظات تُغلق قبل الاستلام.</p></div>
+          </div>
+        </details>
+        <details class="pkg">
+          <summary><span class="tx"><span class="t1">الأعمال الخارجية والأسوار</span><span class="t2">40,000 درهم · 3% من العقد</span><span class="mini"><span style="width:0%"></span></span></span><span class="pill todo">لم تبدأ</span><svg class="chev" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></summary>
+          <div class="body">
+            <div><h3>تشمل</h3><ul><li>السور والبوابة</li><li>الممرات والتبليط الخارجي</li></ul></div>
+            <div><h3>لا تشمل</h3><ul><li>تنسيق الحدائق والزراعة</li></ul></div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="h-excl">
+      <h2 id="h-excl">ما لا يشمله العقد</h2>
+      <ul class="bul">
+        <li>الأثاث والستائر والأجهزة المنزلية</li>
+        <li>تنسيق الحدائق والزراعة</li>
+        <li>رسوم توصيل الخدمات، ما لم ينص العقد على غير ذلك</li>
+        <li>أي عمل إضافي، ولا يُنفذ إلا بأمر تغيير معتمد</li>
+      </ul>
+    </section>
+
+    <section class="card" aria-labelledby="h-raci">
+      <h2 id="h-raci">من يقدّم ومن يراجع ومن يعتمد</h2>
+      <table class="raci">
+        <thead><tr><th scope="col">الإجراء</th><th scope="col">يقدّم</th><th scope="col">يراجع</th><th scope="col">يعتمد</th></tr></thead>
+        <tbody>
+          <tr><td>طلب الدفعة</td><td>المقاول</td><td>الاستشاري</td><td>المالك، ثم البنك</td></tr>
+          <tr><td>أمر التغيير</td><td>المالك أو المقاول</td><td>الاستشاري</td><td>المالك</td></tr>
+          <tr><td>اعتماد المواد</td><td>المقاول</td><td>الاستشاري</td><td>الاستشاري، ويُطلع المالك</td></tr>
+          <tr><td>استلام المرحلة</td><td>المقاول</td><td>الاستشاري</td><td>الاستشاري</td></tr>
+          <tr><td>الاستلام النهائي</td><td>المقاول</td><td>الاستشاري</td><td>المالك</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card" aria-labelledby="h-co">
+      <div class="between"><h2 id="h-co">أوامر التغيير</h2><span class="pill prog">1 قيد المراجعة</span></div>
+      <div class="kv">
+        <div><span>رقم 1 · تعديل نقاط الكهرباء في المطبخ</span><span>قيد مراجعة الاستشاري</span></div>
+        <div><span>الأثر في القيمة والمدة</span><span>[يُحدد بعد المراجعة]</span></div>
+      </div>
+      <p class="small muted" style="line-height:1.7">لا يُعدّل نطاق العمل ولا قيمته ولا مدته إلا بأمر تغيير يعتمده المالك، ويظهر أثره هنا وفي البرنامج الزمني.</p>
+    </section>
+
+    <section class="card" aria-labelledby="h-deliv">
+      <h2 id="h-deliv">ما تتسلمه عند التسليم</h2>
+      <ul class="bul">
+        <li>المخططات كما نُفّذت، وصور التمديدات قبل تغطيتها</li>
+        <li>تقارير الفحوص والاختبارات وموافقات الجهات</li>
+        <li>شهادات الضمان وأدلة التشغيل والصيانة</li>
+        <li>الفواتير الضريبية مجمعة لملف «مسكن»</li>
+      </ul>
+    </section>
+  </main>
+
+  <nav class="tabbar" aria-label="التنقل الرئيسي">
+    <a href="#home"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-5h4v5"/></svg>الرئيسية</a>
+    <a href="#sow" aria-current="page"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h4"/></svg>نطاق العمل</a>
+    <a href="#gantt"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6H10M17 12H6M14 18H4"/></svg>البرنامج الزمني</a>
+    <button type="button" data-toast="شاشة المستندات خارج نطاق هذا النموذج الأولي"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h6l2 2h8v11H4z"/></svg>المستندات</button>
+  </nav>
+</section>
+
+<!-- ---------- 6. Gantt / schedule (owner) ---------- -->
+<section class="screen" id="screen-gantt" aria-label="البرنامج الزمني">
+  <header class="topbar">
+    <div class="navtitle">
+      <a class="back" href="#home" aria-label="رجوع إلى الرئيسية"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></a>
+      <div>
+        <h1>البرنامج الزمني</h1>
+        <p class="sub">المخطط مقابل الفعلي · محدّث حتى 30 أكتوبر 2026</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="scroll">
+    <div class="kpis">
+      <div class="kpi"><span class="k">التسليم المخطط</span><span class="v" id="kpiPlan">—</span></div>
+      <div class="kpi warn"><span class="k" id="kpiFcLbl">التسليم المتوقع</span><span class="v" id="kpiFc">—</span><span class="small" id="kpiDelta" style="color:#6E3504;font-weight:600">—</span></div>
+    </div>
+
+    <div class="note" id="critNote">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A4205" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>
+      <span id="critText">—</span>
+    </div>
+
+    <div class="note info" id="simNote" role="status" hidden>
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E4BA8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      <span id="simText">—</span>
+    </div>
+
+    <section class="card" aria-labelledby="h-gantt" style="padding:12px">
+      <div class="between">
+        <h2 id="h-gantt">مخطط جانت</h2>
+        <label class="toggle"><input type="checkbox" id="baseToggle" checked> المخطط الأساسي</label>
+      </div>
+      <div class="legend2" aria-hidden="true">
+        <span><i class="lg" style="background:var(--brand)"></i>منجز</span>
+        <span><i class="lg" style="background:linear-gradient(to left,var(--brand) 50%,var(--brand-light) 50%)"></i>جارٍ</span>
+        <span><i class="lg" style="background:#FFFFFF;box-shadow:inset 0 0 0 1.5px var(--brand)"></i>لم يبدأ</span>
+        <span><i class="lg" style="background:#FDF1E1;box-shadow:inset 0 0 0 2px #9A4A06"></i>على المسار الحرج</span>
+        <span><i class="lg" style="height:5px;background:#A9B6B1"></i>المخطط الأساسي</span>
+      </div>
+      <div class="gwrap">
+        <div class="gnames" id="gNames"></div>
+        <div class="gchart" id="gChart"><div class="gcanvas" id="gCanvas"></div></div>
+      </div>
+      <p class="small muted">اسحب المخطط أفقيًا، واضغط أي بند لرؤية علاقاته.</p>
+    </section>
+
+    <section class="card" id="gDetail" aria-live="polite"></section>
+
+    <section class="card" aria-labelledby="h-gloss">
+      <h2 id="h-gloss">كيف تقرأ العلاقات بين الأعمال</h2>
+      <div class="gloss">
+        <div><b>نهاية ← بداية (FS)</b><span>الأكثر شيوعًا: لا يبدأ العمل التالي قبل انتهاء السابق. مثال: التشطيبات بعد انتهاء اللياسة.</span></div>
+        <div><b>بداية ← بداية (SS)</b><span>يبدأ العمل التالي بعد بدء السابق بمدة محددة، فيسيران بالتوازي. مثال: الكهرباء بعد 20 يومًا من بدء البلوك.</span></div>
+        <div><b>نهاية ← نهاية (FF)</b><span>لا ينتهي العمل التالي قبل انتهاء السابق بمدة محددة. مثال: لا تنتهي اللياسة قبل مرور 20 يومًا على انتهاء الكهرباء.</span></div>
+        <div><b>بداية ← نهاية (SF)</b><span>نادرة في المساكن: لا ينتهي عمل قبل أن يبدأ عمل آخر، كاستمرار الحراسة المؤقتة حتى يبدأ تشغيل نظام المراقبة.</span></div>
+        <div><b>الفترة الفاصلة</b><span>أيام انتظار تُضاف إلى العلاقة، كمدة فك الشدات ومعالجة الخرسانة.</span></div>
+        <div><b>المسار الحرج</b><span>سلسلة الأعمال التي يؤخر أي يوم تأخير فيها موعد التسليم؛ أما غيرها فلها هامش تأخير محدد.</span></div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="tabbar" aria-label="التنقل الرئيسي">
+    <a href="#home"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-5h4v5"/></svg>الرئيسية</a>
+    <a href="#sow"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h4"/></svg>نطاق العمل</a>
+    <a href="#gantt" aria-current="page"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6H10M17 12H6M14 18H4"/></svg>البرنامج الزمني</a>
+    <button type="button" data-toast="شاشة المستندات خارج نطاق هذا النموذج الأولي"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h6l2 2h8v11H4z"/></svg>المستندات</button>
+  </nav>
+</section>
+
+<!-- ---------- 7. Automatic daily report (contractor) ---------- -->
+<section class="screen" id="screen-report" aria-label="تقرير الموقع اليومي">
+  <header class="topbar">
+    <div class="navtitle">
+      <a class="back" href="#pack" aria-label="رجوع إلى حزمة الإثبات"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></a>
+      <div>
+        <h1>تقرير الموقع اليومي</h1>
+        <p class="sub">30 أكتوبر 2026 · أُعدّ آليًا من 46 صورة و3 مقاطع</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="scroll">
+    <div class="note info" id="rpDraft">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E4BA8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+      <span>مسودة أعدّها النظام من صور اليوم. راجعها وأكمل ما ينقص قبل إرسالها إلى الاستشاري والمالك.</span>
+    </div>
+    <div class="note ok" id="rpSent" role="status" hidden>
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B5E51" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
+      <span>أُرسل تقرير 30 أكتوبر إلى الاستشاري «ص» والمالك.</span>
+    </div>
+
+    <section class="card" aria-labelledby="h-crew">
+      <div class="between"><h2 id="h-crew">العمالة المرصودة</h2><span class="badge ok">14 عاملًا</span></div>
+      <div class="crew">
+        <div><b>5</b><span>البلوك</span></div>
+        <div><b>4</b><span>اللياسة</span></div>
+        <div><b>3</b><span>الكهرباء</span></div>
+        <div><b>2</b><span>السباكة</span></div>
+      </div>
+      <p class="small muted" style="line-height:1.7">تقدير آلي من الصور بعد إخفاء الوجوه، ولا يُستخدم لتحديد هوية أي عامل.</p>
+    </section>
+
+    <section class="card" aria-labelledby="h-eq">
+      <h2 id="h-eq">المعدات في الموقع</h2>
+      <div class="kv">
+        <div><span>خلاطة لياسة</span><span>1</span></div>
+        <div><span>سقالات</span><span>2</span></div>
+        <div><span>مضخة مياه</span><span>1</span></div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="h-act">
+      <h2 id="h-act">الأنشطة المرصودة</h2>
+      <div class="items">
+        <div class="item"><span class="tx"><span class="t1">البلوك — الطابق الأول</span><span class="t2">الجدار الشمالي · 18 صورة</span></span></div>
+        <div class="item"><span class="tx"><span class="t1">اللياسة الداخلية — الطابق الأرضي</span><span class="t2">المجلس والممر · 15 صورة</span></span></div>
+        <div class="item"><span class="tx"><span class="t1">تمديدات الكهرباء — الطابق الأرضي</span><span class="t2">الغرف من 1 إلى 3 · 13 صورة</span></span></div>
+      </div>
+    </section>
+
+    <section class="card amber" aria-labelledby="h-stop">
+      <h2 id="h-stop">فترة توقف مرصودة</h2>
+      <p style="font-size:14px">لم يُرصد نشاط في منطقة اللياسة من 11:20 إلى 12:05. أضف السبب ليظهر في التقرير.</p>
+      <label for="stopReason" class="small" style="font-weight:600">سبب التوقف</label>
+      <select id="stopReason" class="sel">
+        <option value="">اختر السبب</option>
+        <option>انتظار توريد مواد</option>
+        <option>انتظار فحص أو اعتماد</option>
+        <option>إعادة توزيع العمالة</option>
+        <option>سبب آخر</option>
+      </select>
+    </section>
+
+    <section class="card" aria-labelledby="h-sug">
+      <h2 id="h-sug">مقترحات تحديث التقدم</h2>
+      <label class="chk"><input type="checkbox" id="sug1" checked><span><b>البلوك — الطابق الأول</b><span>من 80% إلى 85% · ثقة مرتفعة</span></span></label>
+      <label class="chk"><input type="checkbox" id="sug2" checked><span><b>اللياسة الداخلية — الطابق الأرضي</b><span>من 15% إلى 20% · ثقة متوسطة</span></span></label>
+      <p class="small muted" style="line-height:1.7">تُرسل المقترحات إلى الاستشاري لاعتمادها، ولا تتغير النسب المعتمدة قبل ذلك.</p>
+    </section>
+
+    <section class="card" aria-labelledby="h-rph">
+      <div class="between"><h2 id="h-rph">صور اليوم</h2><span class="small muted">46 صورة</span></div>
+      <div class="photos">
+        <figure class="ph" style="margin:0">
+          <div class="img" role="img" aria-label="مكان صورة: جدار البلوك الشمالي في الطابق الأول"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#56655F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="blurtag">الوجوه مخفية</span></div>
+          <figcaption class="meta"><b>البلوك · الطابق الأول</b><span>30 أكتوبر · 08:40</span><span>الموقع مطابق ✓</span></figcaption>
+        </figure>
+        <figure class="ph" style="margin:0">
+          <div class="img" role="img" aria-label="مكان صورة: لياسة المجلس في الطابق الأرضي"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#56655F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="blurtag">الوجوه مخفية</span></div>
+          <figcaption class="meta"><b>اللياسة · المجلس</b><span>30 أكتوبر · 10:15</span><span>الموقع مطابق ✓</span></figcaption>
+        </figure>
+        <figure class="ph" style="margin:0">
+          <div class="img" role="img" aria-label="مكان صورة: تمديدات الكهرباء في الغرفة 2"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#56655F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="blurtag">الوجوه مخفية</span></div>
+          <figcaption class="meta"><b>الكهرباء · الغرفة 2</b><span>30 أكتوبر · 13:30</span><span>الموقع مطابق ✓</span></figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <div class="actions">
+    <button type="button" class="btn primary" id="rpSend" disabled>إرسال إلى الاستشاري والمالك</button>
+    <p class="small muted" id="rpHint" style="text-align:center">اختر سبب التوقف أولًا</p>
+  </div>
+</section>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div><!-- /device -->
+</div><!-- /stage -->
+
+<!-- Dialogs -->
+<dialog id="approveDlg" aria-labelledby="dlgApproveTitle">
+  <form method="dialog">
+    <h2 id="dlgApproveTitle">تأكيد الموافقة</h2>
+    <p>ستوافق على صرف <b>176,400 درهم</b> للمقاول «س» عن الدفعة رقم 4، وتُرسل حزمة إثبات الإنجاز إلى البنك الممول. ويكتمل التوقيع في تطبيق UAE PASS.</p>
+    <div class="dlg-actions">
+      <button class="btn primary" value="confirm">تأكيد والانتقال إلى التوقيع</button>
+      <button class="btn ghost" value="cancel">إلغاء</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="queryDlg" aria-labelledby="dlgQueryTitle">
+  <form method="dialog">
+    <h2 id="dlgQueryTitle">استفسار عن الطلب</h2>
+    <label for="queryText">اكتب استفسارك للاستشاري والمقاول</label>
+    <textarea id="queryText" placeholder="مثال: متى تُستكمل أدلة تمديدات الكهرباء؟"></textarea>
+    <div class="dlg-actions">
+      <button class="btn primary" value="send">إرسال</button>
+      <button class="btn ghost" value="cancel">إلغاء</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+(function () {
+  var screens = ['home', 'request', 'item', 'pack', 'sow', 'gantt', 'report'];
+  var initial = function () {
+    return { approved: false, queried: false, photos: false, adjusted: false, invoice: false, submitted: false };
+  };
+  var state = initial();
+
+  var $ = function (id) { return document.getElementById(id); };
+  var okIcon = '<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4L18 8"/></svg>';
+
+  /* ---------- Toast ---------- */
+  var toastTimer;
+  function toast(msg) {
+    var t = $('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2600);
+  }
+  document.querySelectorAll('[data-toast]').forEach(function (el) {
+    el.addEventListener('click', function () { toast(el.getAttribute('data-toast')); });
+  });
+
+  /* ---------- Router ---------- */
+  function current() {
+    var id = (location.hash || '#home').slice(1);
+    return screens.indexOf(id) > -1 ? id : 'home';
+  }
+  function go() {
+    var id = current();
+    screens.forEach(function (s) {
+      var el = $('screen-' + s);
+      var on = s === id;
+      el.classList.toggle('active', on);
+      if (on) { var sc = el.querySelector('.scroll'); if (sc) sc.scrollTop = 0; }
+    });
+    $('toast').classList.remove('show');
+    document.querySelectorAll('#presenterNav a').forEach(function (a) {
+      a.setAttribute('aria-current', a.getAttribute('data-screen') === id ? 'true' : 'false');
+    });
+    if (id === 'gantt') requestAnimationFrame(scrollToToday);
+  }
+
+  /* =================== Schedule engine (Gantt) =================== */
+  var START = new Date(2026, 0, 30);  // project day 0 = 30 January 2026
+  var TODAY = 273;                    // 30 October 2026
+  var DAYW = 2.4, ROWH = 44, AXISH = 34;
+  var MONTHS = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  var TYPES = { FS: 'نهاية ← بداية', SS: 'بداية ← بداية', FF: 'نهاية ← نهاية', SF: 'بداية ← نهاية' };
+
+  // [predecessor, type, lag days, reason]
+  var TASKS = [
+    { id: 'T1',  n: 'تجهيز الموقع والحفر', dur: 30, deps: [], a: { s: 0, f: 33 } },
+    { id: 'T2',  n: 'الأساسات والقواعد', dur: 45, deps: [['T1','FS',0,'لا تُصب القواعد قبل اكتمال الحفر والتسوية']], a: { s: 33, f: 80 } },
+    { id: 'T3',  n: 'عزل الأساسات والردم', dur: 20, deps: [['T2','FS',0,'يُعزل ما اكتمل صبه قبل ردمه']], a: { s: 80, f: 100 } },
+    { id: 'T4',  n: 'الهيكل الخرساني — الأرضي', dur: 55, deps: [['T3','FS',0,'يبدأ الهيكل بعد الردم والدك']], a: { s: 100, f: 158 } },
+    { id: 'T5',  n: 'الهيكل الخرساني — الأول', dur: 50, deps: [['T4','FS',10,'مدة فك الشدات ومعالجة الخرسانة']], a: { s: 168, f: 234 } },
+    { id: 'T6',  n: 'البلوك — الطابق الأرضي', dur: 45, deps: [['T5','SS',20,'يبدأ البلوك حين يتقدم الهيكل بما يكفي، فيسيران بالتوازي']], a: { s: 190, f: 240 } },
+    { id: 'T7',  n: 'البلوك — الطابق الأول', dur: 40, deps: [['T5','FS',0,'لا يُبنى بلوك الطابق قبل اكتمال هيكله']], a: { s: 236, p: 80 } },
+    { id: 'T8',  n: 'تمديدات الكهرباء', dur: 55, deps: [['T6','SS',20,'تبدأ التمديدات حين تكتمل جدران كافية'],['T6','FF',15,'تُستكمل التمديدات بعد آخر الجدران']], a: { s: 222, p: 60 } },
+    { id: 'T9',  n: 'تمديدات السباكة', dur: 60, deps: [['T6','SS',10,'تبدأ تمديدات الجدران مع تقدم البلوك']], a: { s: 205, p: 55 } },
+    { id: 'T10', n: 'العزل المائي للحمامات والأسطح', dur: 45, deps: [['T9','SS',30,'يُعزل كل حمام بعد اكتمال تمديداته'],['T9','FF',10,'يُختبر العزل بعد آخر تمديدات المناطق المبللة']], a: { s: 251, p: 35 } },
+    { id: 'T11', n: 'اللياسة الداخلية', dur: 60, deps: [['T8','SS',25,'تبدأ اللياسة في المناطق التي فُحصت تمديداتها'],['T8','FF',20,'لا تُغطّى آخر التمديدات قبل فحصها']], a: { s: 266, p: 15 } },
+    { id: 'T12', n: 'تمديدات التكييف', dur: 40, deps: [['T7','FS',0,'تُمدد المجاري بعد اكتمال جدران الطابق']] },
+    { id: 'T13', n: 'الواجهات والألمنيوم والزجاج', dur: 60, deps: [['T11','SS',30,'تبدأ الواجهات مع تقدم اللياسة']] },
+    { id: 'T14', n: 'التشطيبات الداخلية', dur: 110, deps: [['T11','FS',0,'لا يبدأ البلاط والدهان قبل اكتمال اللياسة'],['T10','FS',0,'لا تُبلَّط الحمامات قبل اعتماد اختبار الغمر']] },
+    { id: 'T15', n: 'الأعمال الخارجية والأسوار', dur: 50, deps: [['T14','SS',40,'تبدأ الأعمال الخارجية مع تقدم التشطيبات']] },
+    { id: 'T16', n: 'توصيل الخدمات والفحوص النهائية', dur: 35, deps: [['T14','FF',10,'تنتهي الفحوص بعد اكتمال التشطيبات'],['T12','FS',0,'يُختبر التكييف بعد تركيبه']] },
+    { id: 'T17', n: 'الاستلام وتسليم المفتاح', dur: 10, ms: true, deps: [['T16','FS',0,'لا استلام قبل اجتياز الفحوص النهائية'],['T15','FS',0,'يُستلم الموقع مكتملًا'],['T13','FS',0,'تُستكمل الواجهات قبل الاستلام']] }
+  ];
+  var byId = {}; TASKS.forEach(function (t) { byId[t.id] = t; });
+  var gs = { sel: 'T11', sim: {}, base: true };
+
+  function dateOf(d) { var x = new Date(START.getTime()); x.setDate(x.getDate() + d); return x; }
+  function fmt(d) { var x = dateOf(d); return x.getDate() + ' ' + MONTHS[x.getMonth()] + ' ' + x.getFullYear(); }
+  function fmtS(d) { var x = dateOf(d); return x.getDate() + ' ' + MONTHS[x.getMonth()]; }
+  function dd(n) { n = Math.abs(n); if (n === 1) return 'يومًا واحدًا'; if (n === 2) return 'يومين'; if (n <= 10) return n + ' أيام'; return n + ' يومًا'; }
+
+  function cons(type, p, lag, d) {
+    if (type === 'FS') return p.EF + lag;
+    if (type === 'SS') return p.ES + lag;
+    if (type === 'FF') return p.EF + lag - d;
+    return p.ES + lag - d; // SF
+  }
+  function compute(sim) {
+    var base = {}, fc = {};
+    TASKS.forEach(function (t) {
+      var es = 0;
+      t.deps.forEach(function (dp) { es = Math.max(es, cons(dp[1], base[dp[0]], dp[2], t.dur)); });
+      base[t.id] = { ES: es, EF: es + t.dur };
+      var extra = sim[t.id] || 0, a = t.a || {};
+      if (a.f != null) {
+        fc[t.id] = { ES: a.s, EF: a.f, st: 'done', p: 100 };
+      } else if (a.s != null) {
+        var ef = TODAY + Math.ceil(t.dur * (1 - a.p / 100)) + extra;
+        t.deps.forEach(function (dp) {
+          var p = fc[dp[0]];
+          if (dp[1] === 'FF') ef = Math.max(ef, p.EF + dp[2]);
+          if (dp[1] === 'SF') ef = Math.max(ef, p.ES + dp[2]);
+        });
+        fc[t.id] = { ES: a.s, EF: ef, st: 'prog', p: a.p };
+      } else {
+        var d = t.dur + extra, s = TODAY;
+        t.deps.forEach(function (dp) { s = Math.max(s, cons(dp[1], fc[dp[0]], dp[2], d)); });
+        fc[t.id] = { ES: s, EF: s + d, st: 'todo', p: 0 };
+      }
+    });
+    var end = fc[TASKS[TASKS.length - 1].id].EF;
+    for (var i = TASKS.length - 1; i >= 0; i--) {
+      var t = TASKS[i], f = fc[t.id], d = f.EF - f.ES, lf = end;
+      TASKS.forEach(function (s) {
+        s.deps.forEach(function (dp) {
+          if (dp[0] !== t.id) return;
+          var L = fc[s.id];
+          if (dp[1] === 'FS') lf = Math.min(lf, L.LS - dp[2]);
+          if (dp[1] === 'SS') lf = Math.min(lf, L.LS - dp[2] + d);
+          if (dp[1] === 'FF') lf = Math.min(lf, L.LF - dp[2]);
+          if (dp[1] === 'SF') lf = Math.min(lf, L.LF - dp[2] + d);
+        });
+      });
+      f.LF = lf; f.LS = lf - d; f.fl = lf - f.EF;
+      f.crit = f.st !== 'done' && f.fl <= 0;
+    }
+    return { base: base, fc: fc, end: end };
+  }
+  var LAST = 'T17';
+  var plain = compute({});
+
+  function sentence(t, dp) {
+    var A = '«' + t.n + '»', B = '«' + byId[dp[0]].n + '»', lag = dp[2];
+    if (dp[1] === 'FS') return lag ? 'تبدأ ' + A + ' بعد ' + dd(lag) + ' من انتهاء ' + B : 'تبدأ ' + A + ' بعد انتهاء ' + B;
+    if (dp[1] === 'SS') return lag ? 'تبدأ ' + A + ' بعد ' + dd(lag) + ' من بدء ' + B : 'تبدأ ' + A + ' مع بدء ' + B;
+    if (dp[1] === 'FF') return lag ? 'لا تنتهي ' + A + ' قبل مرور ' + dd(lag) + ' على انتهاء ' + B : 'لا تنتهي ' + A + ' قبل انتهاء ' + B;
+    return 'لا تنتهي ' + A + ' قبل بدء ' + B;
+  }
+  function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+
+  function renderGantt() {
+    var r = compute(gs.sim), fc = r.fc, base = r.base;
+    var span = Math.max(480, r.end + 20);
+    var W = Math.round(span * DAYW), H = AXISH + TASKS.length * ROWH;
+    var X = function (d) { return W - d * DAYW; }; // time flows right → left
+
+    // KPIs
+    var planEnd = base[LAST].EF - 1, fcEnd = fc[LAST].EF - 1, delta = fc[LAST].EF - base[LAST].EF;
+    $('kpiPlan').textContent = fmt(planEnd);
+    $('kpiFc').textContent = fmt(fcEnd);
+    $('kpiFcLbl').textContent = Object.keys(gs.sim).length ? 'التسليم المتوقع (محاكاة)' : 'التسليم المتوقع';
+    $('kpiDelta').textContent = delta > 0 ? 'متأخر ' + dd(delta) + ' عن المخطط' : (delta < 0 ? 'متقدم ' + dd(delta) + ' على المخطط' : 'في الموعد المخطط');
+    var crit = TASKS.filter(function (t) { return fc[t.id].crit; }).map(function (t) { return t.n; });
+    $('critText').textContent = 'المسار الحرج الآن: ' + crit.join(' ← ') + '. أي يوم تأخير في هذه الأعمال يؤخر التسليم.';
+
+    // Simulation note
+    var simIds = Object.keys(gs.sim);
+    $('simNote').hidden = !simIds.length;
+    if (simIds.length) {
+      var shift = fc[LAST].EF - plain.fc[LAST].EF;
+      var what = simIds.map(function (id) { return 'تأخير «' + byId[id].n + '» ' + dd(gs.sim[id]); }).join('، و');
+      $('simText').textContent = 'محاكاة: ' + what + '. ' + (shift > 0
+        ? 'يتأخر التسليم المتوقع ' + dd(shift) + ' إضافيًا.'
+        : 'لا يتأثر موعد التسليم، لأن التأخير ضمن هامش البند.');
+    }
+
+    // Names column
+    var names = $('gNames'); names.innerHTML = '';
+    names.appendChild(el('div', 'gh', 'البند'));
+    TASKS.forEach(function (t) {
+      var b = el('button', 'gname' + (gs.sel === t.id ? ' sel' : '') + (fc[t.id].crit ? ' crit' : ''), t.n);
+      b.type = 'button';
+      b.setAttribute('aria-pressed', gs.sel === t.id ? 'true' : 'false');
+      b.addEventListener('click', function () { select(t.id); });
+      names.appendChild(b);
+    });
+
+    // Canvas
+    var cv = $('gCanvas'); cv.innerHTML = '';
+    cv.style.width = W + 'px'; cv.style.height = H + 'px';
+    var axis = el('div', 'gaxis'); cv.appendChild(axis);
+    for (var y = 2026, m = 0; ; m++) {
+      if (m > 11) { m = 0; y++; }
+      var s = Math.max(0, Math.round((new Date(y, m, 1) - START) / 864e5));
+      if (s >= span) break;
+      var e = Math.min(span, Math.round((new Date(y, m + 1, 1) - START) / 864e5));
+      var mo = el('div', 'gmonth', (e - s) < 12 ? '' : MONTHS[m] + (m === 0 || (y === 2026 && m === 1) ? ' ' + y : ''));
+      mo.style.left = X(e) + 'px'; mo.style.width = (e - s) * DAYW + 'px';
+      axis.appendChild(mo);
+      var gl = el('div', 'gline'); gl.style.left = X(s) + 'px'; gl.style.top = AXISH + 'px'; gl.style.height = (H - AXISH) + 'px';
+      cv.appendChild(gl);
+    }
+    TASKS.forEach(function (t, i) {
+      var f = fc[t.id], b = base[t.id];
+      var row = el('div', 'grow' + (gs.sel === t.id ? ' sel' : ''));
+      row.style.top = (AXISH + i * ROWH) + 'px';
+      if (gs.base) {
+        var bb = el('div', 'gbase'); bb.style.left = X(b.EF) + 'px'; bb.style.width = (b.EF - b.ES) * DAYW + 'px';
+        row.appendChild(bb);
+      }
+      var label = t.n + '، ' + (f.st === 'done' ? 'منجز' : f.st === 'prog' ? 'جارٍ ' + f.p + '%' : 'لم يبدأ') + '، من ' + fmt(f.ES) + ' إلى ' + fmt(f.EF - 1);
+      if (t.ms) {
+        var ms = el('button', 'gms'); ms.type = 'button';
+        ms.style.left = (X(f.EF) - 8) + 'px';
+        ms.style.background = f.crit ? '#9A4A06' : 'var(--brand)';
+        if (gs.sel === t.id) ms.style.outline = '2px solid #1E4BA8';
+        ms.setAttribute('aria-label', label);
+        ms.addEventListener('click', function () { select(t.id); });
+        row.appendChild(ms);
+      } else {
+        var bar = el('button', 'gbar ' + f.st + (f.crit ? ' crit' : '') + (gs.sel === t.id ? ' sel' : ''));
+        bar.type = 'button';
+        bar.style.left = X(f.EF) + 'px'; bar.style.width = Math.max(4, (f.EF - f.ES) * DAYW) + 'px';
+        bar.setAttribute('aria-label', label);
+        if (f.st === 'prog') {
+          var fill = el('span', 'fill'); fill.style.width = f.p + '%';
+          bar.appendChild(fill);
+        }
+        bar.addEventListener('click', function () { select(t.id); });
+        row.appendChild(bar);
+      }
+      cv.appendChild(row);
+    });
+    var td = el('div', 'gtoday'); td.id = 'gToday'; td.style.left = (X(TODAY) - 1) + 'px';
+    td.appendChild(el('b', null, 'اليوم'));
+    cv.appendChild(td);
+
+    // Dependency connectors for the selected task
+    var NS = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('class', 'gsvg'); svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('aria-hidden', 'true');
+    svg.innerHTML = '<defs><marker id="arIn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1E4BA8"/></marker><marker id="arOut" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#56655F"/></marker></defs>';
+    var rowY = function (id) { return AXISH + TASKS.indexOf(byId[id]) * ROWH + 21; };
+    var anchor = function (id, which) { var f = fc[id]; return which === 'S' ? X(f.ES) : X(f.EF); };
+    function link(pid, sid, type, color, marker) {
+      var x1 = anchor(pid, type.charAt(0) === 'F' ? 'F' : 'S'), x2 = anchor(sid, type.charAt(1) === 'F' ? 'F' : 'S');
+      var y1 = rowY(pid), y2 = rowY(sid), xm;
+      if (type === 'SS') xm = Math.max(x1, x2) + 8;
+      else if (type === 'FF') xm = Math.min(x1, x2) - 8;
+      else xm = x1 - 8;
+      var p = document.createElementNS(NS, 'path');
+      p.setAttribute('d', 'M' + x1 + ' ' + y1 + ' H' + xm + ' V' + y2 + ' H' + x2);
+      p.setAttribute('fill', 'none'); p.setAttribute('stroke', color); p.setAttribute('stroke-width', '1.6');
+      p.setAttribute('marker-end', 'url(#' + marker + ')');
+      svg.appendChild(p);
+    }
+    var sel = byId[gs.sel];
+    sel.deps.forEach(function (dp) { link(dp[0], sel.id, dp[1], '#1E4BA8', 'arIn'); });
+    TASKS.forEach(function (s) { s.deps.forEach(function (dp) { if (dp[0] === sel.id) link(sel.id, s.id, dp[1], '#56655F', 'arOut'); }); });
+    cv.appendChild(svg);
+
+    renderDetail(r);
+  }
+
+  function renderDetail(r) {
+    var t = byId[gs.sel], f = r.fc[t.id], b = r.base[t.id], box = $('gDetail');
+    box.innerHTML = '';
+    var head = el('div', 'between');
+    head.appendChild(el('h2', null, t.n));
+    var pill = el('span', 'pill ' + (f.st === 'done' ? 'done' : f.st === 'prog' ? 'prog' : 'todo'),
+      f.st === 'done' ? 'منجز' : f.st === 'prog' ? 'جارٍ · ' + f.p + '% معتمد' : 'لم يبدأ');
+    head.appendChild(pill);
+    box.appendChild(head);
+
+    var kv = el('div', 'kv');
+    function row(k, v) { var d = el('div'); d.appendChild(el('span', null, k)); d.appendChild(el('span', null, v)); kv.appendChild(d); }
+    row('المخطط', fmtS(b.ES) + ' – ' + fmt(b.EF - 1));
+    row(f.st === 'done' ? 'الفعلي' : 'المتوقع', fmtS(f.ES) + ' – ' + fmt(f.EF - 1));
+    var v = f.EF - b.EF;
+    row('الانحراف في النهاية', v > 0 ? 'متأخر ' + dd(v) : (v < 0 ? 'متقدم ' + dd(v) : 'في الموعد'));
+    row('هامش التأخير', f.st === 'done' ? '—' : (f.crit ? 'لا يوجد: على المسار الحرج' : 'حتى ' + dd(f.fl) + ' دون أثر في التسليم'));
+    box.appendChild(kv);
+
+    if (t.deps.length) {
+      box.appendChild(el('h3', 'small muted', 'يعتمد على'));
+      t.deps.forEach(function (dp) {
+        var c = el('div', 'dep');
+        c.appendChild(el('span', 'ty', dp[1] + ' · ' + TYPES[dp[1]] + (dp[2] ? ' · فاصل ' + dd(dp[2]) : '')));
+        c.appendChild(el('span', 's', sentence(t, dp)));
+        if (dp[3]) c.appendChild(el('span', 'why', 'السبب: ' + dp[3]));
+        box.appendChild(c);
+      });
+    }
+    var outs = [];
+    TASKS.forEach(function (s) { s.deps.forEach(function (dp) { if (dp[0] === t.id) outs.push([s, dp]); }); });
+    if (outs.length) {
+      box.appendChild(el('h3', 'small muted', 'تعتمد عليه'));
+      outs.forEach(function (o) {
+        var c = el('div', 'dep');
+        c.appendChild(el('span', 'ty out', o[1][1] + ' · ' + TYPES[o[1][1]] + (o[1][2] ? ' · فاصل ' + dd(o[1][2]) : '')));
+        c.appendChild(el('span', 's', sentence(o[0], o[1])));
+        box.appendChild(c);
+      });
+    }
+
+    var btns = el('div'); btns.style.cssText = 'display:flex;gap:8px;flex-wrap:wrap';
+    if (f.st !== 'done') {
+      var sb = el('button', 'mini-btn', 'محاكاة تأخير 7 أيام');
+      sb.type = 'button';
+      sb.addEventListener('click', function () {
+        gs.sim[t.id] = (gs.sim[t.id] || 0) + 7; renderGantt();
+        var shift = compute(gs.sim).fc[LAST].EF - plain.fc[LAST].EF;
+        toast(shift > 0 ? 'يتأخر التسليم ' + dd(shift) + ' في هذه المحاكاة' : 'لا يتأثر موعد التسليم');
+      });
+      btns.appendChild(sb);
+    } else {
+      box.appendChild(el('p', 'small muted', 'بند منجز: تواريخه الفعلية ثابتة ولا تدخل في المحاكاة.'));
+    }
+    if (Object.keys(gs.sim).length) {
+      var rb = el('button', 'mini-btn', 'إلغاء المحاكاة');
+      rb.type = 'button'; rb.style.borderColor = 'var(--line)'; rb.style.color = 'var(--ink)';
+      rb.addEventListener('click', function () { gs.sim = {}; renderGantt(); toast('أُلغيت المحاكاة'); });
+      btns.appendChild(rb);
+    }
+    if (btns.children.length) box.appendChild(btns);
+  }
+
+  function select(id) { gs.sel = id; renderGantt(); }
+  function scrollToToday() {
+    var t = $('gToday'), c = $('gChart');
+    if (!t || !c) return;
+    var target = t.offsetLeft - c.clientWidth / 2;
+    var max = c.scrollWidth - c.clientWidth;
+    // RTL scroll: 0 at the right edge, negative towards the left
+    c.scrollLeft = -(max - Math.max(0, Math.min(max, target)));
+  }
+  $('baseToggle').addEventListener('change', function (e) { gs.base = e.target.checked; renderGantt(); });
+
+  // Fill schedule facts elsewhere
+  (function () {
+    var b = plain.base[LAST], f = plain.fc[LAST], delta = f.EF - b.EF;
+    $('homeForecast').textContent = fmt(f.EF - 1);
+    $('homeDelay').textContent = 'متأخر ' + dd(delta) + ' عن المخطط · السبب الرئيس: اللياسة الداخلية';
+    $('sowDur').textContent = b.EF + ' يومًا';
+    $('sowDates').textContent = fmt(0) + ' – ' + fmt(b.EF - 1);
+  })();
+  renderGantt();
+  window.addEventListener('hashchange', go);
+
+  /* ---------- Render state ---------- */
+  function render() {
+    // Home
+    $('decisionCount').textContent = state.approved ? '1' : '2';
+    $('reqTaskSub').textContent = state.approved
+      ? 'وافقت · لدى البنك الممول للمراجعة'
+      : (state.queried ? 'أُرسل استفسارك · بانتظار موافقتك' : 'اعتمده الاستشاري · بانتظار موافقتك');
+
+    // Request
+    var so = $('stepOwner'), sb = $('stepBank');
+    so.className = 'step ' + (state.approved ? 'done' : 'now');
+    so.querySelector('.tick').toggleAttribute('hidden', !state.approved);
+    $('stepOwnerWhen').textContent = state.approved ? '30 أكتوبر' : 'الآن';
+    sb.className = 'step ' + (state.approved ? 'now' : 'next');
+    sb.querySelector('.when').textContent = state.approved ? 'الآن' : '';
+    $('approvedBanner').hidden = !state.approved;
+    $('queryBanner').hidden = !(state.queried && !state.approved);
+    $('reqActions').hidden = state.approved;
+
+    // Item
+    $('paidSub').textContent = state.approved ? 'لدى البنك الممول' : 'بانتظار موافقتك';
+
+    // Pack
+    var photosOk = state.photos || state.adjusted;
+    setCheck('chkPhotos', photosOk, state.photos ? 'مكتملة: أُرفقت صور اللياسة' : (state.adjusted ? 'مطابقة بعد تعديل المطالبة إلى 35%' : 'ناقصة: اللياسة الداخلية'));
+    setCheck('chkInvoice', state.invoice, state.invoice ? 'أُرفقت · رقم [رقم الفاتورة]' : 'لم تُرفق بعد');
+    $('invBtn').hidden = state.invoice;
+    $('mismatch').hidden = photosOk;
+    $('plasterLine').innerHTML = state.photos
+      ? 'من 0% إلى 50% · الصور تغطي 50%'
+      : (state.adjusted ? 'من 0% إلى 35% · الصور تغطي 35%' : '<span class="flag">من 0% إلى 50% · الصور تغطي 35%</span>');
+    var done = 4 + (photosOk ? 1 : 0) + (state.invoice ? 1 : 0);
+    $('ring').style.setProperty('--p', Math.round(done / 6 * 100));
+    $('ringTxt').textContent = done + '/6';
+    var left = 6 - done;
+    $('readySub').textContent = state.submitted
+      ? 'أُرسلت الحزمة إلى الاستشاري'
+      : (left === 0 ? 'الحزمة مكتملة وجاهزة للإرسال' : (left === 1 ? 'أكمل البند الناقص قبل الإرسال إلى الاستشاري' : 'أكمل البندين الناقصين قبل الإرسال إلى الاستشاري'));
+    var btn = $('submitBtn');
+    btn.disabled = left > 0 || state.submitted;
+    btn.textContent = state.submitted ? 'أُرسل إلى الاستشاري «ص»' : 'إرسال إلى الاستشاري';
+    $('sentBanner').hidden = !state.submitted;
+  }
+  function setCheck(id, ok, sub) {
+    var li = $(id);
+    var ic = li.querySelector('[data-ic]');
+    ic.className = 'state-ic ' + (ok ? 'ok' : 'todo');
+    ic.innerHTML = ok ? okIcon : '';
+    li.querySelector('[data-sub]').textContent = sub;
+  }
+
+  /* ---------- Actions ---------- */
+  var approveDlg = $('approveDlg'), queryDlg = $('queryDlg');
+  function openDlg(d) { if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', ''); }
+
+  $('approveBtn').addEventListener('click', function () { openDlg(approveDlg); });
+  approveDlg.addEventListener('close', function () {
+    if (approveDlg.returnValue === 'confirm') {
+      state.approved = true; render();
+      toast('تمت الموافقة · أُرسلت الحزمة إلى البنك الممول');
+    }
+  });
+  $('queryBtn').addEventListener('click', function () { $('queryText').value = ''; openDlg(queryDlg); });
+  queryDlg.addEventListener('close', function () {
+    if (queryDlg.returnValue === 'send') {
+      state.queried = true; render();
+      toast('أُرسل استفسارك');
+    }
+  });
+
+  $('capBtn').addEventListener('click', function () { state.photos = true; state.adjusted = false; render(); toast('أُرفقت 6 صور مؤرخة لأعمال اللياسة'); });
+  $('adjBtn').addEventListener('click', function () { state.adjusted = true; render(); toast('عُدّلت المطالبة إلى النسبة الموثقة 35%'); });
+  $('invBtn').addEventListener('click', function () { state.invoice = true; render(); toast('أُرفقت الفاتورة الضريبية'); });
+  $('submitBtn').addEventListener('click', function () { state.submitted = true; render(); toast('أُرسل الطلب رقم 5 إلى الاستشاري'); });
+
+  $('resetBtn').addEventListener('click', function () {
+    state = initial(); render();
+    gs.sim = {}; gs.sel = 'T11'; gs.base = true; $('baseToggle').checked = true; renderGantt();
+    if (location.hash !== '#home') location.hash = '#home'; else go();
+    toast('أُعيد ضبط العرض');
+  });
+
+  /* ---------- Daily report ---------- */
+  var rpSent = false;
+  function renderReport() {
+    var ok = $('stopReason').value !== '';
+    $('rpSend').disabled = !ok || rpSent;
+    $('rpHint').hidden = ok || rpSent;
+    $('rpSent').hidden = !rpSent;
+    $('rpDraft').hidden = rpSent;
+    $('rpSend').textContent = rpSent ? 'أُرسل التقرير' : 'إرسال إلى الاستشاري والمالك';
+  }
+  $('stopReason').addEventListener('change', renderReport);
+  $('rpSend').addEventListener('click', function () {
+    rpSent = true; renderReport();
+    var n = [$('sug1').checked, $('sug2').checked].filter(Boolean).length;
+    toast(n === 2 ? 'أُرسل التقرير مع مقترحين لاعتماد الاستشاري' : (n === 1 ? 'أُرسل التقرير مع مقترح واحد لاعتماد الاستشاري' : 'أُرسل التقرير'));
+  });
+  $('resetBtn').addEventListener('click', function () {
+    rpSent = false; $('stopReason').value = ''; $('sug1').checked = true; $('sug2').checked = true; renderReport();
+  });
+
+  render();
+  renderReport();
+  go();
+})();
+</script>
+</body>
+</html>

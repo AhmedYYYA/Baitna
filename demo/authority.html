@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>بيتنا — بوابة الجهة الرقابية</title>
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F5F4; --card:#FFFFFF; --line:#DCE3E0; --track:#E4EAE7;
+  --ink:#10231F; --soft:#33433F; --muted:#56655F;
+  --brand:#0B5E51; --brand-2:#084A40; --brand-tint:#E7F1EE;
+  --amber:#8A4205; --amber-tint:#FDF1E1; --amber-line:#E8C99A;
+  --red:#A1271B; --red-tint:#FBE9E7;
+  --blue:#1E4BA8; --blue-tint:#E8EEF9;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:'IBM Plex Sans Arabic',system-ui,-apple-system,'Segoe UI',Tahoma,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p,ul,ol{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:var(--brand)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:8px}
+[hidden]{display:none !important}
+
+.bar{background:#FFFFFF;border-bottom:1px solid var(--line)}
+.bar .in{max-width:1320px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand img{width:32px;height:32px}
+.brand b{font-family:'Reem Kufi',sans-serif;font-size:22px;font-weight:600}
+.bar .sep{width:1px;height:28px;background:var(--line)}
+.bar .ttl{font-weight:600;font-size:16px}
+.ro{font-size:12px;font-weight:600;color:var(--blue);background:var(--blue-tint);border-radius:999px;padding:3px 10px}
+.bar nav{margin-inline-start:auto;display:flex;gap:6px}
+.bar nav a{font-size:14px;font-weight:600;text-decoration:none;min-height:44px;padding:0 12px;display:flex;align-items:center;border-radius:10px}
+.bar nav a:hover{background:var(--brand-tint)}
+
+.wrap{max-width:1320px;margin:0 auto;padding:24px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.head h1{font-size:26px;font-weight:700}
+.head p{font-size:14px;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:18px}
+.kpi{background:#FFFFFF;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.kpi b{display:block;font-size:28px;font-weight:700;line-height:1.2}
+.kpi span{font-size:13px;color:var(--muted)}
+.kpi.hot{border-color:var(--amber-line);background:var(--amber-tint)}
+.kpi.hot b{color:#6E3504}
+@media (max-width:900px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:18px;margin-top:18px;align-items:start}
+@media (max-width:1100px){.layout{grid-template-columns:minmax(0,1fr)}}
+.panel{background:#FFFFFF;border:1px solid var(--line);border-radius:16px}
+.tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:14px 16px;border-bottom:1px solid var(--line)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:#FFFFFF;cursor:pointer;font-size:14px;font-weight:500}
+.chip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#FFFFFF}
+.search{margin-inline-start:auto;display:flex;align-items:center;gap:8px}
+.search input{min-height:40px;border:1px solid var(--line);border-radius:10px;padding:0 12px;width:230px;background:#FFFFFF}
+.tablebox{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:760px}
+th{text-align:start;font-size:12.5px;font-weight:600;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:12px;border-bottom:1px solid var(--track);vertical-align:middle}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:#F8FAF9}
+tbody tr.sel{background:var(--blue-tint)}
+.rowbtn{border:0;background:none;padding:0;cursor:pointer;text-align:start;display:flex;flex-direction:column}
+.rowbtn b{font-size:14px}
+.rowbtn span{font-size:12.5px;color:var(--muted)}
+.prog{display:flex;align-items:center;gap:8px}
+.prog i{display:block;width:70px;height:6px;border-radius:999px;background:var(--track);position:relative;overflow:hidden}
+.prog i s{position:absolute;inset-block:0;inset-inline-start:0;background:var(--brand);border-radius:999px;text-decoration:none}
+.delay{font-weight:600}
+.delay.big{color:#6E3504}
+.flags{display:flex;gap:4px}
+.f{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+.f.ok{background:var(--brand-tint);color:var(--brand-2)}
+.f.warn{background:var(--amber-tint);color:var(--amber)}
+.f.bad{background:var(--red-tint);color:var(--red)}
+.risk{font-size:12.5px;font-weight:700;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.risk.h{background:var(--red-tint);color:var(--red)}
+.risk.m{background:var(--amber-tint);color:var(--amber)}
+.risk.l{background:var(--brand-tint);color:var(--brand-2)}
+.empty{padding:28px 16px;color:var(--muted);font-size:14px}
+
+.detail{padding:18px;display:flex;flex-direction:column;gap:16px;position:sticky;top:16px}
+@media (max-width:1100px){.detail{position:static}}
+.detail h2{font-size:19px}
+.detail h3{font-size:14px;font-weight:700;margin-bottom:8px}
+.kv{display:flex;flex-direction:column;gap:6px;font-size:14px}
+.kv div{display:flex;justify-content:space-between;gap:12px}
+.kv span:first-child{color:var(--muted)}
+.kv span:last-child{font-weight:600;text-align:end}
+.why li,.comp li,.reps li,.visits li{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--track);font-size:14px}
+.why li:first-child,.comp li:first-child,.reps li:first-child,.visits li:first-child{border-top:0}
+.pts{font-weight:700;white-space:nowrap}
+.st{font-size:12px;font-weight:700;border-radius:999px;padding:2px 9px;white-space:nowrap}
+.st.ok{background:var(--brand-tint);color:var(--brand-2)}
+.st.warn{background:var(--amber-tint);color:var(--amber)}
+.st.bad{background:var(--red-tint);color:var(--red)}
+.st.pend{background:var(--blue-tint);color:var(--blue)}
+.mini{min-height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:#FFFFFF;cursor:pointer;font-size:13px;font-weight:600}
+.btn{min-height:48px;border-radius:12px;border:0;font-size:15px;font-weight:700;cursor:pointer;padding:0 18px}
+.btn.primary{background:var(--brand);color:#FFFFFF}
+.btn.primary:hover{background:var(--brand-2)}
+.btn.ghost{background:#FFFFFF;border:1px solid var(--line)}
+.ronote{font-size:12.5px;color:var(--muted);line-height:1.7;border-top:1px solid var(--line);padding-top:12px}
+
+.method{margin-top:18px;padding:18px}
+.method h2{font-size:18px}
+.method p{font-size:14px;color:var(--muted);margin-top:4px}
+.mtable{margin-top:12px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.mtable div{background:#F6F8F7;border-radius:12px;padding:12px;font-size:13.5px}
+.mtable b{display:block;margin-bottom:6px}
+.mtable li{line-height:1.8;color:var(--soft)}
+@media (max-width:900px){.mtable{grid-template-columns:minmax(0,1fr)}}
+footer{max-width:1320px;margin:0 auto;padding:8px 24px 40px;font-size:13px;color:var(--muted)}
+
+dialog{border:0;padding:0;border-radius:18px;width:min(420px,calc(100vw - 32px));color:var(--ink)}
+dialog::backdrop{background:rgba(16,35,31,.45)}
+dialog form{padding:20px;display:flex;flex-direction:column;gap:14px}
+dialog h2{font-size:18px}
+dialog fieldset{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+dialog legend{font-size:13px;font-weight:600;margin-bottom:6px}
+dialog label{font-size:14px}
+.opt{display:flex;gap:10px;align-items:center;min-height:40px}
+.opt input{width:20px;height:20px;accent-color:var(--brand)}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-weight:600;font-size:13px}
+.field input,.field textarea{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:15px;background:#FFFFFF}
+.field textarea{min-height:80px;resize:vertical}
+.dlg-actions{display:flex;gap:8px;justify-content:flex-start;flex-wrap:wrap}
+.toast{position:fixed;inset-inline:0;margin:0 auto;bottom:24px;width:max-content;max-width:calc(100vw - 32px);background:#10231F;color:#FFFFFF;border-radius:14px;padding:12px 16px;font-size:14px;opacity:0;transform:translateY(8px);transition:opacity .2s,transform .2s;pointer-events:none;z-index:30}
+.toast.show{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+@media (max-width:640px){.search{margin-inline-start:0;width:100%}.search input{width:100%}.bar .sep,.bar .ttl{display:none}}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="in">
+    <a class="brand" href="../"><img src="../assets/favicon.svg" alt=""><b>بيتنا</b></a>
+    <span class="sep" aria-hidden="true"></span>
+    <span class="ttl">بوابة الجهة الرقابية</span>
+    <span class="ro">صلاحية اطلاع فقط</span>
+    <nav aria-label="روابط العرض">
+      <a href="index.html">تطبيق المالك</a>
+      <a href="../">العودة إلى الموقع</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="head">
+    <div>
+      <h1>المساكن قيد المتابعة</h1>
+      <p>عينة توضيحية من 8 مساكن · محدّثة حتى 30 أكتوبر 2026</p>
+    </div>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="layout">
+    <section class="panel" aria-labelledby="h-list">
+      <h2 id="h-list" hidden>قائمة المساكن</h2>
+      <div class="tools">
+        <div class="chips" role="group" aria-label="تصفية بحسب المخاطر" id="chips">
+          <button type="button" class="chip" data-f="all" aria-pressed="true">الكل</button>
+          <button type="button" class="chip" data-f="h" aria-pressed="false">مرتفعة</button>
+          <button type="button" class="chip" data-f="m" aria-pressed="false">متوسطة</button>
+          <button type="button" class="chip" data-f="l" aria-pressed="false">منخفضة</button>
+        </div>
+        <div class="search">
+          <label for="q" class="ro" style="background:none;color:var(--muted);padding:0">بحث</label>
+          <input id="q" type="search" placeholder="رقم الملف أو المنطقة">
+        </div>
+      </div>
+      <div class="tablebox">
+        <table>
+          <caption hidden>المساكن مرتبة بحسب درجة المخاطر</caption>
+          <thead>
+            <tr><th scope="col">المسكن</th><th scope="col">المقاول</th><th scope="col">المرحلة</th><th scope="col">التقدم المعتمد</th><th scope="col">الانحراف عن التسليم</th><th scope="col">الامتثال</th><th scope="col">المخاطر</th></tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <p class="empty" id="empty" hidden>لا توجد مساكن تطابق البحث. غيّر عبارة البحث أو اختر «الكل».</p>
+    </section>
+
+    <aside class="panel detail" id="detail" aria-live="polite"></aside>
+  </div>
+
+  <section class="panel method" aria-labelledby="h-method">
+    <h2 id="h-method">كيف تُحسب درجة المخاطر</h2>
+    <p>تُجمع النقاط من خمسة عوامل: 6 نقاط فأكثر مخاطر مرتفعة، ومن 3 إلى 5 متوسطة، وأقل من 3 منخفضة. والأوزان توضيحية تُضبط مع الجهة في التجربة الميدانية.</p>
+    <div class="mtable">
+      <div><b>الانحراف عن التسليم</b><ul><li>أكثر من 30 يومًا: 3 نقاط</li><li>من 15 إلى 30 يومًا: نقطتان</li><li>أقل من 15 يومًا: نقطة واحدة</li></ul></div>
+      <div><b>غياب الأدلة الميدانية</b><ul><li>أكثر من 14 يومًا: 3 نقاط</li><li>من 8 إلى 14 يومًا: نقطة واحدة</li></ul></div>
+      <div><b>ملاحظات الامتثال</b><ul><li>كل مخالفة: نقطتان</li><li>كل تنبيه: نقطة واحدة</li></ul></div>
+      <div><b>طلبات دفعات معادة</b><ul><li>مرتان فأكثر: نقطة واحدة</li></ul></div>
+      <div><b>نزاع مسجل</b><ul><li>نقطتان</li></ul></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>عرض توضيحي ببيانات افتراضية. صلاحية اطلاع فقط دون تعديل على بيانات المشاريع، وتُخفى الوجوه تلقائيًا، ولا تُعرض صور الغرف التي يستثنيها المالك.</p>
+</footer>
+
+<dialog id="visitDlg" aria-labelledby="visitTitle">
+  <form method="dialog" id="visitForm">
+    <h2 id="visitTitle">جدولة زيارة ميدانية</h2>
+    <p class="small" id="visitFor" style="font-size:14px;color:var(--muted)"></p>
+    <fieldset>
+      <legend>نوع الزيارة</legend>
+      <label class="opt"><input type="radio" name="vtype" value="مفاجئة" checked> زيارة مفاجئة</label>
+      <label class="opt"><input type="radio" name="vtype" value="مجدولة مع إشعار الاستشاري"> زيارة مجدولة مع إشعار الاستشاري</label>
+    </fieldset>
+    <div class="field">
+      <label for="vdate">التاريخ</label>
+      <input id="vdate" type="date" value="2026-11-03" min="2026-10-30" required>
+    </div>
+    <div class="field">
+      <label for="vnote">ما الذي يُتحقق منه؟</label>
+      <textarea id="vnote" placeholder="مثال: مطابقة نسبة الإنجاز في الموقع للتقرير المقدم"></textarea>
+    </div>
+    <div class="dlg-actions">
+      <button class="btn primary" value="ok">جدولة الزيارة</button>
+      <button class="btn ghost" value="cancel" formnovalidate>إلغاء</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var MONTHS = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  var COMP = {
+    reg: 'تسجيل المقاول وتصنيفه',
+    ins: 'تأمين الموقع والعمال',
+    lic: 'الرخصة التجارية للمقاول',
+    sub: 'تسجيل مقاولي الباطن'
+  };
+  var P = [
+    { id: 'BT-0388', area: 'الخوانيج الثانية', con: '«م»', cons: '«ف»', stage: 'الهيكل الخرساني', prog: 18, delay: 64, ev: 21, ret: 1, disp: 0, plan: '15 فبراير 2027', fc: '20 أبريل 2027',
+      comp: { reg: ['ok', 'مسجل ومصنف'], ins: ['bad', 'منتهٍ منذ 6 أيام'], lic: ['ok', 'سارية'], sub: ['ok', 'مسجلون'] },
+      reps: [['تقرير مرحلة الأساسات', '2 سبتمبر', 'ok'], ['تقرير الهيكل — الطابق الأرضي', '9 أكتوبر', 'pend']], visits: [] },
+    { id: 'BT-0375', area: 'حتا', con: '«م»', cons: '«ق»', stage: 'الهيكل الخرساني', prog: 22, delay: 45, ev: 16, ret: 0, disp: 0, plan: '10 مارس 2027', fc: '24 أبريل 2027',
+      comp: { reg: ['ok', 'مسجل ومصنف'], ins: ['ok', 'ساري'], lic: ['warn', 'تنتهي خلال 9 أيام'], sub: ['ok', 'مسجلون'] },
+      reps: [['تقرير مرحلة الأساسات', '18 سبتمبر', 'ok'], ['تقرير الهيكل — الطابق الأرضي', '21 أكتوبر', 'pend']], visits: [] },
+    { id: 'BT-0451', area: 'العوير الأولى', con: '«ن»', cons: '«ل»', stage: 'البلوك', prog: 27, delay: 33, ev: 3, ret: 2, disp: 0, plan: '1 مايو 2027', fc: '3 يونيو 2027',
+      comp: { reg: ['ok', 'مسجل ومصنف'], ins: ['ok', 'ساري'], lic: ['ok', 'سارية'], sub: ['bad', 'مقاول باطن غير مسجل'] },
+      reps: [['تقرير البلوك — الطابق الأرضي', '26 أكتوبر', 'pend']], visits: [] },
+    { id: 'BT-0420', area: 'البرشاء جنوب الثالثة', con: '«ت»', cons: '«ف»', stage: 'التمديدات', prog: 38, delay: 21, ev: 2, ret: 0, disp: 1, plan: '20 فبراير 2027', fc: '13 مارس 2027',
+      comp: { reg: ['ok', 'مسجل ومصنف'], ins: ['ok', 'ساري'], lic: ['ok', 'سارية'], sub: ['ok', 'مسجلون'] },
+      reps: [['تقرير التمديدات — الطابق الأرضي', '15 أكتوبر', 'ok']], visits: [] },
+    { id: 'BT-0412', area: 'الورقاء الرابعة', con: '«س»', cons: '«ص»', stage: 'التمديدات والعزل', prog: 42, delay: 39, ev: 0, ret: 0, disp: 0, plan: '20 مارس 2027', fc: '28 أبريل 2027',
+      comp: { reg: ['ok', 'مسجل ومصنف'], ins: ['ok', 'ساري'], lic: ['ok', 'سارية'], sub: ['ok', 'مسجلون'] },
+      reps: [['تقرير الهيكل — الطابق الأول', '19 أكتوبر', 'ok'], ['تقرير العزل المائي — حمامات الطابق الأرضي', '13 أكتوبر', 'pend']], visits: [] },
+    { id: 'BT-0397', area: 'ند الشبا الثالثة', con: '«ر»', cons: '«ق»', stage: 'التشطيبات', prog: 71, delay: 12, ev: 1, ret: 0, disp: 0, plan: '5 ديسمبر 2026', fc: '17 ديسمبر 2026',
+      comp: { reg: ['ok', 'مسجل ومصنف'], ins: ['ok', 'ساري'], lic: ['ok', 'سارية'], sub: ['ok', 'مسجلون'] },
+      reps: [['تقرير التشطيبات — المرحلة الأولى', '28 أكتوبر', 'pend']], visits: [] },
+    { id: 'BT-0433', area: 'المزهر الأولى', con: '«ر»', cons: '«ل»', stage: 'البلوك', prog: 31, delay: 5, ev: 4, ret: 0, disp: 0, plan: '12 أبريل 2027', fc: '17 أبريل 2027',
+      comp: { reg: ['ok', 'مسجل ومصنف'], ins: ['ok', 'ساري'], lic: ['ok', 'سارية'], sub: ['ok', 'مسجلون'] },
+      reps: [['تقرير مرحلة الأساسات', '30 أغسطس', 'ok']], visits: [] },
+    { id: 'BT-0466', area: 'الخوانيج الأولى', con: '«ك»', cons: '«ص»', stage: 'الأساسات', prog: 9, delay: 0, ev: 2, ret: 0, disp: 0, plan: '30 أغسطس 2027', fc: '30 أغسطس 2027',
+      comp: { reg: ['ok', 'مسجل ومصنف'], ins: ['ok', 'ساري'], lic: ['ok', 'سارية'], sub: ['ok', 'مسجلون'] },
+      reps: [['تقرير الحفر والأساسات', '29 أكتوبر', 'pend']], visits: [] }
+  ];
+
+  function dd(n) { if (n === 1) return 'يومًا واحدًا'; if (n === 2) return 'يومين'; if (n <= 10) return n + ' أيام'; return n + ' يومًا'; }
+  function since(n) { if (n === 0) return 'اليوم'; if (n === 1) return 'أمس'; return 'قبل ' + (n === 2 ? 'يومين' : (n <= 10 ? n + ' أيام' : n + ' يومًا')); }
+  function score(p) {
+    var f = [];
+    if (p.delay > 30) f.push(['الانحراف عن التسليم ' + dd(p.delay), 3]);
+    else if (p.delay >= 15) f.push(['الانحراف عن التسليم ' + dd(p.delay), 2]);
+    else if (p.delay > 0) f.push(['الانحراف عن التسليم ' + dd(p.delay), 1]);
+    if (p.ev > 14) f.push(['لا أدلة ميدانية منذ ' + dd(p.ev), 3]);
+    else if (p.ev >= 8) f.push(['لا أدلة ميدانية منذ ' + dd(p.ev), 1]);
+    Object.keys(COMP).forEach(function (k) {
+      var c = p.comp[k];
+      if (c[0] === 'bad') f.push([COMP[k] + ': ' + c[1], 2]);
+      if (c[0] === 'warn') f.push([COMP[k] + ': ' + c[1], 1]);
+    });
+    if (p.ret >= 2) f.push(['طلبات دفعات أُعيدت للتصحيح ' + (p.ret === 2 ? 'مرتين' : p.ret + ' مرات'), 1]);
+    if (p.disp > 0) f.push(['نزاع مسجل بين المالك والمقاول', 2]);
+    var s = f.reduce(function (a, x) { return a + x[1]; }, 0);
+    return { s: s, f: f, lvl: s >= 6 ? 'h' : (s >= 3 ? 'm' : 'l') };
+  }
+  var LVL = { h: 'مرتفعة', m: 'متوسطة', l: 'منخفضة' };
+  function pts(n) { if (n === 0) return 'صفر'; return n === 1 ? 'نقطة واحدة' : (n === 2 ? 'نقطتان' : (n <= 10 ? n + ' نقاط' : n + ' نقطة')); }
+  P.forEach(function (p) { p.r = score(p); });
+  P.sort(function (a, b) { return b.r.s - a.r.s || b.delay - a.delay; });
+
+  var state = { f: 'all', q: '', sel: P[0].id };
+  var $ = function (id) { return document.getElementById(id); };
+  function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+
+  var toastTimer;
+  function toast(m) { var t = $('toast'); t.textContent = m; t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2800); }
+
+  function kpis() {
+    var k = $('kpis'); k.innerHTML = '';
+    var hi = P.filter(function (p) { return p.r.lvl === 'h'; }).length;
+    var late = P.filter(function (p) { return p.delay > 30; }).length;
+    var comp = P.filter(function (p) { return Object.keys(COMP).some(function (c) { return p.comp[c][0] !== 'ok'; }); }).length;
+    var pend = P.reduce(function (a, p) { return a + p.reps.filter(function (r) { return r[2] === 'pend'; }).length; }, 0);
+    [[P.length, 'مساكن في العينة', ''], [hi, 'مخاطر مرتفعة', 'hot'], [late, 'متأخرة أكثر من 30 يومًا', ''], [comp, 'عليها ملاحظات امتثال', ''], [pend, 'تقارير مراحل بانتظار المراجعة', '']].forEach(function (x) {
+      var d = el('div', 'kpi ' + x[2]); d.appendChild(el('b', null, String(x[0]))); d.appendChild(el('span', null, x[1])); k.appendChild(d);
+    });
+  }
+
+  function visible() {
+    var q = state.q.trim();
+    return P.filter(function (p) {
+      return (state.f === 'all' || p.r.lvl === state.f) && (!q || p.id.toLowerCase().indexOf(q.toLowerCase()) > -1 || p.area.indexOf(q) > -1);
+    });
+  }
+
+  function rows() {
+    var tb = $('rows'); tb.innerHTML = '';
+    var list = visible();
+    $('empty').hidden = list.length > 0;
+    list.forEach(function (p) {
+      var tr = el('tr', p.id === state.sel ? 'sel' : '');
+      var td1 = el('td'); var b = el('button', 'rowbtn'); b.type = 'button';
+      b.setAttribute('aria-pressed', p.id === state.sel ? 'true' : 'false');
+      b.appendChild(el('b', null, p.id)); b.appendChild(el('span', null, p.area));
+      b.addEventListener('click', function (e) { e.stopPropagation(); select(p.id); });
+      td1.appendChild(b); tr.appendChild(td1);
+      tr.appendChild(el('td', null, p.con));
+      tr.appendChild(el('td', null, p.stage));
+      var td4 = el('td'); var pr = el('span', 'prog'); var bar = el('i'); var fill = el('s'); fill.style.width = p.prog + '%'; bar.appendChild(fill); pr.appendChild(bar); pr.appendChild(el('span', null, p.prog + '%')); td4.appendChild(pr); tr.appendChild(td4);
+      tr.appendChild(el('td', 'delay' + (p.delay > 30 ? ' big' : ''), p.delay ? '+' + dd(p.delay) : 'في الموعد'));
+      var td6 = el('td'); var fl = el('span', 'flags');
+      Object.keys(COMP).forEach(function (k) {
+        var c = p.comp[k]; var f = el('span', 'f ' + c[0], c[0] === 'ok' ? '✓' : '!');
+        f.setAttribute('title', COMP[k] + ': ' + c[1]); f.setAttribute('aria-label', COMP[k] + ': ' + c[1]);
+        fl.appendChild(f);
+      });
+      td6.appendChild(fl); tr.appendChild(td6);
+      var td7 = el('td'); td7.appendChild(el('span', 'risk ' + p.r.lvl, LVL[p.r.lvl] + ' · ' + p.r.s)); tr.appendChild(td7);
+      tr.addEventListener('click', function () { select(p.id); });
+      tb.appendChild(tr);
+    });
+  }
+
+  function detail() {
+    var p = P.filter(function (x) { return x.id === state.sel; })[0];
+    var d = $('detail'); d.innerHTML = '';
+    var h = el('div'); h.style.cssText = 'display:flex;justify-content:space-between;align-items:flex-start;gap:10px';
+    var t = el('div'); t.appendChild(el('h2', null, p.id + ' · ' + p.area)); var sub = el('p', null, 'المقاول ' + p.con + ' · الاستشاري ' + p.cons); sub.style.cssText = 'font-size:13px;color:var(--muted)'; t.appendChild(sub);
+    h.appendChild(t); h.appendChild(el('span', 'risk ' + p.r.lvl, 'مخاطر ' + LVL[p.r.lvl]));
+    d.appendChild(h);
+
+    var kv = el('div', 'kv');
+    [['المرحلة الحالية', p.stage], ['التقدم المعتمد', p.prog + '%'], ['التسليم المخطط', p.plan], ['التسليم المتوقع', p.fc + (p.delay ? ' (+' + dd(p.delay) + ')' : '')], ['آخر دليل ميداني', since(p.ev)]].forEach(function (r) {
+      var x = el('div'); x.appendChild(el('span', null, r[0])); x.appendChild(el('span', null, r[1])); kv.appendChild(x);
+    });
+    d.appendChild(kv);
+
+    var w = el('div'); w.appendChild(el('h3', null, 'لماذا هذه الدرجة؟ (' + pts(p.r.s) + ')'));
+    var ul = el('ul', 'why');
+    if (!p.r.f.length) ul.appendChild(el('li', null, 'لا عوامل مخاطر مرصودة.'));
+    p.r.f.forEach(function (f) { var li = el('li'); li.appendChild(el('span', null, f[0])); li.appendChild(el('span', 'pts', '+' + f[1])); ul.appendChild(li); });
+    w.appendChild(ul); d.appendChild(w);
+
+    var c = el('div'); c.appendChild(el('h3', null, 'الامتثال'));
+    var cl = el('ul', 'comp');
+    Object.keys(COMP).forEach(function (k) { var li = el('li'); li.appendChild(el('span', null, COMP[k])); li.appendChild(el('span', 'st ' + p.comp[k][0], p.comp[k][1])); cl.appendChild(li); });
+    c.appendChild(cl); d.appendChild(c);
+
+    var r = el('div'); r.appendChild(el('h3', null, 'تقارير المراحل'));
+    var rl = el('ul', 'reps');
+    p.reps.forEach(function (x) {
+      var li = el('li'); var tx = el('span'); tx.appendChild(el('span', null, x[0])); var dt = el('span', null, ' · ' + x[1]); dt.style.color = 'var(--muted)'; tx.appendChild(dt);
+      var right = el('span'); right.style.cssText = 'display:flex;gap:6px;align-items:center';
+      right.appendChild(el('span', 'st ' + (x[2] === 'pend' ? 'pend' : 'ok'), x[2] === 'pend' ? 'بانتظار المراجعة' : 'روجع'));
+      var vb = el('button', 'mini', 'اطّلاع'); vb.type = 'button'; vb.addEventListener('click', function () { toast('عرض التقرير خارج نطاق هذا النموذج الأولي'); });
+      right.appendChild(vb); li.appendChild(tx); li.appendChild(right); rl.appendChild(li);
+    });
+    r.appendChild(rl); d.appendChild(r);
+
+    var v = el('div'); v.appendChild(el('h3', null, 'الزيارات الميدانية'));
+    var vl = el('ul', 'visits');
+    if (!p.visits.length) vl.appendChild(el('li', null, 'لا زيارات مجدولة.'));
+    p.visits.forEach(function (x) { var li = el('li'); li.appendChild(el('span', null, 'زيارة ' + x.type)); li.appendChild(el('span', 'st pend', x.date)); vl.appendChild(li); });
+    v.appendChild(vl); d.appendChild(v);
+
+    var sb = el('button', 'btn primary', 'جدولة زيارة ميدانية'); sb.type = 'button';
+    sb.addEventListener('click', function () { $('visitFor').textContent = p.id + ' · ' + p.area; $('vnote').value = ''; $('visitDlg').showModal(); });
+    d.appendChild(sb);
+    d.appendChild(el('p', 'ronote', 'صلاحية اطلاع فقط: لا تعديل على بيانات المشروع. وتُبلَّغ الأطراف بالزيارة المجدولة فقط، ولا تُبلَّغ بالزيارة المفاجئة.'));
+  }
+
+  function select(id) { state.sel = id; rows(); detail(); }
+  $('chips').addEventListener('click', function (e) {
+    var b = e.target.closest('.chip'); if (!b) return;
+    state.f = b.getAttribute('data-f');
+    document.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', c === b ? 'true' : 'false'); });
+    var list = visible(); if (list.length && !list.some(function (p) { return p.id === state.sel; })) state.sel = list[0].id;
+    rows(); detail();
+  });
+  $('q').addEventListener('input', function (e) {
+    state.q = e.target.value;
+    var list = visible(); if (list.length && !list.some(function (p) { return p.id === state.sel; })) state.sel = list[0].id;
+    rows(); detail();
+  });
+  $('visitDlg').addEventListener('close', function () {
+    if ($('visitDlg').returnValue !== 'ok') return;
+    var p = P.filter(function (x) { return x.id === state.sel; })[0];
+    var type = document.querySelector('input[name="vtype"]:checked').value;
+    var v = $('vdate').value.split('-'); var date = Number(v[2]) + ' ' + MONTHS[Number(v[1]) - 1] + ' ' + v[0];
+    p.visits.push({ type: type, date: date });
+    detail();
+    toast('جُدولت زيارة ' + type + ' إلى ' + p.id + ' في ' + date);
+  });
+
+  kpis(); rows(); detail();
+})();
+</script>
+</body>
+</html>
