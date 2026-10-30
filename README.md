@@ -36,3 +36,16 @@ The site link appears on the same page after a minute or two.
 صفحات HTML مستقلة دون أي أدوات بناء أو مكتبات خارجية، عدا خطوط Google (IBM Plex Sans Arabic وReem Kufi).
 
 Plain, self-contained HTML pages with no build step or external libraries, apart from Google Fonts (IBM Plex Sans Arabic and Reem Kufi).
+
+
+## Design and interaction update (October 2026)
+
+The landing page, app demo and regulator portal share a unified green, ivory and warm-bronze visual system.
+
+- `assets/experience.css` — responsive premium landing styles, glass surfaces and accessible motion.
+- `assets/experience.js` — connected six-stage SVG lifecycle graph (drag, zoom buttons, keyboard navigation and touch pinch), building illustration zoom, smooth section reveal, low-cost ambient canvas, and mobile navigation.
+- `assets/dashboard-polish.css` — coordinated visual refinements for the existing app demo and authority portal.
+
+The production site remains static GitHub Pages HTML/CSS/JavaScript with no new external JavaScript dependencies. The original demo logic, navigation targets, English/Arabic content and illustrative-data disclaimer are retained. Motion is reduced when `prefers-reduced-motion` is enabled.
+
+To inspect recent deployments, open the GitHub Actions tab and check the **pages build and deployment** run on `main`.
