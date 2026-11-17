@@ -34,7 +34,7 @@
     menu.className = 'mobile-navigation';
     menu.id = 'mobileNavigation';
     menu.setAttribute('aria-label', 'Mobile navigation');
-    menu.innerHTML = nav.innerHTML + '<a href="demo/" data-ui-ar="افتح العرض التفاعلي ↗" data-ui-en="Open interactive demo ↗">افتح العرض التفاعلي ↗</a>';
+    menu.innerHTML = nav.innerHTML + '<a href="demo/lifecycle.html" data-ui-ar="مساحة العمل المحدثة ↗" data-ui-en="Updated workspace ↗">مساحة العمل المحدثة ↗</a>';
     top.append(menu);
     function closeMenu() {
       menu.classList.remove('is-open');
