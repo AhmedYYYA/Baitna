@@ -1,0 +1,12 @@
+{
+  "name": "baitna-local-mvp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "BAITNA private local-only MVP foundation. Synthetic data. No government, FTA or bank integrations.",
+  "engines": { "node": ">=22.16.0" },
+  "scripts": {
+    "start": "node --experimental-sqlite server.js",
+    "test": "node --experimental-sqlite --test tests/*.test.js"
+  }
+}

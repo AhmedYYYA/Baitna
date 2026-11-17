@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101917">
+<title>بيتنا — البيئة التشغيلية المحلية</title>
+<link rel="stylesheet" href="/app/app.css">
+<script type="module" src="/app/app.js"></script>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="wordmark"><div class="brandmark">ب</div><div><strong>بــيــتــنــا</strong><span>BAITNA · LOCAL MVP</span></div></div>
+    <div class="sidebar-label">دورة حياة المسكن</div>
+    <nav aria-label="التنقل الرئيسي" id="nav">
+      <button class="navlink active" data-tab="overview"><span>◉</span> نظرة عامة</button>
+      <button class="navlink" data-tab="registry"><span>⌂</span> سجل المساكن</button>
+      <button class="navlink" data-tab="contracts"><span>▤</span> العقود وSOW</button>
+      <button class="navlink" data-tab="schedule"><span>▦</span> IMS والأنشطة</button>
+      <button class="navlink" data-tab="audit"><span>◷</span> سجل التدقيق</button>
+    </nav>
+    <div class="sidebar-footer"><span class="statusdot"></span> بيئة تطوير محلية<br><small>بيانات تجريبية فقط · ليست منصة حكومية</small></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="eyebrow">PLATFORM OPERATIONS / LOCAL PREVIEW</div>
+      <div class="topright"><label for="account">المستخدم التجريبي</label><select id="account" aria-label="تغيير مستخدم العرض"></select><span class="demo-pill">DEMO ONLY</span></div>
+    </header>
+    <div class="content">
+      <section class="hero">
+        <div><p class="eyebrow gold">HOME LIFECYCLE INTELLIGENCE</p><h1>المسكن… سجلٌ يستمر.</h1><p>مرجعية واحدة تربط المنزل بالمشاريع والعقود وبيانات الأعمال والجدول الزمني المتكامل، طوال دورة حياته.</p></div>
+        <div class="hero-id"><span>PERMANENT HOME ID</span><strong id="heroHomeRef">—</strong><small>لا يتغير بتغير المشروع أو المستخدم</small></div>
+      </section>
+      <div id="alerts" role="status" aria-live="polite"></div>
+      <div class="selectline"><label for="projectSelect">المشروع النشط</label><select id="projectSelect" aria-label="اختر المشروع"></select><span id="projectDetail" class="meta"></span></div>
+      <section id="tab-overview" class="tab">
+        <div class="sectionhead"><div><p class="eyebrow">DASHBOARD</p><h2>الحالة التشغيلية للمشروع</h2></div><span class="tag">بيانات توضيحية قابلة للتعديل</span></div>
+        <div class="stats" id="stats"></div>
+        <div class="twocol"><article class="panel"><div class="panel-head"><h3>المرجعيات الثلاث</h3><small>مترابطة وليست مدمجة</small></div><div id="pillars" class="pillars"></div></article><article class="panel"><div class="panel-head"><h3>خريطة المشروع</h3><small>من الأعمال إلى المواعيد</small></div><div class="chain"><span>HOME ID</span><i>↓</i><span>PROJECT</span><i>↓</i><span>CONTRACT / SOW / WBS / BOQ</span><i>↓</i><span>IMS BASELINE</span></div></article></div>
+        <article class="panel"><div class="panel-head"><h3>المسار الحرج — النموذج الحسابي</h3><small>تقويم أيام متتالية؛ لا يشمل العطل والموارد</small></div><div id="critical"></div></article>
+      </section>
+      <section id="tab-registry" class="tab hidden"><div class="sectionhead"><div><p class="eyebrow">PROPERTY REGISTRY</p><h2>السجل الرقمي للمسكن</h2></div></div><div id="homeCards" class="cards"></div><div class="twocol"><article class="panel"><h3>تسجيل مسكن جديد</h3><p class="hint">يُنشئ النظام رقماً دائماً وعشوائياً غير قابل للتغيير.</p><form data-action="create-home"><label>اسم المسكن<input name="label" required placeholder="مثال: بيت العائلة"></label><button class="btn primary">إنشاء Home ID</button></form></article><article class="panel"><h3>إضافة مشروع لمسكن قائم</h3><p class="hint">يمكن ربط البناء والتجديد والصيانة بالهوية نفسها.</p><form data-action="create-project"><label>المسكن<select name="homeId" id="homeInput"></select></label><label>اسم المشروع<input name="name" required placeholder="إنشاء، تجديد، صيانة..."></label><label>نوع المشروع<select name="projectKind"><option value="new_build">إنشاء جديد</option><option value="maintenance">صيانة</option><option value="renovation">تجديد</option><option value="extension">توسعة</option></select></label><button class="btn primary">إضافة مشروع</button></form></article></div></section>
+      <section id="tab-contracts" class="tab hidden"><div class="sectionhead"><div><p class="eyebrow">CONTRACT + SOW + WORK BREAKDOWN</p><h2>المرجعيات التعاقدية والفنية</h2></div></div><div class="twocol"><article class="panel"><h3>إنشاء عقد</h3><form data-action="create-contract"><label>الطرف المتعاقد<input name="counterparty" required placeholder="اسم المقاول / الاستشاري"></label><label>وصف مبدئي<input name="description" placeholder="موضوع العقد"></label><button class="btn primary">إضافة العقد</button></form></article><article class="panel"><h3>إنشاء بيان الأعمال SOW</h3><form data-action="create-sow"><label>العقد المرجعي<select name="contractId" id="contractInput"></select></label><label>عنوان نطاق العمل<input name="title" required placeholder="أعمال الهيكل"></label><label>المواصفة المبدئية<input name="specification" placeholder="نطاق الأعمال"></label><button class="btn primary">إضافة SOW مستقل</button></form></article></div><div class="twocol"><article class="panel"><h3>إنشاء حزمة أعمال WBS</h3><form data-action="create-wbs"><label>رمز WBS<input name="code" required placeholder="مثال: 1.2.0"></label><label>عنوان الحزمة<input name="title" required placeholder="القواعد والأساسات"></label><label>بيان الأعمال<select name="sowId" id="sowInput"></select></label><button class="btn primary">إضافة WBS</button></form></article><article class="panel"><h3>إضافة بند كميات BOQ</h3><form data-action="create-boq"><label>حزمة الأعمال<select name="wbsId" id="boqWbsInput"></select></label><label>مرجع البند<input name="lineRef" required placeholder="B-001"></label><label>الوصف<input name="description" required placeholder="خرسانة مسلحة"></label><div class="inlinefields"><label>الكمية<input name="quantity" type="number" min="0" step="0.0001" required></label><label>الوحدة<input name="unit" required placeholder="م³"></label><label>سعر الوحدة AED<input name="unitPriceAed" type="number" min="0" step="0.01" required></label></div><button class="btn primary">إضافة بند BOQ</button></form></article></div><article class="panel"><h3>السجلات الحالية والإصدارات</h3><div id="contractRecords"></div></article></section>
+      <section id="tab-schedule" class="tab hidden"><div class="sectionhead"><div><p class="eyebrow">INTEGRATED MASTER SCHEDULE</p><h2>جدول IMS الرئيسي المتكامل</h2></div></div><div id="scheduleStatus" class="callout"></div><div class="twocol"><article class="panel"><h3>نسخة الجدول</h3><form data-action="create-ims"><label>تاريخ بداية الجدولة<input name="baseDate" type="date" required></label><button class="btn subtle">إنشاء / إظهار IMS الموحد</button></form><form data-action="create-revision"><label>وصف الإصدار<input name="description" placeholder="تعديل الجدول رقم 2"></label><button class="btn primary">إنشاء إصدار مسودة جديد</button></form></article><article class="panel"><h3>إضافة نشاط إلى المسودة</h3><form data-action="create-activity"><label>رمز النشاط<input name="code" placeholder="A7" required></label><label>عنوان النشاط<input name="title" placeholder="الأعمال الكهربائية" required></label><label>حزمة WBS<select name="wbsId" id="activityWbs"></select></label><div class="inlinefields"><label>المدة (أيام)<input name="durationDays" type="number" min="0" max="10000" required></label><label>أقرب بداية<input name="plannedStart" type="date" required></label></div><button class="btn primary">إضافة نشاط</button></form></article></div><div class="twocol"><article class="panel"><h3>ربط اعتماد نشاطين</h3><form data-action="create-dependency"><label>النشاط السابق<select name="predecessorId" id="depPre"></select></label><label>النشاط التالي<select name="successorId" id="depNext"></select></label><div class="inlinefields"><label>العلاقة<select name="linkType"><option>FS</option><option>SS</option><option>FF</option><option>SF</option></select></label><label>الفاصل (أيام)<input name="lagDays" type="number" value="0"></label></div><button class="btn primary">ربط الأنشطة</button></form></article><article class="panel"><h3>اعتماد خط الأساس</h3><p class="hint">تُقفل النسخة المعتمدة، ولا يُغيّر تعديل جديد خط الأساس السابق.</p><button id="approveBaseline" class="btn primary" type="button">اعتماد المسودة الحالية</button><div id="revisionList" class="compactlist"></div></article></div><article class="panel"><div class="panel-head"><h3>مخطط الجدولة والمسار الحرج</h3><small id="scheduleSummary"></small></div><div class="gantt-wrap"><div id="gantt"></div></div></article></section>
+      <section id="tab-audit" class="tab hidden"><div class="sectionhead"><div><p class="eyebrow">AUDIT TRAIL</p><h2>سجل أحداث المسكن</h2></div></div><article class="panel"><p class="hint">سجل لا يسمح بتعديل الأحداث أو حذفها من التطبيق، وفق نموذج التطوير المحلي.</p><div id="auditRecords" class="compactlist"></div></article></section>
+      <footer class="legal">بيتنا مبادرة خاصة مستقلة. العرض يعمل ببيانات اصطناعية وهوية مستخدم تجريبية غير آمنة للإنتاج. لا توجد صلة مباشرة بالبنوك أو UAE PASS أو الجهات الحكومية أو الهيئة الاتحادية للضرائب.</footer>
+    </div>
+  </main>
+</div>
+</body>
+</html>
