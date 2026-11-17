@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111820">
+<meta name="description" content="واجهة استرشادية لملف متطلبات المالك وإنشاء مسودات طلب معلومات وطلب تقديم عروض وطلب عروض أسعار في منصة بيتنا.">
+<title>بيتنا — ملف متطلبات المالك (ORB)</title>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="../assets/orb.css?v=1" rel="stylesheet">
+<script src="../assets/orb-catalog.js?v=1" defer></script>
+<script src="../assets/orb.js?v=1" defer></script>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">انتقل إلى المحتوى</a>
+<header class="top"><div class="top-inner">
+ <a class="brand" href="../" aria-label="العودة إلى بيتنا"><span class="mark">B</span><span><b data-i18n="brand">بيتنا</b><small data-i18n="subbrand">إدارة دورة حياة المسكن</small></span></a>
+ <nav aria-label="أقسام المنصة"><a href="lifecycle.html" data-i18n="work">مساحة العمل</a><a href="../" data-i18n="site">الموقع الرئيسي</a></nav>
+ <button type="button" id="langBtn" class="btn secondary">English</button>
+</div></header>
+<div class="notice"><div class="notice-inner"><span class="notice-dot"></span><div><strong data-i18n="demo">عرض تجريبي فقط — غير معتمد للاستخدام الرسمي</strong><p data-i18n="privacy">تُحفظ البيانات التجريبية داخل متصفحك فقط. لا تُدخل اسماً حقيقياً أو بيانات ملكية أو مستندات خاصة. لا تُعد هذه الوثائق صالحة للطرح الرسمي دون مراجعة فنية وقانونية.</p></div></div></div>
+<main id="main" class="main">
+ <div class="intro"><div><div class="eyebrow" data-i18n="eyebrow">رحلة ما قبل التعاقد</div><h1 data-i18n="title">ملف متطلبات المالك <bdi>(ORB)</bdi></h1><p data-i18n="intro">سجّل احتياجات مشروع المسكن مرة واحدة، ثم أنشئ منها مسودة قياسية مناسبة للغرض، مع إبقاء اشتراطات الإمارة قيد المراجعة المهنية.</p></div><div class="status" id="statusBox"></div></div>
+ <div class="workspace">
+  <aside class="sidebar">
+   <div class="side-title" data-i18n="steps">خطوات إعداد الملف</div>
+   <nav id="steps" class="steps" aria-label="خطوات إعداد ملف المتطلبات"></nav>
+   <div class="aside-note"><strong data-i18n="foundation">أساس البيانات</strong><p data-i18n="foundation_note">ملف منفصل لكل مشروع، مرتبط بمعرّف المسكن الثابت. تغيير المتطلبات لاحقاً لا يبدّل المسودات السابقة.</p></div>
+  </aside>
+  <div class="content">
+   <div class="context"><div><label for="projectSelect" data-i18n="project">المشروع التجريبي</label><select id="projectSelect"></select></div><div id="homeRef" class="home-ref"></div><button type="button" class="btn subtle" id="sampleBtn" data-i18n="fill">تعبئة مثال تجريبي</button></div>
+   <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+   <section class="form-section" id="section" aria-live="polite"></section>
+   <div class="pager"><button class="btn secondary" type="button" id="prevBtn" data-i18n="prev">السابق</button><div class="actions"><button class="btn subtle" type="button" id="saveBtn" data-i18n="save">حفظ المسودة</button><button class="btn primary" type="button" id="nextBtn" data-i18n="next">التالي</button></div></div>
+  </div>
+ </div>
+ <div id="documents" class="documents"></div>
+ <footer><span data-i18n="footer">جميع المستندات الناتجة مسودات توضيحية تخضع للمراجعة القانونية والفنية قبل الإصدار الحقيقي.</span><span>© 2026</span></footer>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<noscript>يتطلب هذا العرض تفعيل جافاسكربت.</noscript>
+</body>
+</html>
