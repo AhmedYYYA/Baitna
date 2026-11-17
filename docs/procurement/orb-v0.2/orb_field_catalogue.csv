@@ -1,0 +1,80 @@
+<PARSED TEXT FOR SHEET: 1 / 1 TABS
+TAB NAME: orb_field_catalogue.csv>
+index,group,field_id,label_ar,label_en,type,condition,validation,owner_edit,professional_edit,sensitivity,consumed_by
+0,CORE,orb_id,معرّف ملف المتطلبات,ORB ID,uuid,system,غير قابل للتعديل,لا,لا,internal,ALL
+1,CORE,orb_revision,إصدار المتطلبات,ORB revision,integer,system,يبدأ من 1 ويزداد عند الاعتماد,لا,لا,internal,ALL
+2,CORE,home_id,معرّف المسكن الدائم,Permanent Home ID,uuid,system,يرتبط بمسكن واحد ثابت,لا,لا,internal,ALL
+3,CORE,project_id,معرّف المشروع,Project ID,uuid,system,يخص Home ID نفسه,لا,لا,internal,ALL
+4,CORE,owner_display_name,اسم المالك الظاهر,Owner display name,text,always,1–120 حرف؛ اسم العرض فقط وليس إثبات ملكية,نعم,قراءة,private,ALL
+5,CORE,owner_contact_method,وسيلة التواصل,Preferred contact method,enum,always,in_app|phone|email; no public disclosure,نعم,قراءة مأذونة,private,ALL
+6,CORE,preferred_language,لغة الوثيقة,Document language,enum,always,ar|en|bilingual؛ الأسماء النظامية لا تُترجم آلياً,نعم,نعم,normal,ALL
+7,CORE,owner_role_verified,صفة وحق إصدار الطلب,Authority to issue,boolean,pre_issue,توثيق التفويض فقط في خدمة خاصة؛ محاكاة في التصميم,لا,إقرار والتحقق,restricted,ALL
+8,LOCATION,emirate,الإمارة,Emirate,enum,always,AD|DU|SH|AJ|RA|FU|UQ,نعم,نعم,normal,ALL
+9,LOCATION,municipality_area,المدينة أو المنطقة البلدية,Municipal area,text,always,قيمة من دليل مناطق معتمد؛ لا تخمين الجهة المختصة,نعم,نعم,normal,ALL
+10,LOCATION,competent_authority,الجهة المختصة بالترخيص,Competent permitting authority,authority_id,pre_issue,يؤكدها مختص وفق الموقع والنوع,عرض,تحقق/اعتماد,restricted,ALL
+11,LOCATION,plot_number,رقم القسيمة/الأرض,Plot reference,text,when_available,لا يُنشر على منصة عامة؛ حقل خاص مشروط,نعم,تحقق,restricted,"RFP,RFQ"
+12,LOCATION,plot_area_sqm,مساحة الأرض م²,Plot area m2,decimal,if_plot_known,>0 و<100000؛ المرجع وثيقة الأرض عند توفرها,نعم,تحقق,restricted,"RFP,RFQ"
+13,LOCATION,site_location,الموقع العام للمشروع,Project general location,text,always,المنطقة العامة؛ الإحداثيات الدقيقة اختيارية ومقيدة,نعم,نعم,normal,ALL
+14,LOCATION,tenure_document_available,توفر مستند يثبت حق التصرف,Entitlement evidence available,boolean,pre_issue,وجود المستند دون رفعه في العرض العام,نعم,تحقق في بيئة آمنة,restricted,"RFP,RFQ"
+15,LOCATION,approval_stage,حالة الموافقات,Permit status,enum,always,unknown|not_started|in_progress|approved|revision_required,نعم,تحقق,restricted,ALL
+16,PROJECT,project_type,نوع المشروع,Project type,enum,always,new_build|extension|renovation|maintenance|design_only|consultancy_only|supply_only,نعم,نعم,normal,ALL
+17,PROJECT,procurement_target,فئة المتنافسين,Sourcing target,enum,always,designer|supervision_consultant|main_contractor|subcontractor|supplier|pm,نعم,نعم,normal,ALL
+18,PROJECT,deliverable_goal,النتيجة المطلوبة,Expected outcome,text,always,وصف مفهوم لا يتجاوز 1500 حرف,نعم,تحرير منضبط,normal,ALL
+19,PROJECT,project_maturity,نضج النطاق,Scope maturity,enum,always,idea|concept|schematic|detailed_design|approved_drawings|itemized_boq,نعم,تحقق,normal,ALL
+20,PROJECT,design_docs_available,توفر المخططات,Available design documents,multi_enum,always,none|concept|architectural|structural|mep|approved_as_built|other,نعم,تحقق,restricted,"RFP,RFQ"
+21,PROJECT,new_vs_existing,حالة المسكن,Site condition,enum,always,vacant_plot|existing_occupied|existing_vacant,نعم,نعم,normal,ALL
+22,PROJECT,target_start_date,تاريخ البدء المستهدف,Target start date,date,if_known,لا يسبق اليوم في إصدار جديد إلا إذا شرح الاستثناء,نعم,نعم,normal,"RFP,RFQ"
+23,PROJECT,target_completion_date,تاريخ التسليم المستهدف,Target handover date,date,if_known,بعد target_start_date عند توفره,نعم,نعم,normal,"RFP,RFQ"
+24,PROJECT,occupancy_constraints,القيود أثناء السكن,Occupancy constraints,multi_enum,existing_occupied,noise|hours|safe_access|children|elderly|pets|utilities,نعم,تفصيل فني,restricted,"RFP,RFQ"
+25,BUILDING,gross_floor_area_sqm,إجمالي المساحة التقريبية م²,Indicative GFA m2,decimal,new_build|extension|renovation,>0؛ توضيح أنها تقديرية وغير معتمدة,نعم,تحقق هندسي,normal,"RFI,RFP,RFQ"
+26,BUILDING,floors,الطوابق المرغوبة,Desired floors,integer,new_build|extension,1–10 كحد إدخال تقني فقط لا كحد تنظيمي,نعم,تحقق تنظيمي,normal,"RFP,RFQ"
+27,BUILDING,bedrooms,عدد غرف النوم,Bedrooms,integer,residential_design,0–30 كحد واجهة لا حد قانوني,نعم,توضيح,normal,RFP
+28,BUILDING,bathrooms,عدد دورات المياه,Bathrooms,integer,residential_design,0–40 كحد واجهة,نعم,توضيح,normal,RFP
+29,BUILDING,majlis_requested,مجلس مستقل,Separate majlis,boolean,residential_design,يُظهر حزمة أسئلة منفصلة,نعم,تفاصيل,normal,"RFP,RFQ"
+30,BUILDING,majlis_area_sqm,مساحة المجلس م²,Majlis area m2,decimal,majlis_requested,>0؛ مراجعة المساحة وموقع الملحق,نعم,تحقق,normal,"RFP,RFQ"
+31,BUILDING,service_annex_requested,ملحق خدمات,Service annex,boolean,residential_design,يتطلب مراجعة اشتراطات الملاحق,نعم,تحقق,normal,"RFP,RFQ"
+32,BUILDING,basement_requested,سرداب,Basement,boolean,residential_design,يُظهر أسئلة التربة والمياه الجوفية والإنشاء,نعم,تحقق,normal,"RFP,RFQ"
+33,BUILDING,pool_requested,مسبح,Swimming pool,boolean,residential_design,يُظهر هندسة وسلامة وصيانة وخدمات,نعم,تحقق,normal,"RFP,RFQ"
+34,BUILDING,pool_type,نوع المسبح,Pool type,enum,pool_requested,indoor|outdoor|other,نعم,نعم,normal,"RFP,RFQ"
+35,BUILDING,lift_requested,مصعد,Lift,boolean,residential_design,يُظهر الوصول والسلامة والأحمال والصيانة,نعم,تفصيل فني,normal,"RFP,RFQ"
+36,BUILDING,lift_served_levels,المستويات المخدومة,Lift served levels,integer,lift_requested,>=2؛ لا يمثل شرطاً تنظيمياً,نعم,تحقق,normal,"RFP,RFQ"
+37,BUILDING,smart_home_requested,نظام منزل ذكي,Smart home system,boolean,residential_design,يُظهر الخصوصية والتكامل والتحديثات,نعم,تفصيل فني,normal,"RFP,RFQ"
+38,BUILDING,smart_home_scope,نطاق المنزل الذكي,Smart home scope,multi_enum,smart_home_requested,lighting|hvac|access|security|energy|other,نعم,نعم,normal,"RFP,RFQ"
+39,BUILDING,solar_requested,الطاقة الشمسية,Solar PV,boolean,residential_design,يتطلب مراجعة متطلبات الربط المحلية,نعم,تفصيل فني,normal,"RFP,RFQ"
+40,BUILDING,ev_charger_requested,شاحن مركبة كهربائية,EV charger,boolean,residential_design,مراجعة الأحمال والاعتمادات,نعم,تفصيل فني,normal,"RFP,RFQ"
+41,BUILDING,accessibility_requested,تهيئة وصول شامل,Accessibility needs,boolean,always,لا تجمع تفاصيل طبية؛ تُحوّل إلى متطلبات تصميمية وظيفية,نعم,تحقق فني,restricted,"RFP,RFQ"
+42,QUALITY,finish_tier,مستوى التشطيبات,Finish tier,enum,construction_related,essential|standard|premium|bespoke|owner_defined,نعم,نعم,normal,"RFP,RFQ"
+43,QUALITY,materials_preferences,تفضيلات المواد,Preferred materials,text,if_known,تفضيلات لا تُعرض كمتطلبات إلزامية قانوناً,نعم,تحقق فني,normal,"RFP,RFQ"
+44,QUALITY,design_style,الطراز المعماري,Architectural style,enum,design_related,contemporary|heritage|modern|other,نعم,نعم,normal,RFP
+45,QUALITY,energy_goals,أهداف كفاءة الطاقة,Energy goals,multi_enum,construction_related,thermal|water|solar|smart_meter|other,نعم,تحقق,normal,"RFP,RFQ"
+46,QUALITY,quality_standards,المعايير المرجعية,Quality standards,reference_list,professional_review,لا يختارها المالك كمعايير ملزمة؛ يدرجها المختص,عرض,تحرير موثق,restricted,"RFP,RFQ"
+47,COMMERCIAL,budget_band_aed,نطاق الميزانية المستهدفة,Indicative budget range AED,range,always,min>=0؛ max>=min أو undisclosed,نعم,تعليق فني,private,"RFI,RFP,RFQ"
+48,COMMERCIAL,budget_visibility,إظهار الميزانية للمتنافس,Budget disclosure mode,enum,always,hidden|range|ceiling,نعم,نعم,private,ALL
+49,COMMERCIAL,quotation_basis,أساس التسعير,Quotation basis,enum,rfq,budgetary|firm_based_on_defined_scope,نعم,تحقق وإقرار,normal,RFQ
+50,COMMERCIAL,pricing_method,طريقة التسعير,Pricing method,enum,rfp|rfq,lump_sum|unit_rates|time_and_material|mixed,نعم,تحقق,normal,"RFP,RFQ"
+51,COMMERCIAL,currency,العملة,Currency,enum,always,AED مبدئياً,لا,مراجعة,normal,ALL
+52,COMMERCIAL,tax_display_rule,قاعدة بيان الضريبة,VAT quotation presentation,enum,rfp|rfq,exclusive_and_separate|inclusive_with_breakdown؛ يراجعها المختص,عرض,تحقق قانوني,normal,"RFP,RFQ"
+53,COMMERCIAL,contingency_preference,احتياطي المخاطر,Contingency budget preference,percent,if_budget,0–30% مؤشر تخطيطي، لا إلزام قانوني,نعم,توصية,private,RFP
+54,COMMERCIAL,payment_preference,تفضيل دفعات الإنجاز,Payment preference,enum,construction_related,milestone|monthly_certified|deliverable|proposal_requested,نعم,تحقق,private,RFP
+55,COMMERCIAL,warranty_preference,تفضيلات الضمان,Warranty preferences,text,construction_related,اختيار شخصي لا يحل محل واجبات قانونية,نعم,تحقق قانوني,normal,"RFP,RFQ"
+56,EVALUATION,weight_quality,وزن الجودة,Quality weight,integer,rfp,0–100 ويجمع مع بقية الأوزان =100,نعم,اعتماد مبرر,restricted,RFP
+57,EVALUATION,weight_price,وزن السعر,Price weight,integer,rfp,0–100 ويجمع مع بقية الأوزان =100,نعم,اعتماد مبرر,restricted,RFP
+58,EVALUATION,weight_schedule,وزن الزمن,Schedule weight,integer,rfp,0–100 ويجمع مع بقية الأوزان =100,نعم,اعتماد مبرر,restricted,RFP
+59,EVALUATION,weight_experience,وزن الخبرة,Experience weight,integer,rfp,0–100 ويجمع مع بقية الأوزان =100,نعم,اعتماد مبرر,restricted,RFP
+60,EVALUATION,prequalification,متطلبات التأهيل,Prequalification requirements,multi_enum,always,license|references|insurance|staff|capacity|safety,نعم,مراجعة,normal,ALL
+61,EVALUATION,evaluation_mode,منهجية المفاضلة,Evaluation approach,enum,always,best_value|technical_then_price|lowest_compliant,نعم,تدقيق قبل الإصدار,normal,"RFP,RFQ"
+62,TENDER,solicitation_type,نوع وثيقة الطلب,Instrument,enum,generation,RFI|RFP|RFQ — ليس ترتيباً إلزامياً,نعم,نعم,normal,ALL
+63,TENDER,bid_deadline,آخر موعد لاستلام الردود,Bid response deadline,datetime,pre_issue,بعد تاريخ الإصدار؛ UTC داخلياً,نعم,تأكيد,normal,ALL
+64,TENDER,clarification_deadline,آخر موعد للاستفسارات,Clarification cut-off,datetime,pre_issue,قبل bid_deadline,نعم,تأكيد,normal,ALL
+65,TENDER,bid_validity_days,مدة صلاحية العرض المطلوبة,Requested offer validity days,integer,rfp|rfq,>0؛ لا يلزم قانوناً عدد موحد,نعم,مراجعة,normal,"RFP,RFQ"
+66,TENDER,site_visit_requirement,زيارة موقع اختيارية/إلزامية,Site visit rule,enum,construction_related,not_needed|optional|mandatory_subject_to_access,نعم,مراجعة,normal,ALL
+67,TENDER,submission_channels,قنوات تقديم العرض,Submission channels,enum,pre_issue,secure_portal؛ البريد الخارجي فقط بعد تفعيل شروطه,عرض,تعريف من النظام,normal,ALL
+68,TENDER,confidentiality_level,تصنيف سرية العروض,Bid confidentiality,enum,always,restricted_bidder_per_bid,لا,مسؤول نظام,restricted,ALL
+69,TENDER,owner_special_notes,ملاحظات المالك,Owner special requirements,text,always,حتى 3000 حرف مع كشف التعارضات,نعم,تصنيف البنود,private,ALL
+70,TENDER,allowed_alternatives,السماح بعروض بديلة,Alternative offers allowed,boolean,rfp|rfq,عند السماح تحدد طريقة عرض البدائل,نعم,نعم,normal,"RFP,RFQ"
+71,DOCS,attachments_reference,فهرس المستندات المرفقة,Attachment manifest,reference_list,pre_issue,manifest فقط؛ التخزين الآمن لاحقاً,نعم,تأكيد,restricted,ALL
+72,DOCS,rulepack_version,إصدار مكتبة الاشتراطات,Rulepack version,text,system,يعتمد على الإمارة/الجهة/المشروع وتاريخ التحقق,لا,اعتماد,internal,ALL
+73,DOCS,template_version,إصدار القالب القياسي,Template version,text,system,يُثبت عند إصدار الوثيقة,لا,اعتماد,internal,ALL
+74,DOCS,legal_review_status,حالة المراجعة القانونية,Legal review status,enum,pre_issue,pending|approved|rejected,لا,مراجع قانوني,restricted,ALL
+75,DOCS,technical_review_status,حالة المراجعة الفنية,Technical review status,enum,pre_issue,pending|approved|rejected,لا,مراجع فني,restricted,ALL
+76,DOCS,issue_authorization,تفويض إصدار الطلب,Issue authorization,boolean,pre_issue,موافقة المستخدم المخول ضمن صلاحيات خادمية,لا,جهة مخولة,restricted,ALL

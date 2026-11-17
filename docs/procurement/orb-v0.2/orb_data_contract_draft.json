@@ -1,0 +1,66 @@
+{
+  "schema_version": "ORB-0.2-DRAFT",
+  "_note": "Data contract for design and code review ONLY. Real owner data must not be stored in public GitHub Pages.",
+  "orb_id": null,
+  "orb_revision": 1,
+  "home_id": null,
+  "project_id": null,
+  "status": "DRAFT",
+  "owner_inputs": {
+    "preferred_language": "ar",
+    "emirate": null,
+    "municipality_area": null,
+    "project_type": null,
+    "procurement_target": null,
+    "deliverable_goal": "",
+    "project_maturity": "idea",
+    "plot_area_sqm": null,
+    "floors": null,
+    "bedrooms": null,
+    "budget_band_aed": {
+      "min": null,
+      "max": null
+    },
+    "budget_visibility": "hidden",
+    "finish_tier": null,
+    "pool_requested": false,
+    "lift_requested": false,
+    "majlis_requested": false,
+    "basement_requested": false,
+    "smart_home_requested": false,
+    "solar_requested": false,
+    "target_completion_date": null,
+    "owner_special_notes": ""
+  },
+  "derived_form": {
+    "conditional_questions": [],
+    "missing_fields": [],
+    "conflict_flags": [],
+    "disclosure_manifest": []
+  },
+  "professional_review": {
+    "competent_authority_id": null,
+    "rulepack_id": null,
+    "rulepack_version": null,
+    "applicability_status": "UNVERIFIED",
+    "technical_review_status": "pending",
+    "legal_review_status": "pending",
+    "reviewer_ids": []
+  },
+  "document_generation": {
+    "solicitation_type": null,
+    "rfq_price_class": null,
+    "template_id": null,
+    "template_version": null,
+    "frozen_orb_revision_id": null,
+    "status": "NOT_GENERATED"
+  },
+  "_conditions": {
+    "pool_type": "pool_requested = true",
+    "lift_served_levels": "lift_requested = true",
+    "majlis_area_sqm": "majlis_requested = true",
+    "smart_home_scope": "smart_home_requested = true",
+    "occupancy_constraints": "new_vs_existing = existing_occupied",
+    "quotation_basis": "solicitation_type = RFQ"
+  }
+}
