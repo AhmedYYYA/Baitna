@@ -8,7 +8,9 @@ BEGIN;
 
 CREATE TABLE accounts (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  oidc_subject text NOT NULL UNIQUE,
+  identity_issuer text NOT NULL,
+  identity_subject text NOT NULL,
+  UNIQUE(identity_issuer, identity_subject),
   display_label text,
   status text NOT NULL DEFAULT 'active' CHECK (status IN ('active','disabled')),
   created_at timestamptz NOT NULL DEFAULT now()
