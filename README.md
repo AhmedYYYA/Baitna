@@ -1,8 +1,8 @@
 # Baitna | بيتنا
 
-**بيتنا** منصة عربية تحوّل عقد بناء المسكن إلى بنود يتابعها المالك والمقاول والاستشاري معًا. ويرتبط كل بند بدليله الميداني ودفعته وفاتورته وضمانه، من الترخيص حتى ما بعد تسليم المفتاح.
+**بيتنا** منصة خاصة مستقلة لإدارة دورة حياة المسكن: RFI/RFP/RFQ والطرح والتقييم قبل التعاقد، ثم Contract وSOW وIMS وBOQ، والتسليم وجواز المسكن الرقمي والضمانات والصيانة ونقل إدارة السجل الرقمي.
 
-**Baitna** is an Arabic-first platform that turns a home-building contract into items that the owner, contractor and consultant follow together. Each item carries its site evidence, payment, invoice and warranty, from the permit until long after handover.
+**Baitna** is an independent home lifecycle platform spanning sourcing (RFI/RFP/RFQ), contract/SOW/IMS, delivery evidence, digital home passport, warranties, maintenance and transfer of digital-record management.
 
 > نموذج أولي ببيانات توضيحية. بيتنا مبادرة مستقلة، ولا يعني ذكر أي جهة أو توجه حكومي أنه يعتمد المنصة.
 >
@@ -13,7 +13,9 @@
 | المسار / Path | الوصف / Description |
 | --- | --- |
 | `index.html` | الصفحة التعريفية بالعربية والإنجليزية / Landing page, Arabic and English |
-| `demo/index.html` | العرض التفاعلي لتطبيق المالك والمقاول / Interactive app demo for owner and contractor |
+| `demo/lifecycle.html` | مساحة عمل شاملة بواجهات تفاعلية وبيانات تجريبية داخل المتصفح / Full lifecycle browser-only demo |
+| `assets/lifecycle.js` / `.css` | وظائف وتنسيق التجربة الشاملة، دون خادم تشغيلي / All-modules local browser simulation |
+| `demo/index.html` | العرض التفاعلي السابق لتطبيق المالك والمقاول / Preserved legacy demo |
 | `demo/authority.html` | بوابة الجهة الرقابية (للاطلاع فقط) / Read-only regulator portal |
 | `assets/favicon.svg` | شعار الموقع / Site icon |
 
