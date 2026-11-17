@@ -14,6 +14,8 @@
 | --- | --- |
 | `index.html` | الصفحة التعريفية بالعربية والإنجليزية / Landing page, Arabic and English |
 | `demo/lifecycle.html` | مساحة عمل شاملة بواجهات تفاعلية وبيانات تجريبية داخل المتصفح / Full lifecycle browser-only demo |
+| `demo/orb.html` | نموذج ملف متطلبات المالك (ORB) وتوليد مسودات طلب معلومات (RFI) وطلب تقديم عروض (RFP) وطلب عروض أسعار (RFQ) / Guided owner brief and tender drafts |
+| `assets/orb.js` / `orb-catalog.js` / `orb.css` | القاموس المعتمد بـ77 حقلاً والمحرك التجريبي ثنائي اللغة / 77-field catalog and browser-only generator |
 | `assets/lifecycle.js` / `.css` | وظائف وتنسيق التجربة الشاملة، دون خادم تشغيلي / All-modules local browser simulation |
 | `demo/index.html` | العرض التفاعلي السابق لتطبيق المالك والمقاول / Preserved legacy demo |
 | `demo/authority.html` | بوابة الجهة الرقابية (للاطلاع فقط) / Read-only regulator portal |
