@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="بيتنا — تجربة تفاعلية توضيحية لكامل دورة حياة المسكن: RFI وRFP وRFQ والعقود وSOW وIMS والجواز الرقمي.">
+<title>بيتنا | مساحة العمل الشاملة — عرض تجريبي</title>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/lifecycle.css?v=2">
+<script src="../assets/lifecycle.js?v=2" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">انتقل إلى المحتوى</a>
+<div class="shell">
+  <aside class="side" aria-label="التنقل بين وحدات التطبيق">
+    <a class="brand" href="../"><span class="mark">B</span><span><b>بيتنا <em>BAITNA</em></b><small data-t="brand_sub">مساحة العمل — العرض الشامل</small></span></a>
+    <p class="side-label" data-t="sections">وحدات المنصة</p>
+    <nav id="views" class="nav-list">
+      <button data-view="overview" class="selected"><span class="ico">⌂</span><span data-t="overview">المنزل والمشاريع</span></button>
+      <button data-view="sourcing"><span class="ico">◇</span><span data-t="sourcing">الطرح والتقييم — RFI/RFP/RFQ</span></button>
+      <button data-view="contracts"><span class="ico">▤</span><span data-t="contracts">العقود — Contract</span></button>
+      <button data-view="scope"><span class="ico">▦</span><span data-t="scope">بيان الأعمال — SOW / BOQ</span></button>
+      <button data-view="schedule"><span class="ico">▥</span><span data-t="schedule">الجداول — IMS</span></button>
+      <button data-view="evidence"><span class="ico">◉</span><span data-t="evidence">المتابعة والأدلة</span></button>
+      <button data-view="finance"><span class="ico">◈</span><span data-t="finance">الدفعات والضريبة</span></button>
+      <button data-view="passport"><span class="ico">⌑</span><span data-t="passport">جواز المسكن والصيانة</span></button>
+      <button data-view="transfer"><span class="ico">⇆</span><span data-t="transfer">نقل إدارة السجل</span></button>
+    </nav>
+    <div class="side-bottom">
+      <span class="sample"><i></i><span data-t="sample">بيانات توضيحية فقط</span></span>
+      <a href="index.html" class="simple-link" data-t="classic">العرض التفصيلي السابق (7 شاشات)</a>
+      <a href="authority.html" class="simple-link" data-t="authority">لوحة المتابعة الرقابية التوضيحية</a>
+    </div>
+  </aside>
+  <div class="work">
+    <header class="top">
+      <div class="breadcrumb"><a href="../" data-t="back">الموقع الرئيسي</a><span>/</span><strong data-t="workspace">مساحة العمل</strong></div>
+      <div class="header-actions">
+        <button type="button" id="langToggle" class="btn minor">English</button>
+        <button type="button" id="exportBtn" class="btn minor" data-t="export">تصدير بيانات العرض</button>
+        <button type="button" id="resetBtn" class="btn ghost" data-t="reset">إعادة التجربة</button>
+      </div>
+    </header>
+    <div class="disclaimer" role="note"><strong data-t="demo_notice_title">عرض توضيحي مستقل</strong><span data-t="demo_notice">التفاعلات تحفظ بيانات تجريبية داخل هذا المتصفح فقط. لا تسجيل دخول حقيقياً أو تكاملات مع البنوك والجهات الرسمية. لا تُدخل معلومات شخصية أو وثائق حقيقية.</span></div>
+    <main id="main"><div class="main-top">
+      <div><p class="overline" id="eyebrow">BAITNA / HOME LIFECYCLE</p><h1 id="pageTitle">المسكن والمشاريع</h1><p id="pageDesc" class="subhead"></p></div>
+      <div class="selector-stack"><label for="homeSelect" data-t="current_home">المسكن</label><select id="homeSelect"></select><label for="projectSelect" data-t="current_project">المشروع</label><select id="projectSelect"></select></div>
+    </div>
+    <section id="panel" aria-live="polite"></section></main>
+    <footer><span data-t="footer">بيتنا مشروع مستقل، وبيانات هذه الواجهة تجريبية. الاعتمادات والأنشطة المالية والقانونية لا تتم من خلال هذا العرض.</span><span>BAITNA · 2026</span></footer>
+  </div>
+</div>
+<div id="notice" class="toast" role="status" aria-live="polite" hidden></div>
+<noscript>تتطلب هذه التجربة تفعيل JavaScript. / This prototype requires JavaScript.</noscript>
+</body>
+</html>
