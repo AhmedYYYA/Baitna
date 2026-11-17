@@ -11,8 +11,11 @@
 4. [PostgreSQL migration 0001](../../db/migrations/0001_core.sql) — proposed relational foundation; **not run against a server**. RLS is switched on with NO application policies (default-deny).
 5. [Acceptance specifications](./acceptance.md) — BT-001–024 delivery sequence, positive/negative cases, release gates.
 
+6. [Pre-contract procurement and sourcing](./procurement-sourcing.md) — RFI / RFP / RFQ, bilingual Arabic-English terminology, tender workflow, bid evaluation, traceability into Contract/SOW/IMS. **Approved product scope; not coded.**
+
 ## Key architectural decisions
 
+- Pre-contract RFI/RFP/RFQ belong to a separate Sourcing module preceding contractual approval. They are optional procurement instruments, not a mandatory fixed sequence.
 - The Home ID is an immutable, non-sequential identifier attached to the *home*, not the account.
 - One home has many construction / renovation / maintenance projects, so its technical passport survives handover and manager transfer.
 - A project may have many contracts/SOWs; its **one master IMS** has many immutable revisions and a current-approved-baseline pointer.
