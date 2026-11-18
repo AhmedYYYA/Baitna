@@ -42,7 +42,7 @@ async function scan(host,route,candidate){
  await page.addInitScript(()=>{
   window.__btPerf={lcp:null,cls:0,shifts:[]};
   try{new PerformanceObserver(ls=>ls.getEntries().forEach(e=>{window.__btPerf.lcp=e.startTime})).observe({type:'largest-contentful-paint',buffered:true})}catch(_){}
-  try{new PerformanceObserver(ls=>ls.getEntries().forEach(e=>{if(!e.hadRecentInput){window.__btPerf.cls+=e.value;window.__btPerf.shifts.push({value:e.value,sources:(e.sources||[]).slice(0,4).map(s=>({node:s.node?.tagName||'',id:s.node?.id||'',cls:String(s.node?.className||'').slice(0,55)}))});}})).observe({type:'layout-shift',buffered:true})}catch(_){}
+  try{new PerformanceObserver(ls=>ls.getEntries().forEach(e=>{if(!e.hadRecentInput){window.__btPerf.cls+=e.value;window.__btPerf.shifts.push({value:e.value,sources:(e.sources||[]).slice(0,4).map(s=>({node:s.node?.tagName||'',id:s.node?.id||'',cls:String(s.node?.className||'').slice(0,55),before:s.previousRect?{x:Math.round(s.previousRect.x),y:Math.round(s.previousRect.y),w:Math.round(s.previousRect.width),h:Math.round(s.previousRect.height)}:null,after:s.currentRect?{x:Math.round(s.currentRect.x),y:Math.round(s.currentRect.y),w:Math.round(s.currentRect.width),h:Math.round(s.currentRect.height)}:null}))});}})).observe({type:'layout-shift',buffered:true})}catch(_){}
  });
  const resp=await page.goto(host.url+route,{waitUntil:'domcontentloaded',timeout:25000});
  try{await page.waitForLoadState('load',{timeout:12000})}catch(_){}
@@ -56,13 +56,14 @@ async function scan(host,route,candidate){
  try{const a=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa','wcag22aa']).analyze();
    violations=a.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.length,help:v.help,targets:v.nodes.slice(0,12).map(n=>n.target)}));}
  catch(e){violations=[{id:'axe-audit-error',help:String(e)}]}
- if(candidate&&['','demo/orb.html','demo/authority.html'].includes(route)){
+ if(candidate){
   await page.screenshot({path:path.join(DEST,(route||'index').replaceAll('/','-').replace('.html','')+'-mobile.png'),fullPage:true});
  }
- if(candidate&&route===''){
+ if(candidate&&['','demo/lifecycle.html','demo/orb.html','demo/compliance.html','demo/authority.html'].includes(route)){
   await page.setViewportSize({width:1440,height:900});
-  await page.screenshot({path:path.join(DEST,'index-desktop.png'),fullPage:true});
-  const vp=page.locator('#graphViewport');if(await vp.count()){await vp.focus();await page.keyboard.press('ArrowRight');}
+  const n=(route||'index').replaceAll('/','-').replace('.html','');
+  await page.screenshot({path:path.join(DEST,n+'-desktop.png'),fullPage:true});
+  if(route===''){const vp=page.locator('#graphViewport');if(await vp.count()){await vp.focus();await page.keyboard.press('ArrowRight');}}
  }
  const toggle=route===''?'#langBtn':route==='demo/lifecycle.html'?'#langToggle':route==='demo/orb.html'?'#langBtn':route==='demo/compliance.html'?'#lang':null;
  let locale=null;
