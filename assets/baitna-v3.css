@@ -204,3 +204,255 @@ body[data-baitna-surface=landing] section.block h2{
  text-wrap:balance
 }
 body[data-baitna-surface=landing] section.block .eyebrow{color:#1449bd!important;font-weight:700}
+
+
+/* LIFECYCLE / BOLD INK-BLUE ARCHITECTURAL CHAPTER */
+body[data-baitna-surface=landing] #lifecycle-v2{
+ background:radial-gradient(ellipse 760px 650px at 0 0,rgba(79,145,255,.20),transparent 70%),linear-gradient(130deg,#061b3d,#092b71 62%,#0b46af)!important;
+ border:0!important;padding-block:clamp(95px,10vw,165px)!important;position:relative;isolation:isolate;
+}
+body[data-baitna-surface=landing] #lifecycle-v2::before{
+ content:"";position:absolute;inset-inline-start:50%;inset-block:0;width:1px;
+ background:linear-gradient(180deg,transparent,rgba(196,213,255,.16),transparent);pointer-events:none
+}
+body[data-baitna-surface=landing] #lifecycle-v2 .v2-eyebrow{
+ color:#c2d8ff!important;font-weight:750!important;font-size:12px!important;letter-spacing:.07em!important
+}
+body[data-baitna-surface=landing] #lifecycle-v2 .v2-top{align-items:end;gap:24px}
+body[data-baitna-surface=landing] #lifecycle-v2 h2{
+ color:#fff!important;font-size:clamp(36px,4.6vw,71px)!important;
+ line-height:1.38!important;max-width:14em!important;
+ font-weight:800!important;letter-spacing:-.045em!important;margin-top:17px!important
+}
+body[data-baitna-surface=landing] #lifecycle-v2 .v2-intro{
+ color:#c1d1ee!important;font-size:clamp(16px,1.35vw,19px)!important;
+ line-height:2.05!important;max-width:49em!important;margin-top:19px!important
+}
+body[data-baitna-surface=landing] #lifecycle-v2 .v2-cta{
+ background:#fff!important;color:#103fab!important;border:1px solid #fff!important;
+ border-radius:14px!important;min-height:55px;display:inline-flex;align-items:center;
+ padding:14px 24px!important;font-weight:750;font-size:14px!important;
+ box-shadow:0 17px 37px rgba(0,17,52,.20)!important
+}
+body[data-baitna-surface=landing] #lifecycle-v2 .v2-cta:hover{
+ background:#e8efff!important;transform:translateY(-2px)
+}
+body[data-baitna-surface=landing] #lifecycle-v2 .v2-path{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px!important;
+ margin:clamp(35px,4.5vw,70px) 0 18px!important
+}
+body[data-baitna-surface=landing] #lifecycle-v2 .v2-stage{
+ background:rgba(255,255,255,.08)!important;border:1px solid rgba(200,220,255,.28)!important;
+ backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+ border-radius:23px!important;padding:clamp(25px,3vw,43px)!important;
+ min-height:240px!important;display:flex;flex-direction:column;justify-content:start;
+}
+body[data-baitna-surface=landing] #lifecycle-v2 .v2-stage:nth-child(2){
+ background:rgba(255,255,255,.13)!important;border-color:rgba(200,220,255,.46)!important;
+ transform:translateY(19px)
+}
+body[data-baitna-surface=landing] #lifecycle-v2 .v2-stage:nth-child(2):hover{transform:translateY(12px)}
+body[data-baitna-surface=landing] #lifecycle-v2 .v2-stage span{
+ color:#9ac0ff!important;font-size:11px!important;letter-spacing:.1em!important;
+ font-weight:700;display:block
+}
+body[data-baitna-surface=landing] #lifecycle-v2 .v2-stage h3{
+ color:#fff!important;font-size:clamp(21px,1.85vw,29px)!important;
+ line-height:1.5!important;font-weight:800;margin:22px 0 9px!important
+}
+body[data-baitna-surface=landing] #lifecycle-v2 .v2-stage p{
+ color:#d4e0f4!important;line-height:1.9!important;font-size:14px!important
+}
+body[data-baitna-surface=landing] #lifecycle-v2 .v2-modules{
+ display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px!important;
+ margin-top:68px!important
+}
+body[data-baitna-surface=landing] #lifecycle-v2 .v2-modules a{
+ display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;
+ gap:12px;min-height:112px!important;
+ padding:21px 19px!important;
+ background:rgba(5,29,79,.50)!important;border:1px solid rgba(185,207,255,.3)!important;
+ border-radius:17px!important;color:#f5f9ff!important;
+ text-align:start;line-height:1.65!important;
+}
+body[data-baitna-surface=landing] #lifecycle-v2 .v2-modules a:hover{
+ background:rgba(81,135,236,.25)!important;border-color:rgba(224,234,255,.8)!important;
+ transform:translateY(-4px);box-shadow:0 16px 30px rgba(0,17,69,.18)
+}
+body[data-baitna-surface=landing] #lifecycle-v2 .v2-modules a span{
+ color:#fff!important;font-size:14px!important;font-weight:700
+}
+body[data-baitna-surface=landing] #lifecycle-v2 .v2-modules a em{
+ color:#a9c7fc!important;font-size:10px!important;opacity:1;font-weight:600;letter-spacing:.06em
+}
+body[data-baitna-surface=landing] #lifecycle-v2 .v2-footnote{
+ margin-top:30px!important;color:#b8cbeb!important;font-size:12px;line-height:1.8
+}
+
+/* NETWORK / a clean digital-twin visual surface */
+body[data-baitna-surface=landing] #network{
+ background:#fff!important;border-top:0!important
+}
+body[data-baitna-surface=landing] #network .graph-shell{
+ background:#081d32!important;border:1px solid #253e57!important;
+ border-radius:30px!important;padding:clamp(14px,2.1vw,30px)!important;
+ box-shadow:0 30px 80px rgba(9,37,78,.15)!important;
+ isolation:isolate;overflow:clip;position:relative
+}
+body[data-baitna-surface=landing] #network .graph-shell::before{
+ content:"";position:absolute;inset:0;
+ background:
+  linear-gradient(rgba(116,172,242,.055) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(116,172,242,.055) 1px,transparent 1px);
+ background-size:46px 46px;pointer-events:none;opacity:.65
+}
+body[data-baitna-surface=landing] #network :is(.graph-toolbar,.graph-viewport,.graph-detail){position:relative}
+body[data-baitna-surface=landing] #network .graph-toolbar{
+ background:rgba(255,255,255,.055)!important;border-radius:16px!important;
+ padding:12px 16px!important;border:1px solid rgba(180,213,255,.12);
+ gap:13px
+}
+body[data-baitna-surface=landing] #network .graph-controls button{
+ border:1px solid #58769a!important;background:#183756!important;
+ color:#f1f6ff!important;min-height:44px;min-width:44px;border-radius:11px!important
+}
+body[data-baitna-surface=landing] #network .graph-controls button:hover{
+ background:#1f57a4!important;border-color:#8bb9ff!important
+}
+body[data-baitna-surface=landing] #network #graphViewport{
+ contain:paint;overflow:hidden;isolation:isolate;border-radius:18px;max-width:100%;
+}
+body[data-baitna-surface=landing] #network .graph-detail{
+ background:#102d4a!important;border:1px solid #416387!important;
+ border-radius:18px!important;color:#eff7ff!important
+}
+body[data-baitna-surface=landing] #network .graph-detail :is(h3,p){
+ color:#eff7ff!important
+}
+
+/* SIX-STEP LOOP / one controlled system, six distinct checkpoints */
+body[data-baitna-surface=landing] #how{
+ background:#f1f5fb!important
+}
+body[data-baitna-surface=landing] #how .loop{
+ display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ gap:19px!important;margin-top:52px!important;counter-reset:process
+}
+body[data-baitna-surface=landing] #how .loop li{
+ min-height:235px!important;padding:clamp(25px,2.7vw,38px)!important;
+ border:1px solid #d9e3ef!important;border-radius:24px!important;
+ background:#fff!important;box-shadow:0 15px 40px rgba(14,48,105,.055)!important;
+ position:relative;overflow:hidden
+}
+body[data-baitna-surface=landing] #how .loop li::before{
+ display:block!important;content:"";position:absolute;inset-block-start:0;inset-inline-start:0;
+ width:100%;height:4px;background:linear-gradient(90deg,#1549c7,#77bcfd)!important;
+ border:0;border-radius:0;transform:none!important
+}
+body[data-baitna-surface=landing] #how .loop li:nth-child(n+4)::before{
+ background:linear-gradient(90deg,#2379c9,#8fcbe2)!important
+}
+body[data-baitna-surface=landing] #how .loop li::after{display:none!important}
+body[data-baitna-surface=landing] #how .loop .n{
+ display:grid;place-items:center;width:54px;height:54px;
+ border:1px solid #c2d6fc!important;background:#e9f1ff!important;
+ color:#1247cc!important;border-radius:15px!important;
+ font:800 23px var(--v3-font)!important;line-height:1!important;
+ margin-bottom:21px!important
+}
+body[data-baitna-surface=landing] #how .loop h3{
+ color:#102d48!important;font-size:clamp(21px,1.9vw,27px)!important;
+ line-height:1.5!important;font-weight:800!important
+}
+body[data-baitna-surface=landing] #how .loop p{
+ color:#546a7c!important;font-size:clamp(14px,1.15vw,16px)!important;
+ line-height:1.95!important;margin-top:10px!important
+}
+body[data-baitna-surface=landing] #how .loop li:hover{
+ transform:translateY(-5px)!important;box-shadow:0 25px 50px rgba(14,48,105,.10)!important;
+ border-color:#a4c4f9!important
+}
+
+/* SIX ROLES / institutional cards, no implied new permissions */
+body[data-baitna-surface=landing] #parties{
+ background:#fff!important
+}
+body[data-baitna-surface=landing] #parties .parties{
+ display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ gap:17px!important;margin-top:54px!important
+}
+body[data-baitna-surface=landing] #parties .parties>div{
+ background:linear-gradient(155deg,#fff,#f7f9fd)!important;
+ border:1px solid #d9e4ef!important;border-radius:23px!important;
+ padding:clamp(26px,2.8vw,42px)!important;min-height:192px!important;
+ box-shadow:0 11px 29px rgba(13,48,78,.04)!important;
+}
+body[data-baitna-surface=landing] #parties .parties>div:hover{
+ transform:translateY(-3px)!important;border-color:#9fbbed!important
+}
+body[data-baitna-surface=landing] #parties .parties dt{
+ color:#12324d!important;font-size:clamp(19px,1.8vw,26px)!important;
+ line-height:1.45!important;font-weight:800!important
+}
+body[data-baitna-surface=landing] #parties .parties dd{
+ color:#586c7c!important;font-size:15px!important;line-height:2!important;
+ margin:13px 0 0!important
+}
+
+/* OWNER'S JOURNEY / presentation within the same working content */
+body[data-baitna-surface=landing] #demo{
+ background:#f6f8fd!important
+}
+body[data-baitna-surface=landing] #demo .tour{
+ gap:clamp(26px,4vw,75px)!important;
+}
+body[data-baitna-surface=landing] #demo :is(.scene,.portal,.phone){
+ border-radius:25px!important;box-shadow:var(--v3-shadow)!important
+}
+body[data-baitna-surface=landing] #demo .scene{
+ background:#fff!important;border:1px solid #d9e4f0!important;
+}
+body[data-baitna-surface=landing] #demo .portal{
+ border:1px solid #cbdcf3!important;background:#fff!important;padding:28px!important
+}
+body[data-baitna-surface=landing] #demo .portal :is(a,button){min-height:44px}
+body[data-baitna-surface=landing] #demo .phone{
+ background:#fff!important;border:7px solid #132d4b!important;
+ box-shadow:0 34px 60px rgba(8,39,78,.15)!important
+}
+
+/* AI, integration, pilot: same claims and numbers, more sophisticated composition */
+body[data-baitna-surface=landing] #ai{
+ background:#0a2139!important;color:#f4f8ff!important;
+}
+body[data-baitna-surface=landing] #ai :is(h2,h3){color:#f7faff!important}
+body[data-baitna-surface=landing] #ai :is(p,li){color:#c5d5e6!important}
+body[data-baitna-surface=landing] #ai .col{
+ background:rgba(255,255,255,.06)!important;
+ border:1px solid rgba(161,203,255,.2)!important;
+ border-radius:22px!important;padding:35px!important
+}
+body[data-baitna-surface=landing] #pilot{
+ background:#f6f8fc!important
+}
+body[data-baitna-surface=landing] #pilot .plan{gap:16px!important}
+body[data-baitna-surface=landing] #pilot .phase{
+ padding:clamp(22px,3vw,39px)!important;
+ background:#fff!important;border:1px solid #d4e0ee!important;
+ border-radius:20px!important;box-shadow:0 12px 32px rgba(15,43,72,.04)!important
+}
+body[data-baitna-surface=landing] #pilot .phase .lbl b{
+ color:#173453!important;font-size:clamp(20px,1.8vw,25px)!important
+}
+body[data-baitna-surface=landing] #pilot .kpi li{
+ background:#edf3ff!important;color:#1742a4!important;
+ border:1px solid #c7d9f6!important;border-radius:99px!important;
+ font-size:14px!important;padding:12px 17px!important
+}
+body[data-baitna-surface=landing] #pilot .axis [data-i18n=ax1]{color:#284661!important}
+body[data-baitna-surface=landing] footer{
+ background:#06182a!important;color:#b7c7db!important;
+ border-top:1px solid rgba(189,211,247,.13)!important
+}
+body[data-baitna-surface=landing] footer a{color:#c9dcff!important}
+body[data-baitna-surface=landing] footer a:hover{color:#fff!important}
