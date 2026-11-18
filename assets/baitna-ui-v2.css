@@ -292,3 +292,14 @@ body[data-ui-design=demo] .task[type=button] .tx .t2{color:#315451!important}
  }
  body[data-ui-design=authority] .bm-risk-board{min-height:255px}
 }
+
+
+/* v2.2 — prevent transformed explorer SVG from enlarging document scroll bounds.
+   The zoomable graphic and its pointer/keyboard logic remain unchanged. */
+html:has(body[data-baitna-surface=landing]){overflow-x:clip}
+body[data-baitna-surface=landing] #graphViewport{
+ contain:paint;overflow:hidden;isolation:isolate
+}
+body[data-baitna-surface=landing] #network .graph-shell{
+ overflow:clip
+}
