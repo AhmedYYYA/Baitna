@@ -50,18 +50,13 @@ try{
  const desktop=await browser.newContext({viewport:{width:1440,height:900},reducedMotion:'no-preference',hasTouch:false});
  const page=await desktop.newPage();
  await page.goto(url,{waitUntil:'networkidle',timeout:22000});
- const sheet=page.locator('.hero .sheet');
- await sheet.hover();
- const box=await sheet.boundingBox();
- if(box){await page.mouse.move(box.x+box.width*.8,box.y+box.height*.25);await page.waitForTimeout(120)}
- const motion=await page.evaluate(()=>({
-  classSet:document.body.classList.contains('v31-motion'),
-  tilt:document.querySelector('.hero .sheet')?.style.getPropertyValue('--v31-rot-y')||'',
-  scroll:document.documentElement.style.getPropertyValue('--v31-rail')||''
- }));
- const ok=motion.classSet&&!!motion.tilt;
- console.log(JSON.stringify({desktopMotion:motion,pass:ok}));
- if(!ok)failures.push({desktopMotion:motion});
+ const illustrationCount=await page.locator('.hero figure.sheet').count();
+ const title=await page.locator('.hero h1').textContent();
+ const actions=await page.locator('.hero .ctas a').count();
+ const noOldTools=await page.locator('.hero .building-tools').count()===0;
+ const ok=illustrationCount===0&&actions>=2&&noOldTools&&!!title?.trim();
+ console.log(JSON.stringify({illustrationRemoved:illustrationCount===0,actionsPresent:actions,pass:ok}));
+ if(!ok)failures.push({illustrationCount,actions,noOldTools,title});
  await desktop.close();
 }catch(e){failures.push({unexpected:String(e.stack||e)});console.error(e)}
 finally{await browser.close();await new Promise(done=>srv.close(done))}
