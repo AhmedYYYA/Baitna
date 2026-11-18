@@ -364,3 +364,18 @@ body[data-baitna-surface="orb"] .top button{
  color:#FFF0D9!important;background:#533926!important;
  border-color:#94704E!important;
 }
+
+
+/* Stable first paint while the existing workspace renders its demo panels.
+   Space reservation only: no changes to data, routing, state or panel contents. */
+body[data-baitna-surface="workspace"] #pageDesc{
+ display:block;
+ min-block-size:76px;
+}
+body[data-baitna-surface="workspace"] #panel{
+ min-block-size:950px;
+}
+@media(max-width:760px){
+ body[data-baitna-surface="workspace"] #pageDesc{min-block-size:115px}
+ body[data-baitna-surface="workspace"] #panel{min-block-size:1200px}
+}
