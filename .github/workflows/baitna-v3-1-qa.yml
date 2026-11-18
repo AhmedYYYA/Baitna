@@ -37,3 +37,13 @@ jobs:
       - run: npm install --no-save --no-package-lock playwright
       - run: npx playwright install --with-deps chromium
       - run: node tests/ui-v3-1-browser.mjs
+      - name: Audit typography, contrast and responsive surfaces
+        run: node tests/ui-brand-visual-audit.mjs
+      - name: Publish BAITNA visual audit captures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: baitna-v34-responsive-visuals
+          path: reports/ui-brand-v34/
+          if-no-files-found: warn
+          retention-days: 30
