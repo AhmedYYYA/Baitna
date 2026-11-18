@@ -19,4 +19,17 @@ test("The social image is a genuine nonempty JPEG",()=>{
  const jpg=fs.readFileSync(path.join(root,"assets/baitna-share-cover.jpg"));
  assert.deepEqual([...jpg.subarray(0,3)],[255,216,255]);
  assert.ok(jpg.length>5000&&jpg.length<900000,"unexpected file size");
+
+ let dims=null;
+ for(let i=2;i<jpg.length-9;){
+  if(jpg[i]!==255){i++;continue}
+  let marker=jpg[i+1],len=jpg.readUInt16BE(i+2);
+  if([192,193,194,195,198,199,201,202,203].includes(marker)){
+   dims=[jpg.readUInt16BE(i+7),jpg.readUInt16BE(i+5)];break;
+  }
+  if(!len||len<2)break;
+  i+=2+len;
+ }
+ assert.deepEqual(dims,[1200,630],"share cover must be precisely 1200×630");
+
 });
