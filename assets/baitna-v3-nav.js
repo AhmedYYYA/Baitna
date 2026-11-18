@@ -76,3 +76,39 @@
  new MutationObserver(translate).observe(root,{attributes:true,attributeFilter:["lang"]});
  translate();
 })();
+
+/* BAITNA approved brand: DOM-only, bilingual, no application-state writes. */
+(function(){
+ "use strict";
+ var html=document.documentElement, landing=document.body.dataset.baitnaSurface==="landing";
+ function element(tag,cls){var x=document.createElement(tag);x.className=cls;return x}
+ var name,latin,tagline,subline,headerSub,footer;
+ if(landing){
+  var hero=document.querySelector(".hero .wrap > div:first-child");
+  if(hero&&!document.getElementById("baitnaBrandIntro")){
+   var mast=element("div","baitna-hero-brand");mast.id="baitnaBrandIntro";
+   var img=document.createElement("img");img.src="assets/baitna-mark.svg";img.alt="";img.width=94;img.height=94;
+   name=element("span","baitna-hero-word");latin=element("span","baitna-hero-latin");
+   mast.append(img,name,latin);tagline=element("p","baitna-hero-motto");
+   subline=element("p","baitna-hero-motto-translation");
+   hero.prepend(mast,tagline,subline);
+  }
+  var header=document.querySelector(".top .logo");
+  if(header&&!header.querySelector(".baitna-header-caption")){headerSub=element("small","baitna-header-caption");header.append(headerSub)}
+  var foot=document.querySelector("footer .wrap");
+  if(foot){footer=element("p","baitna-footer-motto");foot.append(footer)}
+ }
+ document.querySelectorAll(".brand .mark").forEach(function(el){el.textContent="";el.setAttribute("aria-hidden","true")});
+ function translateBrand(){
+  var en=html.lang==="en";
+  if(name)name.textContent=en?"BAITNA":"بيتنا";
+  if(latin)latin.textContent=en?"بيتنا":"BAITNA";
+  if(tagline)tagline.textContent=en?"A Home That Endures.":"ويبقى للبيت أثر.";
+  if(subline)subline.textContent=en?"ويبقى للبيت أثر.":"A HOME THAT ENDURES.";
+  if(headerSub)headerSub.textContent=en?"بيتنا":"BAITNA";
+  if(footer)footer.textContent=en?"A Home That Endures.":"ويبقى للبيت أثر.";
+  if(landing)document.title=en?"BAITNA | A Home That Endures.":"بيتنا | ويبقى للبيت أثر.";
+ }
+ new MutationObserver(translateBrand).observe(html,{attributes:true,attributeFilter:["lang"]});
+ translateBrand();
+})();
