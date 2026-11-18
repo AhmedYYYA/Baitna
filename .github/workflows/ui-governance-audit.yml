@@ -1,0 +1,54 @@
+name: BAITNA governance-locked UI audit
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'demo/**'
+      - 'assets/baitna-ui-v2.css'
+      - 'assets/baitna-glossary-v2.js'
+      - 'assets/baitna-metadata-v2.js'
+      - 'tests/ui-*'
+      - '.github/workflows/ui-governance-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  frozen-inventory-gate:
+    name: Byte-exact governance lock
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run original tests and independent frozen verifier
+        run: node --test tests/ui-governance-lock.test.cjs tests/frontend-theme.test.cjs tests/orb.test.cjs
+  comparative-browser:
+    name: Chromium WCAG and before-after lab measurements
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install ephemeral audit tools (not runtime dependencies)
+        run: npm install --no-save --no-package-lock playwright @axe-core/playwright
+      - name: Install headless Chromium for lab audit
+        run: npx playwright install --with-deps chromium
+      - name: Audit six pages before and after
+        run: node tests/ui-browser-audit.mjs
+      - name: Publish measured results and screenshots
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: baitna-ui-v2-a11y-lab
+          path: reports/ui-v2/
+          if-no-files-found: warn
+          retention-days: 30
