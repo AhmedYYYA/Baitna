@@ -5,6 +5,7 @@ const fs=require("node:fs"),path=require("node:path");
 const {execFileSync}=require("node:child_process");
 const root=path.resolve(__dirname,".."),base="504da529b64531c4016c247c583749cd4653a4b7";
 const read=p=>fs.readFileSync(path.join(root,p),"utf8");
+const {restoreShareHead}=require("./approved-share-metadata.cjs");
 const fromBase=p=>execFileSync("git",["show",base+":"+p],{cwd:root,encoding:"utf8",maxBuffer:16*1024*1024});
 const pages=["index.html","demo/lifecycle.html","demo/orb.html","demo/compliance.html","demo/index.html","demo/authority.html"];
 
@@ -22,7 +23,7 @@ test("six V3 documents unchanged except additive visual assets in V3 head marker
  for(const p of pages){
   const current=read(p),old=fromBase(p),prefix=p==="index.html"?"assets/":"../assets/";
   const inject='<link rel="stylesheet" href="'+prefix+'baitna-v3-1.css?v='+(p==="index.html"?'32':'31')+'">\n'+(p==="index.html"?'<script src="assets/baitna-v3-1-motion.js?v=31" defer></script>\n':'');
-  assert.equal(current.replace(inject,""),approvedHomeMockupRemoval(p,old),p+": changed beyond approved illustration removal");
+  assert.equal(restoreShareHead(p,current.replace(inject,""),old),approvedHomeMockupRemoval(p,old),p+": changed beyond approved presentation metadata");
   assert.ok(current.includes(inject),p+": V3.1 assets missing");
  }
 });

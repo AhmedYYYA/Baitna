@@ -1,0 +1,22 @@
+"use strict";
+const {test}=require("node:test"),assert=require("node:assert/strict"),fs=require("node:fs"),path=require("node:path");
+const root=path.resolve(__dirname,"..");
+const html=fs.readFileSync(path.join(root,"index.html"),"utf8");
+test("Static social metadata has both approved slogans and an image",()=>{
+ const title="بيتنا | ويبقى للبيت أثر. | BAITNA | A Home That Endures.";
+ assert.ok(html.includes('<meta property="og:title" content="'+title+'">'));
+ for(const key of ["og:description","og:image","og:image:secure_url","og:image:type","og:image:width","og:image:height","og:image:alt"]){
+  assert.ok(html.includes('property="'+key+'"'),key);
+ }
+ for(const key of ["twitter:title","twitter:description","twitter:image","twitter:image:alt"]){
+  assert.ok(html.includes('name="'+key+'"'),key);
+ }
+ assert.ok(html.includes('name="twitter:card" content="summary_large_image"'));
+ assert.ok(!/<meta property="og:title"[^>]*data-ui-meta-/i.test(html),"social title must be static for crawlers");
+ assert.ok(html.includes("https://ahmedyyya.github.io/Baitna/assets/baitna-share-cover.jpg"));
+});
+test("The social image is a genuine nonempty JPEG",()=>{
+ const jpg=fs.readFileSync(path.join(root,"assets/baitna-share-cover.jpg"));
+ assert.deepEqual([...jpg.subarray(0,3)],[255,216,255]);
+ assert.ok(jpg.length>5000&&jpg.length<900000,"unexpected file size");
+});
