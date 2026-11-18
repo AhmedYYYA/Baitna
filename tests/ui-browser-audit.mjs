@@ -56,13 +56,14 @@ async function scan(host,route,candidate){
  try{const a=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa','wcag22aa']).analyze();
    violations=a.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.length,help:v.help,targets:v.nodes.slice(0,12).map(n=>n.target)}));}
  catch(e){violations=[{id:'axe-audit-error',help:String(e)}]}
- if(candidate&&['','demo/orb.html','demo/authority.html'].includes(route)){
+ if(candidate){
   await page.screenshot({path:path.join(DEST,(route||'index').replaceAll('/','-').replace('.html','')+'-mobile.png'),fullPage:true});
  }
- if(candidate&&route===''){
+ if(candidate&&['','demo/lifecycle.html','demo/orb.html','demo/compliance.html','demo/authority.html'].includes(route)){
   await page.setViewportSize({width:1440,height:900});
-  await page.screenshot({path:path.join(DEST,'index-desktop.png'),fullPage:true});
-  const vp=page.locator('#graphViewport');if(await vp.count()){await vp.focus();await page.keyboard.press('ArrowRight');}
+  const n=(route||'index').replaceAll('/','-').replace('.html','');
+  await page.screenshot({path:path.join(DEST,n+'-desktop.png'),fullPage:true});
+  if(route===''){const vp=page.locator('#graphViewport');if(await vp.count()){await vp.focus();await page.keyboard.press('ArrowRight');}}
  }
  const toggle=route===''?'#langBtn':route==='demo/lifecycle.html'?'#langToggle':route==='demo/orb.html'?'#langBtn':route==='demo/compliance.html'?'#lang':null;
  let locale=null;
