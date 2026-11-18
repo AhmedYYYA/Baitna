@@ -93,7 +93,7 @@ try{
  for(const screen of ['home','request','item','pack','sow','gantt','report']){
   const resp=await q.goto(afterServer.url+'demo/#'+screen,{waitUntil:'domcontentloaded'});
   const exists=(await q.locator('#screen-'+screen).count())===1;
-  const ok=resp?.status()===200&&exists;
+  const ok=(resp===null||resp.status()===200)&&exists&&new URL(q.url()).hash==='#'+screen;
   result.navigation.classicScreens.push({screen,pass:ok});
   if(!ok){issues++;result.navigation.failed++}
  }
