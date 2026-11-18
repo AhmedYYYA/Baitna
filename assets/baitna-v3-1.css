@@ -1238,3 +1238,18 @@ body[data-baitna-surface="classic"] .screen a{
    display:none!important;
  }
 }
+
+
+/* V3.4 mobile header stability: preserve measured text-wrap dimensions
+   through font substitution without shifting the owner workspace below. */
+@media(max-width:760px){
+ body[data-baitna-surface="workspace"] .side{
+  min-block-size:185px!important;
+ }
+ body[data-baitna-surface="workspace"] .top{
+  min-block-size:176px!important;
+ }
+ body[data-baitna-surface="workspace"] .disclaimer{
+  min-block-size:130px!important;
+ }
+}
