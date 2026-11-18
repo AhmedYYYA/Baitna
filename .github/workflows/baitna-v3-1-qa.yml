@@ -8,6 +8,7 @@ on:
       - 'index.html'
       - 'demo/**'
       - 'tests/ui-v3-1-*'
+      - 'tests/ui-palette-audit.mjs'
       - '.github/workflows/baitna-v3-1-qa.yml'
   workflow_dispatch:
 permissions:
@@ -39,11 +40,16 @@ jobs:
       - run: node tests/ui-v3-1-browser.mjs
       - name: Audit typography, contrast and responsive surfaces
         run: node tests/ui-brand-visual-audit.mjs
+      - name: Check unified earth palette across six screens
+        run: node tests/ui-palette-audit.mjs
+
       - name: Publish BAITNA visual audit captures
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: baitna-v34-responsive-visuals
-          path: reports/ui-brand-v34/
+          path: |
+            reports/ui-brand-v34/
+            reports/ui-brand-palette/
           if-no-files-found: warn
           retention-days: 30
