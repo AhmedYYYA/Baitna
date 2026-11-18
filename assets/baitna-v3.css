@@ -1,0 +1,206 @@
+/*
+ BAITNA | بِيتنا — Architecture of Trust, Frontend v3
+ A complete visual re-composition: editorial architecture + premium digital service.
+ GOVERNANCE LOCK: presentation only; never hides statuses/roles or rewrites workflows.
+ Dubai-first font stack; font binaries intentionally NOT distributed.
+*/
+:root{
+ --v3-ink:#071d2f;--v3-blue:#1247cc;--v3-blue-dark:#092c9b;
+ --v3-sky:#dfeaff;--v3-light:#f7f9fc;--v3-paper:#ffffff;
+ --v3-muted:#586a7c;--v3-line:#dce4ed;--v3-gold:#b88647;
+ --v3-alert:#84531b;--v3-alert-bg:#fff5e5;--v3-surface:#eff3f9;
+ --v3-radius:20px;--v3-radius-lg:28px;--v3-shadow:0 24px 65px rgba(15,41,73,.08);
+ --v3-font:"Dubai","Dubai Regular","Dubai Medium","IBM Plex Sans Arabic","Segoe UI",system-ui,sans-serif;
+ --v3-ease:cubic-bezier(.2,.8,.2,1);
+}
+html,body,body :is(button,input,textarea,select,h1,h2,h3,h4,h5,p,a,label,small,b,strong,span,li,th,td){
+ font-family:var(--v3-font)!important;
+}
+html{scroll-padding-top:90px}
+body{font-feature-settings:"kern" 1;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+:where(button,a,input,select,textarea,[tabindex]):focus-visible{
+ outline:3px solid #2364ef!important;outline-offset:3px!important;
+}
+button,a,.btn,summary{transition:background-color .22s var(--v3-ease),color .22s var(--v3-ease),border-color .22s var(--v3-ease),box-shadow .22s var(--v3-ease),transform .22s var(--v3-ease)}
+:where(button,.btn):active{transform:scale(.985)}
+:where(.card,.panel,.stat,.record){min-width:0}
+:where(input,select,textarea){min-height:44px;max-width:100%}
+[dir=rtl] :is(.code,code,.metric,.home-ref,.stat b){unicode-bidi:isolate}
+[dir=rtl] :is(code,pre){direction:ltr}
+html[lang=en] body{letter-spacing:-.01em}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+
+/* LAUNCH / ALTERNATE VISUAL LANGUAGE */
+html:has(body[data-baitna-surface=landing]){overflow-x:clip}
+body[data-baitna-surface=landing]{
+ --paper:#f7f9fc;--white:#fff;--ink:#071d2f;--soft:#294358;--muted:#586b7c;
+ --line:#d7e1ed;--emerald:#1247cc;--emerald-2:#0a39b4;--sand:#cf9c62;--focus:#2364ef;
+ background:#f7f9fc;color:#071d2f;
+}
+body[data-baitna-surface=landing] .wrap{max-width:1480px;padding-inline:clamp(22px,5vw,94px)}
+body[data-baitna-surface=landing] .top{
+ background:rgba(255,255,255,.94)!important;
+ border-bottom:1px solid rgba(9,40,78,.1)!important;
+ box-shadow:0 7px 45px rgba(10,34,66,.05);
+ backdrop-filter:blur(25px);-webkit-backdrop-filter:blur(25px);
+}
+body[data-baitna-surface=landing] .top .wrap{min-height:86px;gap:24px}
+body[data-baitna-surface=landing] .logo{
+ color:#0c263a!important;display:inline-flex;align-items:center;
+ padding:4px 0;gap:13px;text-decoration:none;
+}
+body[data-baitna-surface=landing] .logo img{
+ width:44px;height:44px;filter:drop-shadow(0 3px 8px rgba(24,65,96,.12))
+}
+body[data-baitna-surface=landing] .logo span{
+ font-size:31px;font-weight:700;line-height:1.2;letter-spacing:-.05em
+}
+body[data-baitna-surface=landing] .nav{gap:clamp(10px,1.5vw,24px)}
+body[data-baitna-surface=landing] .nav a{
+ color:#34526a!important;font-weight:600;font-size:13px;white-space:nowrap;
+ border-radius:9px;padding:9px 5px;position:relative
+}
+body[data-baitna-surface=landing] .nav a::after{
+ content:"";position:absolute;inset-inline-start:5px;inset-inline-end:5px;bottom:1px;
+ height:2px;background:#1247cc;transform:scaleX(0);transform-origin:center;
+ transition:transform .2s ease
+}
+body[data-baitna-surface=landing] .nav a:hover::after,
+body[data-baitna-surface=landing] .nav a:focus-visible::after{transform:scaleX(1)}
+body[data-baitna-surface=landing] .nav a:hover{color:#1247cc!important}
+body[data-baitna-surface=landing] .lang{
+ background:#f2f5fb!important;color:#183a58!important;
+ border:1px solid #d7e1ee!important;border-radius:999px!important;
+ padding:10px 17px!important;min-height:44px;
+}
+body[data-baitna-surface=landing] .lang:hover{border-color:#8da8d8!important}
+body[data-baitna-surface=landing] .top .btn.solid{
+ color:#fff!important;background:#1247cc!important;
+ border:1px solid #1247cc!important;border-radius:12px!important;
+ min-height:46px;box-shadow:0 7px 16px rgba(18,71,204,.16)!important;
+}
+body[data-baitna-surface=landing] .top .btn.solid:hover{
+ background:#0b369f!important;box-shadow:0 10px 22px rgba(18,71,204,.22)!important
+}
+
+/* New architectural hero: bright, calm and generous, not the previous dark/gold palette */
+body[data-baitna-surface=landing] .hero{
+ background:
+  radial-gradient(ellipse 660px 580px at 94% 16%,rgba(18,71,204,.13),transparent 76%),
+  radial-gradient(ellipse 530px 420px at 3% 86%,rgba(93,175,216,.085),transparent 77%),
+  linear-gradient(155deg,#fcfdff 0%,#f3f7fe 51%,#eef3fb 100%)!important;
+ color:#071d2f!important;position:relative;overflow:hidden;
+ padding:clamp(76px,8.5vw,145px) 0 clamp(80px,7.8vw,135px)!important;
+ border-bottom:1px solid #d6e3f0;
+}
+body[data-baitna-surface=landing] .hero::before{
+ content:"";position:absolute;inset-inline-start:-145px;inset-block-end:-190px;
+ width:520px;height:520px;border:1px solid rgba(18,71,204,.09);
+ border-radius:50%;pointer-events:none;
+ box-shadow:0 0 0 85px rgba(18,71,204,.023),0 0 0 170px rgba(18,71,204,.014);
+}
+body[data-baitna-surface=landing] .hero::after{
+ content:"BAITNA";font-family:system-ui,sans-serif!important;font-size:clamp(120px,22vw,390px);
+ font-weight:850;letter-spacing:-.095em;line-height:1;
+ position:absolute;inset-inline-start:-2vw;bottom:-.25em;
+ color:rgba(11,53,121,.025);white-space:nowrap;pointer-events:none
+}
+html[lang=ar] body[data-baitna-surface=landing] .hero::after{content:"بيتنا";letter-spacing:-.08em}
+body[data-baitna-surface=landing] .hero .wrap{
+ display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);
+ gap:clamp(55px,7vw,125px);align-items:center;position:relative;z-index:1;
+}
+body[data-baitna-surface=landing] .hero .eyebrow{
+ display:inline-flex;align-items:center;gap:10px;width:max-content;max-width:100%;
+ border:1px solid #b8cce9!important;background:#eaf1ff!important;
+ color:#1442aa!important;padding:10px 17px!important;border-radius:999px!important;
+ font-size:13px!important;font-weight:700;letter-spacing:0!important
+}
+body[data-baitna-surface=landing] .hero .eyebrow::before{
+ content:"";width:7px;height:7px;border-radius:50%;background:#1247cc;
+ box-shadow:0 0 0 5px rgba(18,71,204,.1)
+}
+body[data-baitna-surface=landing] .hero h1{
+ color:#0a2034!important;font-size:clamp(47px,5.4vw,90px)!important;
+ line-height:1.33!important;letter-spacing:-.05em!important;
+ font-weight:800!important;max-width:10.8em!important;
+ margin:28px 0 0!important;text-wrap:balance;
+}
+html[lang=en] body[data-baitna-surface=landing] .hero h1{
+ font-size:clamp(46px,5vw,82px)!important;line-height:1.08!important;letter-spacing:-.06em!important
+}
+body[data-baitna-surface=landing] .hero .lead{
+ color:#446077!important;font-size:clamp(16px,1.35vw,20px)!important;
+ line-height:2.05!important;max-width:42em!important;margin-top:25px!important;
+}
+body[data-baitna-surface=landing] .hero .ctas{
+ display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:32px!important
+}
+body[data-baitna-surface=landing] .hero .ctas .btn{
+ min-height:58px!important;padding:15px 27px!important;
+ border-radius:13px!important;font-weight:750!important;line-height:1.5;
+}
+body[data-baitna-surface=landing] .hero .ctas .btn.solid{
+ color:#fff!important;background:#1247cc!important;
+ border:1px solid #1247cc!important;box-shadow:0 15px 27px rgba(18,71,204,.20)!important;
+}
+body[data-baitna-surface=landing] .hero .ctas .btn.solid:hover{
+ transform:translateY(-3px);background:#0b369f!important;box-shadow:0 18px 35px rgba(18,71,204,.26)!important
+}
+body[data-baitna-surface=landing] .hero .ctas .btn.line{
+ border:1px solid #bfcde1!important;color:#173b61!important;
+ background:#fff!important;box-shadow:none!important
+}
+body[data-baitna-surface=landing] .hero .ctas .btn.line:hover{
+ background:#eef4ff!important;border-color:#6690d6!important
+}
+body[data-baitna-surface=landing] .hero .note{
+ color:#657b91!important;font-size:12px!important;line-height:1.85!important;
+ margin-top:20px!important;max-width:51em!important
+}
+/* The existing original vector home illustration becomes a premium glass blueprint */
+body[data-baitna-surface=landing] .hero .sheet{
+ background:#fff!important;border:1px solid #d0dbea!important;
+ border-radius:25px!important;padding:14px!important;
+ transform:rotate(-1.6deg)!important;
+ box-shadow:0 45px 100px rgba(13,48,102,.14),0 5px 14px rgba(13,48,102,.08)!important;
+ position:relative;isolation:isolate
+}
+body[data-baitna-surface=landing] .hero .sheet::before{
+ content:"";position:absolute;inset:8px;border:1px solid rgba(18,71,204,.13);
+ border-radius:19px;pointer-events:none
+}
+body[data-baitna-surface=landing] .hero .sheet::after{
+ content:"DIGITAL HOME PASSPORT";position:absolute;inset-block-start:-20px;
+ inset-inline-start:22px;padding:7px 12px;border-radius:9px;
+ color:#fff;background:#1247cc;box-shadow:0 8px 19px rgba(11,54,143,.17);
+ font:700 10px system-ui,sans-serif!important;letter-spacing:.12em
+}
+html[lang=ar] body[data-baitna-surface=landing] .hero .sheet::after{
+ content:"هوية المسكن الرقمية";letter-spacing:0;font-family:var(--v3-font)!important;font-size:12px
+}
+body[data-baitna-surface=landing] .hero .sheet .frame{
+ border-radius:17px!important;background:#f8fbff!important;border:1px solid #e2ebf5!important;
+ overflow:hidden
+}
+body[data-baitna-surface=landing] .hero .sheet svg{max-width:100%}
+body[data-baitna-surface=landing] .hero .tag{
+ border-radius:11px!important;background:#fff!important;border:1px solid #cbd9e9!important;
+ box-shadow:0 5px 15px rgba(20,62,104,.08)!important;color:#1b4a64!important
+}
+body[data-baitna-surface=landing] .hero .tblock{background:linear-gradient(115deg,#1247cc,#4385fb)!important;border-radius:5px!important}
+body[data-baitna-surface=landing] section.block{
+ background:#fff!important;border-top:1px solid #e8eef5!important;
+ padding-block:clamp(84px,8.5vw,145px)!important
+}
+body[data-baitna-surface=landing] section.block:nth-of-type(odd){background:#f6f8fc!important}
+body[data-baitna-surface=landing] section.block .intro,
+body[data-baitna-surface=landing] section.block>div.wrap>p{color:#62758a}
+body[data-baitna-surface=landing] section.block h2{
+ color:#0a2239!important;font-size:clamp(32px,3.85vw,59px)!important;
+ line-height:1.43!important;letter-spacing:-.04em!important;font-weight:800!important;
+ text-wrap:balance
+}
+body[data-baitna-surface=landing] section.block .eyebrow{color:#1449bd!important;font-weight:700}
