@@ -856,3 +856,425 @@ body[data-baitna-surface=orb] .documents :is(h2,h3,p,small){color:#24425e!import
 body[data-baitna-surface=orb] .toast{
  background:#124a41!important;color:#fff!important;border-color:#296b5d!important
 }
+
+
+/* BUILDING REQUIREMENTS / REGULATORY SOURCE NAVIGATOR */
+body[data-baitna-surface=compliance]{
+ --bg:#f6f8fd;--panel:#fff;--line:#dae5ee;--gold:#1247cc;
+ --ink:#102d43;--muted:#63798a;
+ background:#f5f8fc!important;color:#132f45!important;color-scheme:light!important;
+}
+body[data-baitna-surface=compliance] header{
+ background:#fff!important;border-bottom:1px solid #dce5f0!important;
+ box-shadow:0 8px 27px rgba(12,44,80,.045)!important;
+ padding:20px clamp(19px,5vw,86px)!important;min-height:82px!important
+}
+body[data-baitna-surface=compliance] header strong{
+ color:#102c47!important;font-weight:800!important;font-size:29px!important
+}
+body[data-baitna-surface=compliance] header strong span{color:#52718b!important}
+body[data-baitna-surface=compliance] header nav{gap:15px!important}
+body[data-baitna-surface=compliance] header nav a{
+ color:#2052a8!important;font-weight:700!important;text-decoration:none;
+ border-radius:10px;display:inline-flex;align-items:center;padding:10px 12px;min-height:44px
+}
+body[data-baitna-surface=compliance] header nav a:hover{background:#eaf1ff!important}
+body[data-baitna-surface=compliance] header button{
+ min-height:44px!important;border-radius:11px!important;
+ background:#eef4ff!important;color:#1649b2!important;
+ border:1px solid #c7d8f6!important;padding:9px 18px!important
+}
+body[data-baitna-surface=compliance] main{
+ max-width:1440px!important;padding:clamp(48px,6vw,95px) clamp(19px,5vw,86px) 105px!important;
+}
+body[data-baitna-surface=compliance] .eyebrow{
+ color:#174fc1!important;font-size:12px!important;font-weight:800!important;letter-spacing:.06em
+}
+body[data-baitna-surface=compliance] h1{
+ color:#102e4c!important;font-size:clamp(34px,4.2vw,65px)!important;
+ font-weight:850!important;line-height:1.32!important;letter-spacing:-.045em!important;
+ margin:16px 0 20px!important;max-width:17em
+}
+body[data-baitna-surface=compliance] main>p{
+ color:#607589!important;font-size:clamp(15px,1.2vw,18px)!important;
+ max-width:79ch!important;line-height:2.05!important
+}
+body[data-baitna-surface=compliance] .warning{
+ color:#80581e!important;background:#fff7e9!important;
+ border:1px solid #ecd4ad!important;border-inline-start:5px solid #bf8e4b!important;
+ border-radius:15px!important;line-height:1.95!important;
+ padding:22px 28px!important;margin:31px 0!important;
+}
+body[data-baitna-surface=compliance] .layout{
+ grid-template-columns:minmax(270px,.88fr) minmax(280px,1.12fr)!important;
+ gap:20px!important;margin:30px 0 24px!important;align-items:stretch
+}
+body[data-baitna-surface=compliance] .card{
+ background:#fff!important;color:#14324c!important;
+ border:1px solid #dce5ef!important;border-radius:24px!important;
+ padding:clamp(24px,3vw,41px)!important;
+ box-shadow:0 14px 36px rgba(13,50,93,.048)!important;
+}
+body[data-baitna-surface=compliance] .card h2{
+ color:#143656!important;font-size:clamp(20px,1.85vw,28px)!important;
+ line-height:1.45!important;font-weight:800!important;margin-bottom:26px!important
+}
+body[data-baitna-surface=compliance] .field{gap:10px!important;margin:20px 0!important}
+body[data-baitna-surface=compliance] .field label{
+ color:#41627d!important;font-weight:750!important;font-size:13px!important
+}
+body[data-baitna-surface=compliance] select{
+ background:#fcfdff!important;border:1px solid #bdd1e4!important;
+ color:#183c57!important;min-height:52px!important;border-radius:12px!important;
+ padding:13px 15px!important;font-weight:600!important
+}
+body[data-baitna-surface=compliance] select:focus{
+ border-color:#2364ef!important;box-shadow:0 0 0 3px rgba(35,100,239,.12)!important
+}
+body[data-baitna-surface=compliance] .features{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px!important
+}
+body[data-baitna-surface=compliance] .features label{
+ background:#f4f7fd!important;border:1px solid #d8e3f0!important;
+ color:#25415c!important;border-radius:12px!important;
+ min-height:51px!important;gap:8px!important;padding:12px!important;
+ line-height:1.5!important
+}
+body[data-baitna-surface=compliance] .features label:hover{border-color:#8bb0f0!important;background:#edf3ff!important}
+body[data-baitna-surface=compliance] .features input{accent-color:#1247cc!important}
+body[data-baitna-surface=compliance] #run{
+ min-height:52px!important;width:100%;background:#1247cc!important;
+ color:#fff!important;border:1px solid #1247cc!important;
+ border-radius:12px!important;font-weight:800!important;
+ box-shadow:0 10px 22px rgba(18,71,204,.16)!important;
+}
+body[data-baitna-surface=compliance] #run:hover{background:#0b359b!important}
+body[data-baitna-surface=compliance] #privacy{
+ color:#768b9c!important;line-height:1.9!important;font-size:12px!important
+}
+body[data-baitna-surface=compliance] .state{
+ background:#fff2d9!important;color:#755019!important;
+ border:1px solid #e7c58a!important;border-radius:999px!important;
+ font-size:12px!important;font-weight:700!important;padding:7px 14px!important
+}
+body[data-baitna-surface=compliance] #result p{color:#4d687c!important;line-height:1.95!important}
+body[data-baitna-surface=compliance] .item{
+ padding:24px 0!important;border-top:1px solid #e3eaf2!important;
+ display:flex;flex-direction:column;align-items:flex-start;gap:5px
+}
+body[data-baitna-surface=compliance] .item h3{
+ color:#183953!important;font-weight:800!important;font-size:17px!important;line-height:1.5!important
+}
+body[data-baitna-surface=compliance] .item p{
+ color:#6c8191!important;font-size:13px!important;line-height:1.85!important
+}
+body[data-baitna-surface=compliance] .item a{
+ color:#1553bc!important;background:#eaf1ff!important;border:1px solid #d2e1fa!important;
+ padding:9px 14px!important;border-radius:10px!important;min-height:44px;
+ display:inline-flex;align-items:center;text-decoration:none!important;font-size:12px!important;font-weight:700
+}
+body[data-baitna-surface=compliance] .item a:hover{background:#dce9ff!important}
+body[data-baitna-surface=compliance] .foot{
+ background:#fff!important;border-top:1px solid #dce5ee!important;
+ padding:24px clamp(19px,5vw,86px)!important;color:#75899a!important
+}
+
+/* CLASSIC MOBILE EXPERIENCE / the original demo, not a new product */
+body[data-baitna-surface=classic]{
+ --bg:#f6f9fd;--card:#fff;--ink:#0d2e49;--soft:#476277;
+ --muted:#71879a;--line:#dbe5f0;--track:#e9eff6;
+ --brand:#1247cc;--brand-2:#0a3aa6;--brand-tint:#e8f0ff;
+ --brand-light:#a9c6fa;--amber:#986323;--amber-tint:#fff7eb;--blue:#1247cc;
+ background:radial-gradient(ellipse 800px 620px at 0 0,#dce8fa,transparent 80%),#edf2f9!important;
+ color:#0b2943!important;color-scheme:light!important
+}
+body[data-baitna-surface=classic] .stage{
+ gap:clamp(36px,6vw,100px)!important;
+ padding:clamp(30px,4vw,70px)!important;
+}
+body[data-baitna-surface=classic] .presenter{
+ background:#fff!important;border:1px solid #d8e4f1!important;
+ padding:clamp(28px,4vw,55px)!important;border-radius:27px!important;
+ box-shadow:0 20px 55px rgba(15,47,87,.07)!important;
+ color:#183651!important
+}
+body[data-baitna-surface=classic] .presenter .back-site{
+ color:#184cab!important;font-weight:750!important;
+ padding:11px 16px!important;border:1px solid #d4e2f9!important;
+ background:#edf3ff!important;border-radius:11px!important
+}
+body[data-baitna-surface=classic] .presenter .kicker{
+ color:#1850bd!important;font-weight:800!important;font-size:12px!important
+}
+body[data-baitna-surface=classic] .presenter h1{
+ color:#0c2b46!important;font-size:clamp(28px,2.8vw,45px)!important;
+ font-weight:800!important;line-height:1.36!important
+}
+body[data-baitna-surface=classic] .presenter p{
+ color:#61778a!important;font-size:15px!important;line-height:2!important
+}
+body[data-baitna-surface=classic] .device{
+ border-radius:42px!important;background:#fff!important;
+ box-shadow:0 0 0 9px #122b4a,0 0 0 10px #6f8faf,0 38px 80px rgba(13,48,93,.27)!important;
+}
+body[data-baitna-surface=classic] .screen{
+ background:#f6f8fc!important;color:#173651!important
+}
+body[data-baitna-surface=classic] .screen :is(.topbar,.tabbar){
+ background:#fff!important;border-color:#dce5f0!important
+}
+body[data-baitna-surface=classic] .screen .topbar{
+ box-shadow:0 5px 15px rgba(14,51,98,.035)!important
+}
+body[data-baitna-surface=classic] .screen :is(.topbar h1,.brand b){
+ color:#183c62!important;font-weight:800!important
+}
+body[data-baitna-surface=classic] .screen .card{
+ background:#fff!important;border:1px solid #dce5ef!important;
+ box-shadow:0 7px 23px rgba(14,50,94,.045)!important;
+ border-radius:18px!important;color:#16334e!important
+}
+body[data-baitna-surface=classic] .screen .card h2{
+ color:#173b5c!important;font-weight:800!important
+}
+body[data-baitna-surface=classic] .screen .card :is(p,small){color:#607b91!important}
+body[data-baitna-surface=classic] .screen .bar i{
+ background:linear-gradient(90deg,#1451db,#69aff6)!important
+}
+body[data-baitna-surface=classic] .screen .tabbar{
+ box-shadow:0 -9px 22px rgba(17,51,88,.04)!important
+}
+body[data-baitna-surface=classic] .screen .tabbar :is(a,button){
+ color:#58718d!important;min-height:44px!important
+}
+body[data-baitna-surface=classic] .screen .tabbar .active{color:#1247cc!important}
+body[data-baitna-surface=classic] .screen .btn.primary,
+body[data-baitna-surface=classic] .screen .primary{
+ background:#1247cc!important;color:#fff!important;border-color:#1247cc!important
+}
+
+/* REGULATOR / ANALYST-LEVEL WORKSPACE, INFORMATIVE BUT NOT DECISION-MAKING */
+body[data-baitna-surface=authority]{
+ --bg:#f5f8fc;--card:#fff;--line:#dce4f0;--track:#e9eef6;
+ --ink:#0e2b43;--soft:#3c5c75;--muted:#627d91;
+ --brand:#1247cc;--brand-2:#0b3baf;--brand-tint:#eaf1ff;
+ --amber:#986120;--amber-tint:#fff4e3;--amber-line:#e8c68e;
+ --blue:#1247cc;--blue-tint:#eaf1ff;
+ background:#f5f8fc!important;color:#112e48!important;color-scheme:light!important
+}
+body[data-baitna-surface=authority] .bar{
+ background:#081e3b!important;border-bottom:1px solid #24466b!important;
+ color:#e9f1ff!important;box-shadow:0 10px 29px rgba(10,36,72,.14)!important
+}
+body[data-baitna-surface=authority] .bar .in{
+ max-width:1490px!important;min-height:82px!important;
+ padding:15px clamp(18px,4vw,74px)!important;gap:15px!important
+}
+body[data-baitna-surface=authority] .brand b{
+ color:#fff!important;font-size:25px!important;font-weight:800!important
+}
+body[data-baitna-surface=authority] .bar .ttl{
+ color:#e1ecff!important;font-size:13px!important;font-weight:700!important
+}
+body[data-baitna-surface=authority] .bar .sep{background:#537aa7!important}
+body[data-baitna-surface=authority] .bar .ro{
+ background:rgba(246,208,134,.12)!important;
+ color:#f7d59d!important;border:1px solid rgba(245,210,151,.4)!important;
+ border-radius:99px!important;padding:7px 12px!important;font-weight:700!important
+}
+body[data-baitna-surface=authority] .bar nav{gap:9px!important}
+body[data-baitna-surface=authority] .bar nav a{
+ color:#dceafa!important;padding:9px 12px!important;
+ border-radius:10px!important;min-height:44px;display:inline-flex;align-items:center
+}
+body[data-baitna-surface=authority] .bar nav a:hover{
+ color:#fff!important;background:rgba(123,169,233,.2)!important
+}
+body[data-baitna-surface=authority] main.wrap{
+ max-width:1500px!important;padding:clamp(33px,5vw,73px) clamp(18px,4vw,74px) 90px!important
+}
+body[data-baitna-surface=authority] .head{
+ margin-bottom:33px!important;gap:20px!important
+}
+body[data-baitna-surface=authority] .head h1{
+ color:#0e2b47!important;font-size:clamp(29px,3.2vw,49px)!important;
+ font-weight:800!important;line-height:1.45!important;letter-spacing:-.04em!important
+}
+body[data-baitna-surface=authority] .head p{color:#657c90!important;line-height:1.9!important}
+body[data-baitna-surface=authority] .kpis{
+ gap:15px!important;margin-bottom:24px!important
+}
+body[data-baitna-surface=authority] .kpis>div,
+body[data-baitna-surface=authority] .kpis>.kpi{
+ background:#fff!important;border:1px solid #dae4f1!important;
+ border-radius:20px!important;padding:23px!important;
+ box-shadow:0 10px 25px rgba(12,49,93,.05)!important
+}
+body[data-baitna-surface=authority] .kpis :is(b,strong,.num){
+ color:#1745aa!important;font-size:clamp(27px,2.8vw,39px)!important;
+ font-weight:800!important
+}
+body[data-baitna-surface=authority] .kpis :is(span,small){color:#607a90!important}
+body[data-baitna-surface=authority] .layout{gap:20px!important;align-items:start!important}
+body[data-baitna-surface=authority] .panel{
+ background:#fff!important;border:1px solid #dce5f0!important;
+ border-radius:23px!important;padding:clamp(21px,2.5vw,33px)!important;
+ box-shadow:0 10px 28px rgba(11,47,87,.045)!important;color:#15344e!important
+}
+body[data-baitna-surface=authority] .panel h2{
+ color:#143756!important;font-size:clamp(18px,1.7vw,25px)!important;font-weight:800!important
+}
+body[data-baitna-surface=authority] .panel :is(p,small){color:#5f7689!important;line-height:1.9!important}
+body[data-baitna-surface=authority] .tools{gap:12px!important}
+body[data-baitna-surface=authority] .tools :is(button,input,select){
+ min-height:44px!important;border-radius:10px!important
+}
+body[data-baitna-surface=authority] .tools input{
+ background:#f9fbff!important;border-color:#ccdbea!important;color:#183b55!important
+}
+body[data-baitna-surface=authority] .chips{gap:7px!important}
+body[data-baitna-surface=authority] .chips button{
+ border-radius:999px!important;padding:9px 14px!important;
+ border:1px solid #cbdced!important;background:#f4f7fc!important;
+ color:#366080!important;font-weight:700!important
+}
+body[data-baitna-surface=authority] .chips button[aria-pressed=true]{
+ color:#fff!important;background:#1247cc!important;border-color:#1247cc!important
+}
+body[data-baitna-surface=authority] .tablebox{overflow:auto;max-width:100%;border-radius:13px!important}
+body[data-baitna-surface=authority] .tablebox table{
+ background:#fff!important;color:#143651!important;min-width:670px
+}
+body[data-baitna-surface=authority] .tablebox th{
+ background:#eff4fb!important;color:#3e5c79!important;font-weight:800!important;
+ border-color:#dce5ef!important
+}
+body[data-baitna-surface=authority] .tablebox td{color:#25435c!important;border-color:#e4ebf3!important}
+body[data-baitna-surface=authority] .detail{
+ border:1px solid #dce5ef!important;background:#fff!important
+}
+body[data-baitna-surface=authority] .mtable{max-width:100%;overflow:auto}
+body[data-baitna-surface=authority] .mtable table{min-width:600px}
+body[data-baitna-surface=authority] .method{margin-top:23px!important}
+body[data-baitna-surface=authority] .bm-risk-board{
+ background:#fff!important;border:1px solid #dbe4ef!important;
+ border-radius:21px!important;padding:24px!important;
+ box-shadow:0 11px 27px rgba(10,44,87,.04)!important
+}
+body[data-baitna-surface=authority] .bm-risk-board :is(h2,h3){color:#163751!important}
+body[data-baitna-surface=authority] .bm-risk-board :is(p,small){color:#597184!important}
+body[data-baitna-surface=authority] :is(input,select,textarea){
+ background:#fff!important;color:#123752!important;
+ border:1px solid #cbdbe9!important;border-radius:10px!important
+}
+
+/* RESPONSIVE / full design, no hidden governance content */
+@media(max-width:1260px){
+ body[data-baitna-surface=landing] #lifecycle-v2 .v2-modules{grid-template-columns:repeat(3,minmax(0,1fr))}
+ body[data-baitna-surface=workspace] .shell{grid-template-columns:254px minmax(0,1fr)!important}
+ body[data-baitna-surface=workspace] .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:1050px){
+ body[data-baitna-surface=landing] .hero .wrap{grid-template-columns:minmax(0,1fr)!important;gap:65px!important}
+ body[data-baitna-surface=landing] .hero .sheet{width:min(700px,100%);margin-inline:auto}
+ body[data-baitna-surface=landing] .hero h1{max-width:12.5em!important}
+ body[data-baitna-surface=landing] #lifecycle-v2 .v2-path{grid-template-columns:1fr!important}
+ body[data-baitna-surface=landing] #lifecycle-v2 .v2-stage:nth-child(2){transform:none!important}
+ body[data-baitna-surface=landing] #how .loop{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body[data-baitna-surface=landing] #parties .parties{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body[data-baitna-surface=orb] .steps{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(max-width:760px){
+ body[data-baitna-surface=landing] .top .wrap{min-height:74px!important}
+ body[data-baitna-surface=landing] .top .nav{display:none!important}
+ body[data-baitna-surface=landing] .hero{
+  padding:67px 0 88px!important
+ }
+ body[data-baitna-surface=landing] .hero .wrap{gap:63px!important}
+ body[data-baitna-surface=landing] .hero h1{
+  font-size:clamp(37px,8.8vw,63px)!important;
+  line-height:1.35!important;max-width:100%!important
+ }
+ body[data-baitna-surface=landing] .hero .lead{font-size:17px!important}
+ body[data-baitna-surface=landing] .hero .sheet{transform:none!important;padding:10px!important}
+ body[data-baitna-surface=landing] .hero .ctas{display:grid!important;grid-template-columns:1fr!important}
+ body[data-baitna-surface=landing] .hero .ctas .btn{width:100%!important;min-height:54px!important}
+ body[data-baitna-surface=landing] #lifecycle-v2{padding:75px 0!important}
+ body[data-baitna-surface=landing] #lifecycle-v2 h2{font-size:clamp(32px,7.5vw,51px)!important}
+ body[data-baitna-surface=landing] #lifecycle-v2 .v2-top{display:block!important}
+ body[data-baitna-surface=landing] #lifecycle-v2 .v2-cta{margin-top:18px!important}
+ body[data-baitna-surface=landing] #lifecycle-v2 .v2-path{margin-top:30px!important}
+ body[data-baitna-surface=landing] #lifecycle-v2 .v2-stage{padding:27px!important;min-height:0!important}
+ body[data-baitna-surface=landing] #lifecycle-v2 .v2-modules{grid-template-columns:repeat(2,minmax(0,1fr))!important;margin-top:37px!important}
+ body[data-baitna-surface=landing] #how .loop{grid-template-columns:1fr!important;gap:13px!important}
+ body[data-baitna-surface=landing] #how .loop li{min-height:0!important;padding:25px!important}
+ body[data-baitna-surface=landing] #parties .parties{grid-template-columns:1fr!important}
+ body[data-baitna-surface=landing] #parties .parties>div{min-height:0!important}
+ body[data-baitna-surface=landing] section.block{padding-block:75px!important}
+ body[data-baitna-surface=landing] #network .graph-shell{border-radius:20px!important;padding:12px!important}
+ body[data-baitna-surface=workspace] .shell{display:block!important}
+ body[data-baitna-surface=workspace] .side{
+  position:static!important;width:100%!important;height:auto!important;
+  padding:15px!important;border-inline-end:0!important
+ }
+ body[data-baitna-surface=workspace] .brand{padding:3px 9px 10px!important}
+ body[data-baitna-surface=workspace] .nav-list{
+  display:flex!important;overflow-x:auto!important;scrollbar-width:thin;
+  gap:8px!important;flex-wrap:nowrap!important;padding-bottom:7px!important
+ }
+ body[data-baitna-surface=workspace] .nav-list :is(button,a.nav-external){
+  white-space:nowrap!important;min-width:max-content;min-height:43px!important;padding:9px 12px!important
+ }
+ body[data-baitna-surface=workspace] .side-label,
+ body[data-baitna-surface=workspace] .side-bottom{display:none!important}
+ body[data-baitna-surface=workspace] .top{padding:13px 17px!important;min-height:0!important;flex-wrap:wrap}
+ body[data-baitna-surface=workspace] .disclaimer{padding:13px 17px!important}
+ body[data-baitna-surface=workspace] main{padding:27px 17px 65px!important}
+ body[data-baitna-surface=workspace] .main-top{display:flex;flex-direction:column;align-items:stretch!important}
+ body[data-baitna-surface=workspace] .selector-stack{width:100%!important;max-width:100%!important}
+ body[data-baitna-surface=workspace] .stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body[data-baitna-surface=workspace] .grid{grid-template-columns:1fr!important}
+ body[data-baitna-surface=workspace] .card{padding:20px!important}
+ body[data-baitna-surface=orb] .top-inner{padding:12px 18px!important;min-height:0!important;flex-wrap:wrap}
+ body[data-baitna-surface=orb] .main{padding:31px 17px 76px!important}
+ body[data-baitna-surface=orb] .intro{display:block!important}
+ body[data-baitna-surface=orb] .intro h1{font-size:clamp(31px,7.5vw,44px)!important}
+ body[data-baitna-surface=orb] .status{margin-top:15px!important}
+ body[data-baitna-surface=orb] .sidebar{padding:17px 14px!important}
+ body[data-baitna-surface=orb] .steps{
+  display:flex!important;overflow-x:auto!important;grid-template-columns:none!important;
+  gap:9px!important;scrollbar-width:thin;padding-bottom:5px!important
+ }
+ body[data-baitna-surface=orb] .steps button{flex:0 0 auto!important;min-width:155px!important;width:auto!important}
+ body[data-baitna-surface=orb] .context{padding:20px!important;flex-wrap:wrap}
+ body[data-baitna-surface=orb] .form-section{padding:22px 18px!important}
+ body[data-baitna-surface=compliance] main{padding:43px 18px 77px!important}
+ body[data-baitna-surface=compliance] .layout{grid-template-columns:1fr!important}
+ body[data-baitna-surface=compliance] .card{padding:22px!important}
+ body[data-baitna-surface=authority] main.wrap{padding:31px 18px 70px!important}
+ body[data-baitna-surface=authority] .bar .in{padding:13px 18px!important}
+ body[data-baitna-surface=authority] .kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body[data-baitna-surface=authority] .layout{display:grid!important;grid-template-columns:1fr!important}
+}
+@media(max-width:470px){
+ body[data-baitna-surface=landing] #lifecycle-v2 .v2-modules{grid-template-columns:1fr!important}
+ body[data-baitna-surface=landing] #lifecycle-v2 .v2-modules a{min-height:84px!important}
+ body[data-baitna-surface=landing] .hero .sheet::after{inset-inline-start:13px}
+ body[data-baitna-surface=workspace] .stats{gap:9px!important}
+ body[data-baitna-surface=workspace] .stat{padding:17px!important;min-height:111px!important}
+ body[data-baitna-surface=workspace] .stat b{font-size:25px!important}
+ body[data-baitna-surface=workspace] .record{flex-wrap:wrap!important}
+ body[data-baitna-surface=orb] .documents{padding:18px!important}
+ body[data-baitna-surface=compliance] .features{grid-template-columns:1fr 1fr!important}
+ body[data-baitna-surface=classic] .stage{padding:0!important}
+ body[data-baitna-surface=classic] .device{
+  width:100%!important;height:100dvh!important;min-height:0!important;border:0!important;
+  box-shadow:none!important;border-radius:0!important
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ body[data-baitna-surface=landing] #lifecycle-v2 .v2-stage:nth-child(2){
+  transform:none!important
+ }
+}
+/* Never conceal disclaimers, decisions, phase steps, or regulatory caveats. */
