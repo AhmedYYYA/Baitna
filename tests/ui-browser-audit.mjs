@@ -63,7 +63,7 @@ async function scan(host,route,candidate){
   await page.setViewportSize({width:1440,height:900});
   const n=(route||'index').replaceAll('/','-').replace('.html','');
   await page.screenshot({path:path.join(DEST,n+'-desktop.png'),fullPage:true});
-  if(route===''){const vp=page.locator('#graphViewport');if(await vp.count()){await vp.focus();await page.keyboard.press('ArrowRight');}}
+  if(route===''){const vp=page.locator('#graphViewport');if(await vp.count() && await vp.isVisible()){await vp.focus();await page.keyboard.press('ArrowRight');}}
  }
  const toggle=route===''?'#langBtn':route==='demo/lifecycle.html'?'#langToggle':route==='demo/orb.html'?'#langBtn':route==='demo/compliance.html'?'#lang':null;
  let locale=null;
