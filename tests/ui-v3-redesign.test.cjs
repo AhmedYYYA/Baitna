@@ -14,6 +14,17 @@ const read=p=>fs.readFileSync(path.join(ROOT,p),"utf8");
 const pages=["index.html","demo/lifecycle.html","demo/orb.html","demo/compliance.html","demo/index.html","demo/authority.html"];
 const frozenScripts=["assets/experience.js","assets/launch-enhancements.js","assets/lifecycle.js","assets/orb.js","assets/orb-catalog.js"];
 const stylesheet=read("assets/baitna-v3.css"),navigation=read("assets/baitna-v3-nav.js");
+
+/* Explicitly approved exception: remove only this exact illustrated demo block.
+   All remaining original sections, roles, links and logic stay frozen. */
+function approvedHomeMockupRemoval(p,source){
+ if(p!=="index.html")return source;
+ const match=source.match(/\n    <figure class="sheet">[\s\S]*?\n    <\/figure>\n/);
+ assert.ok(match,'baseline sample illustration missing');
+ assert.equal((source.match(/<figure class="sheet">/g)||[]).length,1);
+ return source.replace(match[0],"\n");
+}
+
 test("Six complete original documents are identical after removing only V3 visual head inserts",()=>{
  for(const page of pages){
   const content=read(page);
@@ -21,7 +32,7 @@ test("Six complete original documents are identical after removing only V3 visua
   const found=[...content.matchAll(marker)];
   assert.equal(found.length,1,page+" must have one design head block");
   assert.ok(content.indexOf(found[0][0])<content.indexOf("</head>"),page+" design assets must be in head");
-  assert.equal(content.replace(marker,""),original(page),page+" original content or logic changed");
+  assert.equal(content.replace(marker,""),approvedHomeMockupRemoval(page,original(page)),page+" changed beyond approved sample illustration removal");
   const head=found[0][0],prefix=page==="index.html"?"assets/":"../assets/";
   assert.ok(head.includes(prefix+"baitna-v3.css?v=3"),page+" missing theme");
   assert.ok(head.includes(prefix+"baitna-v3-nav.js?v=3"),page+" missing navigation");
@@ -62,7 +73,7 @@ test("New navigation links only to existing page routes, no storage/network/busi
 test("Original URL parameters, statuses and disclaimer texts survive without rewrite",()=>{
  for(const page of pages){
   const next=read(page).replace(/<!-- BAITNA-V3:START -->\n[\s\S]*?<!-- BAITNA-V3:END -->\n/g,"");
-  assert.equal(next,original(page));
+  assert.equal(next,approvedHomeMockupRemoval(page,original(page)));
  }
  assert.ok(read("demo/lifecycle.html").includes('id="homeSelect"'));
  assert.ok(read("demo/orb.html").includes('id="langBtn"'));
