@@ -1346,3 +1346,75 @@ body[data-baitna-surface=authority] :is(input,select,textarea){
 }
 /* The floating navigator never covers print output. */
 @media print{.v3-switcher{display:none!important}}
+
+
+/* V3 QA polish — contrast, stable first paint, mobile navigation */
+body[data-baitna-surface=landing] #how p[data-i18n="how_p"]{
+ color:#36516a!important
+}
+body[data-baitna-surface=landing] .top .menu-trigger{
+ display:none;background:#eef4ff!important;color:#1646a2!important;
+ border:1px solid #c6d8f5!important;border-radius:12px!important;
+ font-size:23px!important;min-height:45px;min-width:45px;
+ align-items:center;justify-content:center;
+}
+body[data-baitna-surface=landing] .mobile-navigation{
+ background:rgba(255,255,255,.98)!important;color:#123a5a!important;
+ border-top:1px solid #d8e4f2!important;
+ box-shadow:0 17px 35px rgba(16,51,94,.13)!important;
+}
+body[data-baitna-surface=landing] .mobile-navigation a{
+ color:#153d6b!important;border-bottom:1px solid #e8edf5!important;
+ padding:13px 10px!important;font-weight:700!important
+}
+body[data-baitna-surface=landing] .mobile-navigation a:hover{background:#eef4ff!important}
+body[data-baitna-surface=landing] .hero .sheet .tblock,
+body[data-baitna-surface=landing] .hero .sheet .tblock :is(span,b,strong){
+ color:#fff!important
+}
+body[data-baitna-surface=workspace] .process .step small{
+ color:#355b85!important
+}
+body[data-baitna-surface=workspace] footer>span{
+ color:#536f87!important
+}
+body[data-baitna-surface=orb] .top .brand small{
+ color:#36536b!important
+}
+body[data-baitna-surface=orb] .notice{
+ color:#77511d!important
+}
+body[data-baitna-surface=compliance] #sources .item p{
+ color:#425f79!important
+}
+body[data-baitna-surface=classic] .screen .between > div:nth-child(2) > p:nth-child(2),
+body[data-baitna-surface=classic] .screen p:nth-child(2) > span:nth-child(2){
+ color:#345671!important
+}
+body[data-baitna-surface=workspace] .stat :is(small,em){color:#4c6e8d!important}
+body[data-baitna-surface=workspace] .stat b{overflow-wrap:anywhere!important}
+/* Move desktop switcher to the physical lower right away from the original
+   presentation comfort/accessibility controls. */
+.v3-switcher{
+ right:clamp(14px,2.7vw,32px)!important;
+ left:auto!important;inset-inline-end:auto!important;
+}
+.v3-switcher-panel{
+ right:0!important;left:auto!important;inset-inline-end:auto!important;
+}
+@media(max-width:960px){
+ body[data-baitna-surface=landing] .top .menu-trigger{display:inline-flex!important}
+}
+/* Preserve enough stable space for the asynchronously rendered interactive
+   forms and navigation; no steps or fields are hidden/reordered. */
+@media(max-width:760px){
+ body[data-baitna-surface=workspace] .side{min-height:120px!important}
+ body[data-baitna-surface=workspace] .top{min-height:75px!important}
+ body[data-baitna-surface=workspace] .disclaimer{min-height:80px!important}
+ body[data-baitna-surface=orb] .top{min-height:125px!important}
+ body[data-baitna-surface=orb] .top-inner{min-height:123px!important}
+ body[data-baitna-surface=orb] .notice{min-height:72px!important}
+ body[data-baitna-surface=orb] .sidebar{min-height:171px!important}
+ body[data-baitna-surface=orb] .context{min-height:137px!important}
+ .v3-switcher{display:none!important}
+}
