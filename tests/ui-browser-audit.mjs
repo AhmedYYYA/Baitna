@@ -74,7 +74,7 @@ try{
  for(const route of routes){
   const before=await scan(beforeServer,route,false),after=await scan(afterServer,route,true);
   result.routes[route||'/']={before,after};
-  if(after.status!==200||after.errors.length||after.violations.length||after.metrics.scrollWidth>after.metrics.viewportWidth+2||after.locale?.lang==='ar')issues++;
+  if(after.status!==200||after.errors.length||after.violations.length||after.metrics.scrollWidth>after.metrics.viewportWidth+2||after.locale?.lang==='ar'||(after.metrics.lcpMs!==null&&after.metrics.lcpMs>2500)||(after.metrics.cls!==null&&after.metrics.cls>0.1))issues++;
   process.stdout.write(JSON.stringify({route:route||'/',before:{lcp:before.metrics.lcpMs,cls:before.metrics.cls,axe:before.violations.length},
    after:{lcp:after.metrics.lcpMs,cls:after.metrics.cls,axe:after.violations.length},overflows:after.metrics.scrollWidth>after.metrics.viewportWidth+2,overflow:after.metrics.overflow.slice(0,7),violations:after.violations.map(x=>({id:x.id,targets:x.targets})),shifts:after.metrics.shifts.slice(0,5)})+'\n');
  }
