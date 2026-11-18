@@ -42,7 +42,7 @@ async function scan(host,route,candidate){
  await page.addInitScript(()=>{
   window.__btPerf={lcp:null,cls:0,shifts:[]};
   try{new PerformanceObserver(ls=>ls.getEntries().forEach(e=>{window.__btPerf.lcp=e.startTime})).observe({type:'largest-contentful-paint',buffered:true})}catch(_){}
-  try{new PerformanceObserver(ls=>ls.getEntries().forEach(e=>{if(!e.hadRecentInput){window.__btPerf.cls+=e.value;window.__btPerf.shifts.push({value:e.value,sources:(e.sources||[]).slice(0,4).map(s=>({node:s.node?.tagName||'',id:s.node?.id||'',cls:String(s.node?.className||'').slice(0,55)}))});}})).observe({type:'layout-shift',buffered:true})}catch(_){}
+  try{new PerformanceObserver(ls=>ls.getEntries().forEach(e=>{if(!e.hadRecentInput){window.__btPerf.cls+=e.value;window.__btPerf.shifts.push({value:e.value,sources:(e.sources||[]).slice(0,4).map(s=>({node:s.node?.tagName||'',id:s.node?.id||'',cls:String(s.node?.className||'').slice(0,55),before:s.previousRect?{x:Math.round(s.previousRect.x),y:Math.round(s.previousRect.y),w:Math.round(s.previousRect.width),h:Math.round(s.previousRect.height)}:null,after:s.currentRect?{x:Math.round(s.currentRect.x),y:Math.round(s.currentRect.y),w:Math.round(s.currentRect.width),h:Math.round(s.currentRect.height)}:null}))});}})).observe({type:'layout-shift',buffered:true})}catch(_){}
  });
  const resp=await page.goto(host.url+route,{waitUntil:'domcontentloaded',timeout:25000});
  try{await page.waitForLoadState('load',{timeout:12000})}catch(_){}
