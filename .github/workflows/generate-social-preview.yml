@@ -1,0 +1,37 @@
+name: Render BAITNA social preview cover
+on:
+  push:
+    branches:
+      - feat/baitna-bilingual-share-preview-2026-11-18
+    paths:
+      - '.github/workflows/generate-social-preview.yml'
+      - 'scripts/generate-social-card.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  render-og-card:
+    if: github.ref == 'refs/heads/feat/baitna-bilingual-share-preview-2026-11-18'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install rasterizer and bilingual fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y fonts-noto-core fonts-liberation
+          python -m pip install --quiet pillow cairosvg
+      - name: Render original architectural mark and both taglines
+        run: python scripts/generate-social-card.py
+      - name: Commit social JPEG to feature branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/baitna-share-cover.jpg
+          git diff --cached --quiet || git commit -m "asset(social): render approved bilingual share cover"
+          git push origin "HEAD:$GITHUB_REF_NAME"

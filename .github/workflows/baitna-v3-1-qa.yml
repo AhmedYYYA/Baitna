@@ -27,7 +27,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --test tests/ui-v3-1-smoke.test.cjs tests/ui-v3-redesign.test.cjs tests/ui-governance-lock.test.cjs tests/orb.test.cjs
+      - run: node --test tests/ui-v3-1-smoke.test.cjs tests/ui-v3-redesign.test.cjs tests/ui-governance-lock.test.cjs tests/orb.test.cjs tests/ui-share-preview.test.cjs
   browser-visual:
     runs-on: ubuntu-latest
     timeout-minutes: 15
