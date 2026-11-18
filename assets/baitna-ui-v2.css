@@ -303,3 +303,17 @@ body[data-baitna-surface=landing] #graphViewport{
 body[data-baitna-surface=landing] #network .graph-shell{
  overflow:clip
 }
+
+
+/* v2.3 — reserve the mobile hero's copy block before font/viewport settling.
+   Prevent its adjacent illustrated figure from jumping during initial paint. */
+@media(max-width:760px){
+ body[data-baitna-surface=landing] .hero .wrap>div:first-child{
+  min-block-size:clamp(520px,146vw,610px);
+ }
+}
+@media(max-width:360px){
+ body[data-baitna-surface=landing] .hero .wrap>div:first-child{
+  min-block-size:590px;
+ }
+}
