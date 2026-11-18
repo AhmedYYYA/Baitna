@@ -1253,3 +1253,163 @@ body[data-baitna-surface="classic"] .screen a{
   min-block-size:130px!important;
  }
 }
+
+
+/* ================================================================
+ BAITNA V3.5 — unify approved bronze/ivory palette
+ Fix inherited cobalt from v3 specificity, including the main CTA.
+ No business logic, role state or semantic status colors are changed.
+ ================================================================ */
+body[data-baitna-surface]{
+ --v3-blue:#81562F;
+ --v3-blue-dark:#654021;
+ --v3-sky:#F2E6D7;
+ --v3-focus:#A87842;
+ --ui-focus:#A87842;
+ --ui-blue:#81562F;
+ --focus:#A87842;
+}
+body[data-baitna-surface="landing"] .hero .ctas .btn.solid,
+body[data-baitna-surface="landing"] .top .btn.solid,
+body[data-baitna-surface="landing"] #demo .btn.solid,
+body[data-baitna-surface="landing"] #pilot .btn.solid{
+ background:#81562F!important;
+ color:#FFF8EE!important;
+ border:1px solid #81562F!important;
+ box-shadow:0 8px 20px rgba(58,37,22,.13)!important;
+ border-radius:7px!important;
+}
+body[data-baitna-surface="landing"] .hero .ctas .btn.solid:hover,
+body[data-baitna-surface="landing"] .top .btn.solid:hover,
+body[data-baitna-surface="landing"] #demo .btn.solid:hover,
+body[data-baitna-surface="landing"] #pilot .btn.solid:hover{
+ background:#644023!important;
+ color:#FFFFFF!important;
+ border-color:#644023!important;
+}
+body[data-baitna-surface="landing"] .hero .ctas .btn.line,
+body[data-baitna-surface="landing"] #demo .btn.line,
+body[data-baitna-surface="landing"] #pilot .btn.line{
+ background:#FFFCF7!important;
+ border:1px solid #BBA17E!important;
+ color:#47311F!important;
+ box-shadow:none!important;
+ border-radius:7px!important;
+}
+body[data-baitna-surface="landing"] .hero .ctas .btn.line:hover,
+body[data-baitna-surface="landing"] #demo .btn.line:hover,
+body[data-baitna-surface="landing"] #pilot .btn.line:hover{
+ background:#F0E2D0!important;
+ color:#3B291B!important;
+ border-color:#9E764B!important;
+}
+body[data-baitna-surface="landing"] .top .nav a:hover,
+body[data-baitna-surface="landing"] .top .nav a.is-active{
+ color:#E7C69B!important;
+}
+body[data-baitna-surface="landing"] .top .nav a::after{
+ background:#B68A57!important;
+}
+body[data-baitna-surface="landing"] .hero .eyebrow::before,
+body[data-baitna-surface="landing"] .hero .eyebrow::after{
+ background:#B68A57!important;
+ box-shadow:none!important;
+}
+body[data-baitna-surface="landing"] .hero .eyebrow{
+ color:#754D2D!important;
+ border-color:#D1B58D!important;
+}
+body[data-baitna-surface="landing"] #how .loop .n{
+ color:#694527!important;
+}
+body[data-baitna-surface="landing"] #lifecycle-v2 .v2-stage.v31-current{
+ border-color:#C5A276!important;
+ box-shadow:inset 0 0 0 1px rgba(212,176,125,.16)!important;
+}
+body[data-baitna-surface="landing"] .hero .ctas a:focus-visible,
+body[data-baitna-surface="landing"] #lifecycle-v2 .v2-modules a:focus-visible{
+ outline:3px solid #B68A57!important;
+ outline-offset:4px!important;
+}
+body[data-baitna-surface="landing"] #pilot .axis,
+body[data-baitna-surface="landing"] #pilot .axis :is(span,b,strong){
+ color:#604B39!important;
+}
+body[data-baitna-surface="landing"] .scene[aria-current="true"]{
+ border-color:#C6AB89!important;
+}
+/* Floating prototype menu: no cobalt on selection or hover. */
+.v3-switcher-trigger:hover,
+.v3-switcher.is-open .v3-switcher-trigger{
+ background:#5A3C27!important;
+ border-color:#B68A57!important;
+ box-shadow:0 14px 30px rgba(45,28,17,.17)!important;
+}
+.v3-switcher-panel,
+.v3-switcher-panel .v3-switcher-heading{
+ background:#FFFCF7!important;
+ border-color:#D6C5B2!important;
+}
+.v3-switcher-link.is-current,
+.v3-switcher-link[aria-current="page"],
+.v3-switcher-link:hover{
+ background:#F0E4D5!important;
+ border-color:#D1B899!important;
+ color:#49321F!important;
+}
+.v3-switcher-link.is-current .v3-switcher-num,
+.v3-switcher-link[aria-current="page"] .v3-switcher-num{
+ background:#80562F!important;
+ border-color:#80562F!important;
+ color:#FFF6EB!important;
+}
+.v3-switcher-link .v3-switcher-num{
+ background:#F3E9DB!important;
+ border-color:#D1B899!important;
+ color:#624327!important;
+}
+body[data-baitna-surface="workspace"] :is(.nav-list button,.btn):focus-visible,
+body[data-baitna-surface="orb"] :is(.steps button,.btn):focus-visible{
+ outline-color:#B68A57!important;
+}
+body[data-baitna-surface="workspace"] .nav-list button:hover{
+ background:#654629!important;
+ border-color:#9F8057!important;
+}
+body[data-baitna-surface="orb"] .top nav a:hover,
+body[data-baitna-surface="orb"] .top nav a:focus-visible{
+ background:#64452F!important;
+ color:#FFF8EE!important;
+}
+body[data-baitna-surface="compliance"] header nav a:hover{
+ background:#F0E3D2!important;color:#57371F!important;
+}
+body[data-baitna-surface="compliance"] .features label:hover{
+ background:#F0E5D7!important;
+ border-color:#B99567!important;
+}
+body[data-baitna-surface="compliance"] .features input{
+ accent-color:#81562F!important;
+}
+body[data-baitna-surface="authority"] .bar nav a:hover{
+ background:#60452E!important;color:#FFF8EB!important;
+}
+body[data-baitna-surface="authority"] .tablebox tr:hover{
+ background:#F6EDE1!important;
+}
+/* Remove lingering cool-blue accents from navigation and nonsemantic chrome. */
+body[data-baitna-surface="landing"] #demo :is(.scene,.portal) a:not(.btn),
+body[data-baitna-surface="landing"] #pilot a:not(.btn),
+body[data-baitna-surface="workspace"] .breadcrumb a{
+ color:#754C2A!important;
+}
+body[data-baitna-surface="workspace"] .breadcrumb a:hover,
+body[data-baitna-surface="landing"] #demo a:not(.btn):hover{
+ color:#50331D!important;
+}
+@media(max-width:760px){
+ body[data-baitna-surface="landing"] .hero .ctas :is(.btn.solid,.btn.line){
+  min-height:52px!important;
+  font-size:16px!important;
+ }
+}
