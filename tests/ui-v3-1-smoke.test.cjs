@@ -38,7 +38,7 @@ test("motion respects RTL, mobile touch, focus and scroll performance",()=>{
 test("regulator, financing, consultant, owner notices and workflows unchanged",()=>{
  const landing=read("index.html");
  for(const id of ['id="network"','id="how"','id="parties"','id="pilot"'])assert.ok(landing.includes(id));
- assert.ok(read("demo/authority.html").includes("noindex,nofollow")||fromBase("demo/authority.html").includes("noindex,nofollow")||true);
+ assert.ok(read("demo/authority.html").includes('id="visitForm"'),"original regulator demo form must remain present");
  assert.ok(read("demo/lifecycle.html").includes('id="projectSelect"'));
  assert.ok(read("demo/orb.html").includes('id="langBtn"'));
 });
