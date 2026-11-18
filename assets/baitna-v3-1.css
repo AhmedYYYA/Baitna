@@ -1,0 +1,182 @@
+/* BAITNA — V3.1 Architectural Motion & Interaction Layer
+   Presentation-only. Does not change roles, steps, permissions, data or claims.
+   Depends on the existing v3 visual system, not on a new framework. */
+
+:root{
+  --v31-ease:cubic-bezier(.18,.78,.24,1);
+  --v31-rail:0%;
+  --v31-rot-x:0deg;
+  --v31-rot-y:0deg;
+  --v31-glow-x:50%;
+  --v31-glow-y:50%;
+}
+
+/* Stable viewport capture and containment — especially the zoomable SVG. */
+html:has(body[data-baitna-surface="landing"]),
+body[data-baitna-surface="landing"]{
+  max-inline-size:100%;
+  overflow-x:clip;
+}
+body[data-baitna-surface="landing"] :is(.wrap,.hero .sheet,.hero .frame,#graphShell,#graphViewport){
+  min-inline-size:0;
+}
+body[data-baitna-surface="landing"] #network :is(.graph-shell,.graph-viewport){
+  max-inline-size:100%;contain:paint;
+}
+
+/* A quiet progress indicator, independent of the workflow's completion metrics. */
+body[data-baitna-surface="landing"].v31-motion::before{
+  content:"";
+  position:fixed;
+  z-index:350;
+  inset-block-start:0;
+  inset-inline-start:0;
+  inline-size:var(--v31-rail);
+  block-size:3px;
+  background:linear-gradient(90deg,#75baff,#1247cc,#d7b36d);
+  box-shadow:0 1px 12px rgba(18,71,204,.26);
+  pointer-events:none;
+}
+
+/* Interactive architecture showcase: physical depth, not synthetic progress. */
+body[data-baitna-surface="landing"].v31-motion .hero .sheet{
+  --v31-rot-x:0deg;
+  --v31-rot-y:0deg;
+  --v31-glow-x:50%;
+  --v31-glow-y:50%;
+  isolation:isolate;
+  position:relative;
+  transform:perspective(1250px) rotateX(var(--v31-rot-x)) rotateY(var(--v31-rot-y));
+  transform-style:preserve-3d;
+  backface-visibility:hidden;
+  transition:transform 550ms var(--v31-ease),box-shadow 350ms var(--v31-ease);
+  box-shadow:0 38px 95px rgba(14,49,97,.16),0 4px 18px rgba(14,49,97,.07);
+  will-change:auto;
+}
+body[data-baitna-surface="landing"].v31-motion .hero .sheet.v31-tilting{
+  transition:box-shadow 300ms var(--v31-ease);
+  will-change:transform;
+}
+body[data-baitna-surface="landing"].v31-motion .hero .sheet::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:radial-gradient(circle at var(--v31-glow-x) var(--v31-glow-y),
+    rgba(255,255,255,.25),transparent 45%);
+  pointer-events:none;
+  z-index:2;
+  mix-blend-mode:screen;
+}
+body[data-baitna-surface="landing"].v31-motion .hero .sheet:focus-within{
+  outline:3px solid #376de8;
+  outline-offset:5px;
+}
+
+/* Cinematic entrances: additive decoration, never hide content by default.
+   JS adds .v31-motion only after capability checks and reduced-motion gate. */
+body.v31-motion .v31-reveal{
+  opacity:1;
+  transform:translate3d(0,0,0);
+  transition:transform 740ms var(--v31-ease), opacity 740ms var(--v31-ease);
+}
+body.v31-motion .v31-reveal.v31-before{
+  opacity:.72;
+  transform:translate3d(0,17px,0);
+}
+body.v31-motion .v31-reveal.v31-visible{
+  opacity:1;
+  transform:translate3d(0,0,0);
+}
+body[data-baitna-surface="landing"].v31-motion #lifecycle-v2 .v2-stage{
+  transition:border-color .4s var(--v31-ease),background .4s var(--v31-ease),box-shadow .4s var(--v31-ease),transform .4s var(--v31-ease);
+}
+body[data-baitna-surface="landing"].v31-motion #lifecycle-v2 .v2-stage.v31-current{
+  border-color:rgba(169,204,255,.65)!important;
+  box-shadow:inset 0 0 0 1px rgba(136,187,255,.17),0 15px 38px rgba(0,14,49,.16)!important;
+}
+
+/* Stronger tactile affordances without altering link destinations or actions. */
+body[data-baitna-surface="landing"] .hero .ctas a,
+body[data-baitna-surface="landing"] #lifecycle-v2 .v2-modules a,
+body[data-baitna-surface="workspace"] :is(.nav-list button,.btn),
+body[data-baitna-surface="orb"] :is(.steps button,.btn),
+body[data-baitna-surface="compliance"] #run{
+  transition:background-color 180ms ease,border-color 180ms ease,box-shadow 210ms ease,transform 210ms var(--v31-ease);
+}
+@media(hover:hover) and (pointer:fine){
+ body[data-baitna-surface="landing"] .hero .ctas a:hover,
+ body[data-baitna-surface="workspace"] .btn:hover,
+ body[data-baitna-surface="orb"] .btn:hover,
+ body[data-baitna-surface="compliance"] #run:hover{
+  transform:translateY(-2px);
+ }
+}
+body[data-baitna-surface="landing"] .hero .ctas a:focus-visible,
+body[data-baitna-surface="landing"] #lifecycle-v2 .v2-modules a:focus-visible{
+  outline:3px solid #134ccc!important;
+  outline-offset:4px!important;
+}
+body[data-baitna-surface="landing"] .hero .note{
+  line-height:1.85!important;
+  color:#48617b!important;
+}
+
+/* Compliance and procurement disclaimers stay visible and readable. */
+body[data-baitna-surface="orb"] .notice{
+  color:#6c420e!important;
+  background:#fff2dd!important;
+  border-color:#d8a85b!important;
+}
+body[data-baitna-surface="orb"] .notice :is(p,small,strong,span){
+  color:#65420e!important;
+}
+body[data-baitna-surface="compliance"] .warning{
+  border-color:#a47d40!important;
+  color:#633c0d!important;
+  background:#fff4df!important;
+}
+body[data-baitna-surface="compliance"] .warning :is(p,strong,span){
+  color:#633c0d!important;
+}
+
+/* Floating page switcher should never obscure the bottom of long forms. */
+body[data-baitna-surface="orb"] main,
+body[data-baitna-surface="workspace"] main,
+body[data-baitna-surface="compliance"] main{
+  padding-block-end:max(100px,calc(env(safe-area-inset-bottom) + 100px));
+}
+.v3-switcher-trigger:focus-visible,
+.v3-switcher-link:focus-visible{
+  outline:3px solid #e2b874!important;
+  outline-offset:3px!important;
+}
+
+/* Respect motion and touch preferences. Heavy 3D is limited to precise pointers. */
+@media(hover:none),(pointer:coarse){
+  body[data-baitna-surface="landing"].v31-motion .hero .sheet{
+    transform:none!important;
+    will-change:auto!important;
+  }
+  body[data-baitna-surface="landing"].v31-motion .hero .sheet::before{display:none}
+}
+@media(max-width:760px){
+  body[data-baitna-surface="landing"] .hero .sheet{max-width:100%!important;overflow:hidden!important}
+  body[data-baitna-surface="landing"] .hero .wrap{min-width:0!important;max-width:100%!important}
+  body[data-baitna-surface="landing"] .hero .ctas{width:100%;min-width:0}
+  .v3-switcher{inset-block-end:calc(13px + env(safe-area-inset-bottom))}
+  body[data-baitna-surface="orb"] .notice{padding-block:14px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  body.v31-motion .v31-reveal,
+  body.v31-motion .v31-reveal.v31-before,
+  body.v31-motion .v31-reveal.v31-visible{
+    opacity:1!important;transform:none!important;transition:none!important;
+  }
+  body[data-baitna-surface="landing"].v31-motion .hero .sheet{
+    transform:none!important;transition:none!important;will-change:auto!important
+  }
+  body[data-baitna-surface="landing"].v31-motion::before{
+    box-shadow:none
+  }
+}
