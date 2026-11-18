@@ -10,7 +10,7 @@
  --v3-muted:#586a7c;--v3-line:#dce4ed;--v3-gold:#b88647;
  --v3-alert:#84531b;--v3-alert-bg:#fff5e5;--v3-surface:#eff3f9;
  --v3-radius:20px;--v3-radius-lg:28px;--v3-shadow:0 24px 65px rgba(15,41,73,.08);
- --v3-font:"Dubai","Dubai Regular","Dubai Medium","IBM Plex Sans Arabic","Segoe UI",system-ui,sans-serif;
+ --v3-font:"Dubai","Dubai Regular","Dubai Medium",system-ui,"Segoe UI",Arial,sans-serif;
  --v3-ease:cubic-bezier(.2,.8,.2,1);
 }
 html,body,body :is(button,input,textarea,select,h1,h2,h3,h4,h5,p,a,label,small,b,strong,span,li,th,td){
