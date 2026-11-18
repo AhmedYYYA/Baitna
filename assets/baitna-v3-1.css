@@ -341,3 +341,26 @@ body[data-baitna-surface="orb"] a[data-i18n="work"]{
  }
  .baitna-brand-lockup .baitna-hero-brand{margin-bottom:10px}
 }
+
+
+/* ORB header WCAG contrast: original light-surface selectors were more specific
+   than the new dark-brown header; override all header text and links together. */
+body[data-baitna-surface="orb"] .top .brand,
+body[data-baitna-surface="orb"] .top .brand b{
+ color:#FFF1DD!important;
+}
+body[data-baitna-surface="orb"] .top .brand small{
+ color:#EACFAE!important;
+}
+body[data-baitna-surface="orb"] .top nav a{
+ color:#F5DFC5!important;
+ background:transparent!important;
+}
+body[data-baitna-surface="orb"] .top nav a:hover,
+body[data-baitna-surface="orb"] .top nav a:focus-visible{
+ color:#FFF7E8!important;background:#63452F!important;
+}
+body[data-baitna-surface="orb"] .top button{
+ color:#FFF0D9!important;background:#533926!important;
+ border-color:#94704E!important;
+}
