@@ -1413,3 +1413,28 @@ body[data-baitna-surface="landing"] #demo a:not(.btn):hover{
   font-size:16px!important;
  }
 }
+
+
+/* Computed-style sweep: correct inherited legacy text and inline demo tokens. */
+body[data-baitna-surface="workspace"] main,
+body[data-baitna-surface="workspace"] main :is(.main-top,.selector-stack,#panel,.stats,.grid){
+ color:#3B2A1D!important;
+}
+body[data-baitna-surface="orb"] .main,
+body[data-baitna-surface="orb"] .main :is(.intro,.workspace,.content,.progress,.pager,.actions){
+ color:#3B2A1D!important;
+}
+body[data-baitna-surface="compliance"] main,
+body[data-baitna-surface="compliance"] main .layout,
+body[data-baitna-surface="compliance"] main :is(select,input,textarea){
+ color:#3B2A1D!important;
+}
+body[data-baitna-surface="classic"]{
+ --blue:#805632;
+ --blue-tint:#F3E8D7;
+ --brand-light:#D5BEA3;
+}
+body[data-baitna-surface="authority"]{
+ --blue:#805632;
+ --blue-tint:#F3E8D7;
+}
