@@ -78,6 +78,33 @@ try{
   process.stdout.write(JSON.stringify({route:route||'/',before:{lcp:before.metrics.lcpMs,cls:before.metrics.cls,axe:before.violations.length},
    after:{lcp:after.metrics.lcpMs,cls:after.metrics.cls,axe:after.violations.length},overflows:after.metrics.scrollWidth>after.metrics.viewportWidth+2,overflow:after.metrics.overflow.slice(0,7),violations:after.violations.map(x=>({id:x.id,targets:x.targets})),shifts:after.metrics.shifts.slice(0,5)})+'\n');
  }
+
+ // Navigation gate: preserve every original view URL, anchor and classic demo screen.
+ result.navigation={lifecycleViews:[],classicScreens:[],landingAnchors:[],failed:0};
+ const verify=await browser.newContext({viewport:{width:390,height:844},locale:'ar-AE'});
+ const q=await verify.newPage();
+ for(const view of ['overview','sourcing','contracts','scope','schedule','evidence','finance','passport','transfer']){
+  const resp=await q.goto(afterServer.url+'demo/lifecycle.html?view='+view,{waitUntil:'domcontentloaded'});
+  const selected=await q.locator('[data-view="'+view+'"]').getAttribute('class').catch(()=>'');
+  const ok=resp?.status()===200&&String(selected).includes('selected');
+  result.navigation.lifecycleViews.push({view,pass:ok});
+  if(!ok){issues++;result.navigation.failed++}
+ }
+ for(const screen of ['home','request','item','pack','sow','gantt','report']){
+  const resp=await q.goto(afterServer.url+'demo/#'+screen,{waitUntil:'domcontentloaded'});
+  const exists=(await q.locator('#screen-'+screen).count())===1;
+  const ok=resp?.status()===200&&exists;
+  result.navigation.classicScreens.push({screen,pass:ok});
+  if(!ok){issues++;result.navigation.failed++}
+ }
+ const home=await q.goto(afterServer.url,{waitUntil:'domcontentloaded'});
+ for(const anchor of ['top','network','lifecycle-v2','how','parties','demo','ai','pilot']){
+  const ok=home?.status()===200&&(await q.locator('#'+anchor).count())===1;
+  result.navigation.landingAnchors.push({anchor,pass:ok});
+  if(!ok){issues++;result.navigation.failed++}
+ }
+ await verify.close();
+ process.stdout.write(JSON.stringify({navigation:result.navigation})+'\n');
  result.summary={routes:routes.length,failedAutomatedRouteChecks:issues,governancePassRequired:true,fieldCWVUnverified:true};
  await writeFile(path.join(DEST,'browser-audit.json'),JSON.stringify(result,null,2));
  if(issues)process.exitCode=1;
