@@ -61,6 +61,9 @@ try{
        const style=which?getComputedStyle(el,which):cs;
        if(which&&(style.content==="none"||style.content==="normal"||style.display==="none"))continue;
        for(const field of fields){
+        if(field.startsWith("border") && (parseFloat(style[field.replace("Color","Width")])<.5 || style[field.replace("Color","Style")]==="none"))continue;
+        if(field==="outlineColor" && (style.outlineStyle==="none"||parseFloat(style.outlineWidth)<.5))continue;
+        if(field==="textDecorationColor" && style.textDecorationLine==="none")continue;
         for(const v of colorValues(style[field])){
          if(!isBlue(v))continue;
          count++;
