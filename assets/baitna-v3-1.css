@@ -1438,3 +1438,12 @@ body[data-baitna-surface="authority"]{
  --blue:#805632;
  --blue-tint:#F3E8D7;
 }
+
+
+/* Final source-level exception: municipality selectors with legacy IDs. */
+body[data-baitna-surface="compliance"] select#emirate,
+body[data-baitna-surface="compliance"] select#kind{
+ color:#3B2A1D!important;
+ background:#FFFDFC!important;
+ border-color:#C9B79F!important;
+}
