@@ -1447,3 +1447,92 @@ body[data-baitna-surface="compliance"] select#kind{
  background:#FFFDFC!important;
  border-color:#C9B79F!important;
 }
+
+
+/* ================================================================
+ BAITNA V3.6 — approved symbol without frame + correct bilingual typesetting
+ Logo: the architectural doorway itself. No tile, disc, ring or shadow.
+ Direction: isolate Latin from Arabic, including terminal punctuation.
+ Business text, translation dictionaries and approval workflow are unchanged.
+ ================================================================ */
+body[data-baitna-surface="landing"] .top .logo img,
+body[data-baitna-surface="authority"] .bar .brand img{
+ border:0!important;
+ border-radius:0!important;
+ outline:0!important;
+ background:transparent!important;
+ box-shadow:none!important;
+ filter:none!important;
+ padding:0!important;
+ object-fit:contain!important;
+}
+body[data-baitna-surface="workspace"] .brand .mark,
+body[data-baitna-surface="orb"] .brand .mark,
+body[data-baitna-surface="classic"] .brand .mark{
+ background:transparent url("./baitna-mark.svg") center / contain no-repeat!important;
+ border:0!important;
+ border-radius:0!important;
+ box-shadow:none!important;
+ outline:0!important;
+ padding:0!important;
+ color:transparent!important;
+ font-size:0!important;
+}
+/* Keep focus visible on the enclosing interactive brand link. */
+body[data-baitna-surface] a.brand:focus-visible,
+body[data-baitna-surface="landing"] a.logo:focus-visible{
+ outline:3px solid #B68A57!important;
+ outline-offset:5px!important;
+}
+body[data-baitna-surface="landing"] .top .logo img{
+ width:46px!important;height:46px!important;
+}
+/* Sentence ending punctuation belongs to the language of its sentence.
+   Explicit direction on bilingual text also fixes Safari RTL punctuation. */
+body[data-baitna-surface] :is(
+ .baitna-hero-word,.baitna-hero-latin,
+ .baitna-hero-motto,.baitna-hero-motto-translation,
+ .baitna-header-caption,.baitna-footer-motto
+)[lang][dir]{
+ unicode-bidi:isolate!important;
+ text-align:center;
+}
+body[data-baitna-surface] [lang="en"][dir="ltr"]{
+ direction:ltr!important;
+ unicode-bidi:isolate;
+}
+body[data-baitna-surface] [lang="ar"][dir="rtl"]{
+ direction:rtl!important;
+ unicode-bidi:isolate;
+}
+body[data-baitna-surface="landing"] .baitna-header-caption[lang]{
+ text-align:start!important;
+}
+body[data-baitna-surface="landing"] .baitna-hero-motto-translation[dir="ltr"]{
+ direction:ltr!important;
+ unicode-bidi:isolate!important;
+ text-transform:uppercase;
+ letter-spacing:.22em;
+}
+body[data-baitna-surface="landing"] .baitna-hero-motto[dir="ltr"]{
+ direction:ltr!important;
+ unicode-bidi:isolate!important;
+}
+body[data-baitna-surface="landing"] #lifecycle-v2 .v2-modules em,
+body[data-baitna-surface="workspace"] .brand em[lang="en"],
+body[data-baitna-surface="compliance"] header strong span,
+.v3-switcher-num{
+ direction:ltr!important;
+ unicode-bidi:isolate!important;
+}
+body[data-baitna-surface="landing"] .top .lang[lang="en"]{
+ direction:ltr!important;
+ unicode-bidi:isolate!important;
+}
+/* Text-only content should choose paragraph direction from its actual script.
+   This is especially important for Arabic descriptions containing RFI/RFP/RFQ
+   and for English copy shown immediately after an Arabic locale change. */
+body[data-baitna-surface] :is(p,dd,li)[data-i18n],
+body[data-baitna-surface] :is(p,dd,li)[data-ui-ar]{
+ unicode-bidi:plaintext;
+}

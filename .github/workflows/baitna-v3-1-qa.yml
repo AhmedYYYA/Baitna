@@ -9,6 +9,9 @@ on:
       - 'demo/**'
       - 'tests/ui-v3-1-*'
       - 'tests/ui-palette-audit.mjs'
+      - 'tests/ui-brand-bidi-audit.mjs'
+      - 'assets/favicon.svg'
+      - 'assets/baitna-v3-nav.js'
       - '.github/workflows/baitna-v3-1-qa.yml'
   workflow_dispatch:
 permissions:
@@ -42,6 +45,8 @@ jobs:
         run: node tests/ui-brand-visual-audit.mjs
       - name: Check unified earth palette across six screens
         run: node tests/ui-palette-audit.mjs
+      - name: Verify logo and English / Arabic punctuation placement
+        run: node tests/ui-brand-bidi-audit.mjs
 
       - name: Publish BAITNA visual audit captures
         if: always()
@@ -51,5 +56,6 @@ jobs:
           path: |
             reports/ui-brand-v34/
             reports/ui-brand-palette/
+            reports/ui-bidi-v36/
           if-no-files-found: warn
           retention-days: 30
