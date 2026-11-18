@@ -35,6 +35,10 @@ try{
    heading:document.querySelector('h1')?.textContent?.trim()?.slice(0,60)||'',
    notice:getComputedStyle(document.querySelector('.notice')||document.body).color
   }));
+  if(route===''){
+   const offscreen=await page.evaluate(()=>[...document.querySelectorAll('body *')].map(e=>{const r=e.getBoundingClientRect();return{tag:e.tagName,id:e.id,cls:String(e.className?.baseVal||e.className||'').slice(0,52),x:Math.round(r.left),right:Math.round(r.right),width:Math.round(r.width),overflow:getComputedStyle(e).overflowX}}).filter(x=>x.right>innerWidth+3||x.x< -3).sort((a,b)=>b.right-a.right).slice(0,25));
+   console.log(JSON.stringify({mobilePaintOverflows:offscreen}));
+  }
   const png=route===''?await page.screenshot({fullPage:true}):null;
   const imageWidth=png?png.readUInt32BE(16):null;
   const pass=resp?.status()===200&&!errors.length&&metrics.hasV31Sheet&&metrics.docWidth<=392&&metrics.optedOut&&(imageWidth===null||imageWidth<=392);
