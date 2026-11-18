@@ -313,3 +313,31 @@ body[data-baitna-surface="compliance"] header a:first-child::before{content:"";d
 .v3-switcher-link[aria-current="page"]{background:rgba(186,140,83,.16)!important}
 @media(max-width:760px){body[data-baitna-surface="landing"] .hero{padding-block:42px 74px!important}body[data-baitna-surface="landing"] .hero::before{opacity:.21;inline-size:80vw}.baitna-hero-brand img{width:76px;height:76px}.baitna-hero-word{font-size:45px}.baitna-hero-latin{font-size:16px}.baitna-hero-motto{font-size:clamp(27px,7vw,36px)!important}.baitna-hero-motto-translation{letter-spacing:.13em}body[data-baitna-surface="landing"] .hero h1{font-size:clamp(23px,5.7vw,29px)!important}body[data-baitna-surface="landing"] .hero .ctas a{width:min(100%,310px)}}
 @media(prefers-reduced-motion:reduce){.baitna-hero-brand *,.baitna-hero-motto{animation:none!important;transition:none!important}}
+
+
+/* V3.3 browser audit correction: reserve hero brand space BEFORE deferred JS.
+   Absolute visual lockup prevents 390px CLS when the bilingual slogan is mounted. */
+body[data-baitna-surface="landing"] .hero .wrap>div:first-child{
+ position:relative!important;
+ padding-block-start:420px!important;
+}
+.baitna-brand-lockup{
+ position:absolute;inset-block-start:0;inset-inline:0;
+ display:flex;flex-direction:column;align-items:center;
+ max-width:100%;pointer-events:none;
+}
+.baitna-brand-lockup .baitna-hero-brand{margin-bottom:12px}
+.baitna-brand-lockup .baitna-hero-motto{margin-top:0!important}
+.baitna-brand-lockup .baitna-hero-motto-translation{margin-bottom:0!important}
+/* Accessibility: text on the dark application headers must remain legible. */
+body[data-baitna-surface="workspace"] strong[data-t="workspace"],
+body[data-baitna-surface="orb"] small[data-i18n="subbrand"],
+body[data-baitna-surface="orb"] a[data-i18n="work"]{
+ color:#F6EBDD!important;
+}
+@media(max-width:760px){
+ body[data-baitna-surface="landing"] .hero .wrap>div:first-child{
+  padding-block-start:346px!important;
+ }
+ .baitna-brand-lockup .baitna-hero-brand{margin-bottom:10px}
+}

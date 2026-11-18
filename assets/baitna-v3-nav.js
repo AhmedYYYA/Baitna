@@ -91,7 +91,7 @@
    name=element("span","baitna-hero-word");latin=element("span","baitna-hero-latin");
    mast.append(img,name,latin);tagline=element("p","baitna-hero-motto");
    subline=element("p","baitna-hero-motto-translation");
-   hero.prepend(mast,tagline,subline);
+   var lockup=element("div","baitna-brand-lockup");lockup.append(mast,tagline,subline);hero.prepend(lockup);
   }
   var header=document.querySelector(".top .logo");
   if(header&&!header.querySelector(".baitna-header-caption")){headerSub=element("small","baitna-header-caption");header.append(headerSub)}
