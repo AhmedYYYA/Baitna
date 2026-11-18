@@ -28,10 +28,20 @@ function headOnly(content){
  return {legacy:content.slice(0,first)+content.slice(last+END.length),newHead:content.slice(first+START.length,last)};
 }
 
+/* Explicitly approved exception: remove only this exact illustrated demo block.
+   All remaining original sections, roles, links and logic stay frozen. */
+function approvedHomeMockupRemoval(p,source){
+ if(p!=="index.html")return source;
+ const match=source.match(/\n    <figure class="sheet">[\s\S]*?\n    <\/figure>\n/);
+ assert.ok(match,'baseline sample illustration missing');
+ assert.equal((source.match(/<figure class="sheet">/g)||[]).length,1);
+ return source.replace(match[0],"\n");
+}
+
 test('Agent 1 → Agent 9: all six HTML pages preserve every pre-existing byte, markup, label, role, link and inline script',()=>{
  for(const p of htmlPaths){
   const {legacy}=headOnly(read(p));
-  assert.equal(legacy,original(p),p+' was modified beyond the allowlisted head');
+  assert.equal(legacy,approvedHomeMockupRemoval(p,original(p)),p+' changed beyond the approved illustration removal');
  }
 });
 
@@ -44,7 +54,8 @@ test('original business logic, sample values, permissions and existing CSS remai
 test('all routes, anchors, IDs, data attributes, demo status strings and original scripts are frozen',()=>{
  // Exact HTML & JS checks above are stronger than an attribute-by-attribute comparison.
  const home=original('index.html'),next=headOnly(read('index.html')).legacy;
- assert.equal(next,home);
+ assert.equal(next,approvedHomeMockupRemoval('index.html',home));
+ assert.ok(!read('index.html').includes('<figure class="sheet">'),'sample mockup remains');
  const steps=['s1_t','s2_t','s3_t','s4_t','s5_t','s6_t'];
  const positions=steps.map(k=>next.indexOf('data-i18n="'+k+'"'));
  assert.ok(positions.every(x=>x>0));

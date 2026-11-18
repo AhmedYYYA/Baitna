@@ -180,3 +180,67 @@ body[data-baitna-surface="compliance"] main{
     box-shadow:none
   }
 }
+
+
+/* V3.2 — Home page: user-approved removal of illustrative construction mockup.
+   The hero is now a single-column editorial introduction. All original functional
+   platform routes and the separate interactive graph remain unchanged. */
+body[data-baitna-surface=landing] .hero .wrap{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:0!important;
+  max-width:1080px;
+}
+body[data-baitna-surface=landing] .hero .wrap>div:first-child{
+  min-block-size:0!important;
+  inline-size:100%;
+  max-inline-size:920px;
+  margin-inline:auto;
+  text-align:center;
+}
+body[data-baitna-surface=landing] .hero .eyebrow{
+  margin-inline:auto;
+}
+body[data-baitna-surface=landing] .hero h1{
+  max-inline-size:17em!important;
+  margin:22px auto 0!important;
+  text-wrap:balance;
+}
+body[data-baitna-surface=landing] .hero .lead{
+  max-inline-size:720px!important;
+  margin-inline:auto!important;
+  margin-block-start:25px!important;
+}
+body[data-baitna-surface=landing] .hero .ctas{
+  justify-content:center!important;
+}
+body[data-baitna-surface=landing] .hero .note{
+  margin-inline:auto!important;
+  max-inline-size:690px!important;
+}
+@media(max-width:760px){
+  body[data-baitna-surface=landing] .hero{
+    padding-block:44px 64px!important;
+  }
+  body[data-baitna-surface=landing] .hero .wrap{
+    gap:0!important;
+    max-inline-size:100%!important;
+  }
+  body[data-baitna-surface=landing] .hero .wrap>div:first-child{
+    min-block-size:0!important;
+  }
+  body[data-baitna-surface=landing] .hero h1{
+    font-size:clamp(33px,8.3vw,49px)!important;
+    margin-block-start:20px!important;
+  }
+  body[data-baitna-surface=landing] .hero .lead{
+    margin-block-start:18px!important;
+    line-height:1.85!important;
+  }
+  body[data-baitna-surface=landing] .hero .ctas{
+    margin-block-start:25px!important;
+  }
+  body[data-baitna-surface=landing] .hero .note{
+    margin-block-start:18px!important;
+  }
+}
