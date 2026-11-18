@@ -108,6 +108,21 @@
   if(headerSub)headerSub.textContent=en?"بيتنا":"BAITNA";
   if(footer)footer.textContent=en?"A Home That Endures.":"ويبقى للبيت أثر.";
   if(landing)document.title=en?"BAITNA | A Home That Endures.":"بيتنا | ويبقى للبيت أثر.";
+  /* Isolate each bilingual fragment, not the entire RTL page. */
+  [
+   [name,en?"en":"ar"],[latin,en?"ar":"en"],
+   [tagline,en?"en":"ar"],[subline,en?"ar":"en"],
+   [headerSub,en?"ar":"en"],[footer,en?"en":"ar"]
+  ].forEach(function(entry){
+   var el=entry[0],language=entry[1];
+   if(!el)return;
+   el.setAttribute("lang",language);
+   el.setAttribute("dir",language==="en"?"ltr":"rtl");
+  });
+  /* Latin technical labels embedded in Arabic UI remain left-to-right. */
+  document.querySelectorAll("#lifecycle-v2 .v2-modules em, .brand em[lang='en'], .v3-switcher-num").forEach(function(el){
+   el.setAttribute("lang","en");el.setAttribute("dir","ltr");
+  });
  }
  new MutationObserver(translateBrand).observe(html,{attributes:true,attributeFilter:["lang"]});
  translateBrand();
