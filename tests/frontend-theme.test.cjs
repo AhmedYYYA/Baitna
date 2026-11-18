@@ -37,7 +37,7 @@ test('both Arabic and English font stacks prioritize Dubai',()=>{
 test('font binaries are not redistributed in this public repository',()=>{
  const files=fs.readdirSync(path.join(root,'assets'));
  assert.ok(!files.some(f=>/dubai.*\.(woff2?|otf|ttf)$/i.test(f)),'unlicensed Dubai font asset');
- assert.ok(!css.includes('@font-face'),'Dubai font embedding requires separate rights clearance');
+ assert.ok(!css.replace(/\/\*[\s\S]*?\*\//g,'').includes('@font-face'),'Dubai font embedding requires separate rights clearance');
 });
 test('front-end serves responsive and reduced-motion preferences',()=>{
  assert.match(css,/@media\(max-width:960px\)/);
