@@ -2,7 +2,7 @@
    Original business scripts, roles, copy, workflow order and routing remain unchanged.
    No font binaries, web API calls or runtime dependencies. */
 :root{
- --ui-font:"Dubai","Dubai Regular","Dubai Medium","IBM Plex Sans Arabic","Segoe UI",Arial,sans-serif;
+ --ui-font:"Dubai","Dubai Regular","Dubai Medium",system-ui,Arial,sans-serif;
  --ui-bg:#f7f8f6;--ui-surface:#fff;--ui-surface-alt:#f1f4f2;
  --ui-text:#142e32;--ui-text-secondary:#4d6265;--ui-border:#d1dbd7;
  --ui-accent:#8a642a;--ui-primary:#164b51;--ui-focus:#ffbd62;
@@ -247,3 +247,48 @@ body[data-ui-design=authority] .bar nav a{padding-block:10px}
  font-size:12px;font-weight:500;pointer-events:none;text-align:start;
 }
 @media(pointer:coarse){[data-baitna-tip]:hover::after{display:none}}
+
+
+/* v2.1 — browser-audit fixes; styles and layout only, not business logic */
+body[data-baitna-surface=landing]{overflow-x:clip}
+body[data-baitna-surface=landing] #pilot .axis [data-i18n=ax1]{color:#294b43!important}
+body[data-baitna-surface=orb]{overflow-x:clip}
+body[data-baitna-surface=orb] .workspace,
+body[data-baitna-surface=orb] .sidebar,
+body[data-baitna-surface=orb] .content,
+body[data-baitna-surface=orb] .steps{min-width:0;max-width:100%}
+body[data-baitna-surface=orb] .brand small{color:#d6e2dc}
+body[data-baitna-surface=orb] .top nav a{color:#dce6df}
+body[data-baitna-surface=orb] .section-kicker{color:#6c4a13}
+body[data-ui-design=demo] .task[type=button] .tx .t2{color:#315451!important}
+@media(prefers-color-scheme:light){
+ body[data-baitna-surface=workspace] .stat em{color:#624212!important}
+ body[data-baitna-surface=workspace] .step small{color:#f3e8d6!important}
+ body[data-baitna-surface=workspace] footer>span{color:#e2eee9!important}
+ body[data-baitna-surface=compliance] select,
+ body[data-baitna-surface=compliance] #emirate,
+ body[data-baitna-surface=compliance] #kind{
+  color:#142d33!important;background:#fff!important;border-color:#7d9892!important
+ }
+ body[data-baitna-surface=orb] .section-kicker{color:#67450e!important}
+}
+@media(max-width:760px){
+ body[data-baitna-surface=orb] .workspace{grid-template-columns:minmax(0,1fr)!important;width:100%}
+ body[data-baitna-surface=orb] .sidebar{width:100%;overflow:hidden}
+ body[data-baitna-surface=orb] .steps{display:flex;overflow-x:auto;scrollbar-width:thin;width:100%}
+ body[data-baitna-surface=orb] .content{width:100%}
+}
+@media(max-width:520px){
+ /* Reserve chart insertion space before the original presentational JS adds it.
+    Same DOM, data, sorting and risk filters; the placeholder disappears on insertion. */
+ body[data-ui-design=authority] .kpis:not(:has(+ .bm-risk-board)) + .layout{
+  margin-block-start:370px
+ }
+ body[data-ui-design=authority] .bm-risk-board{min-height:370px}
+}
+@media(min-width:521px){
+ body[data-ui-design=authority] .kpis:not(:has(+ .bm-risk-board)) + .layout{
+  margin-block-start:255px
+ }
+ body[data-ui-design=authority] .bm-risk-board{min-height:255px}
+}
