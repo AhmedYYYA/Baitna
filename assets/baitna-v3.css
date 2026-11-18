@@ -456,3 +456,403 @@ body[data-baitna-surface=landing] footer{
 }
 body[data-baitna-surface=landing] footer a{color:#c9dcff!important}
 body[data-baitna-surface=landing] footer a:hover{color:#fff!important}
+
+
+/* PRODUCT APPLICATION — WORKSPACE RE-ARCHITECTED AS A MODERN FINTECH DESKTOP */
+body[data-baitna-surface=workspace]{
+ --bg:#f4f7fc;--panel:#fff;--panel2:#f1f5fb;
+ --ink:#0b2940;--muted:#627688;--line:#dce5ee;
+ --gold:#b47c3c;--gold2:#1247cc;
+ background:#f3f6fb!important;color:#0b2940!important;color-scheme:light!important;
+}
+body[data-baitna-surface=workspace] .shell{
+ display:grid;grid-template-columns:280px minmax(0,1fr)!important;min-height:100vh;
+}
+body[data-baitna-surface=workspace] .side{
+ background:linear-gradient(170deg,#061b35,#0a2a50 70%,#0c3462)!important;
+ border:0!important;border-inline-end:1px solid rgba(120,177,244,.21)!important;
+ padding:30px 16px 22px!important;box-shadow:none!important;
+}
+body[data-baitna-surface=workspace] .brand{
+ display:flex;gap:13px;align-items:center;padding:9px 12px 22px!important;
+ border-bottom:1px solid rgba(205,223,255,.18);
+}
+body[data-baitna-surface=workspace] .brand .mark{
+ width:47px;height:47px;flex:none;border:1px solid rgba(179,206,255,.46)!important;
+ border-radius:13px!important;background:rgba(103,151,231,.16)!important;
+ color:#e9f2ff!important;box-shadow:none!important
+}
+body[data-baitna-surface=workspace] .brand b{
+ color:#fff!important;font-size:22px!important;font-weight:800!important
+}
+body[data-baitna-surface=workspace] .brand small{color:#b9cbe0!important;line-height:1.6}
+body[data-baitna-surface=workspace] .side-label{
+ color:#90b7fa!important;font-size:11px!important;
+ letter-spacing:.04em!important;margin:6px 14px -8px!important
+}
+body[data-baitna-surface=workspace] .nav-list{display:grid;gap:5px!important}
+body[data-baitna-surface=workspace] .nav-list :is(button,a.nav-external){
+ min-height:51px!important;padding:12px 14px!important;
+ color:#bacde7!important;background:transparent!important;
+ border:1px solid transparent!important;border-radius:12px!important;
+ font-size:13px!important;font-weight:650!important;
+ white-space:normal!important;text-align:start!important;
+}
+body[data-baitna-surface=workspace] .nav-list :is(button,a.nav-external):hover{
+ color:#fff!important;background:rgba(81,141,235,.20)!important;
+ border-color:rgba(128,175,247,.24)!important
+}
+body[data-baitna-surface=workspace] .nav-list button.selected{
+ color:#fff!important;background:#1247cc!important;
+ border-color:#2c66ed!important;box-shadow:0 9px 18px rgba(0,11,46,.2)!important
+}
+body[data-baitna-surface=workspace] .nav-list .ico{color:#b6cffd!important;font-size:21px}
+body[data-baitna-surface=workspace] .nav-list button.selected .ico{color:#fff!important}
+body[data-baitna-surface=workspace] .side-bottom{
+ border-top:1px solid rgba(207,226,255,.16)!important;padding-top:21px!important;
+}
+body[data-baitna-surface=workspace] .simple-link{color:#c0d1e6!important;line-height:1.8}
+body[data-baitna-surface=workspace] .sample{
+ background:rgba(33,136,111,.2)!important;
+ color:#c6f2e8!important;border-color:rgba(89,191,165,.32)!important
+}
+body[data-baitna-surface=workspace] .work{
+ background:radial-gradient(ellipse 600px 460px at 96% 0,rgba(58,111,214,.065),transparent 80%),#f5f8fc!important;
+ color:#0b2940;min-width:0
+}
+body[data-baitna-surface=workspace] .top{
+ background:rgba(255,255,255,.94)!important;
+ border-bottom:1px solid #e0e9f3!important;min-height:79px!important;
+ box-shadow:0 2px 20px rgba(20,60,90,.025)!important;
+}
+body[data-baitna-surface=workspace] .breadcrumb{color:#657b8d!important;font-weight:600}
+body[data-baitna-surface=workspace] .breadcrumb a{color:#2154ad!important}
+body[data-baitna-surface=workspace] .breadcrumb strong{color:#12334f!important}
+body[data-baitna-surface=workspace] .header-actions .btn{
+ min-height:43px!important;border-radius:10px!important;
+ padding:10px 14px!important;font-size:12px!important;font-weight:700!important;
+}
+body[data-baitna-surface=workspace] .header-actions .btn.minor{
+ background:#f0f4fc!important;border:1px solid #cfddf3!important;color:#234574!important
+}
+body[data-baitna-surface=workspace] .header-actions .btn.ghost{
+ background:#fff!important;border:1px solid #dcc5a7!important;color:#79501e!important
+}
+body[data-baitna-surface=workspace] .disclaimer{
+ background:#fff7e9!important;border-bottom:1px solid #ecd5ad!important;
+ padding-block:15px!important;color:#745326!important;
+ font-size:12px!important;line-height:1.85!important
+}
+body[data-baitna-surface=workspace] .disclaimer strong{color:#78511c!important}
+body[data-baitna-surface=workspace] main{
+ max-width:1540px;padding:clamp(30px,4.5vw,66px) clamp(20px,4vw,68px) 90px!important
+}
+body[data-baitna-surface=workspace] .main-top{margin-bottom:37px!important;align-items:center!important}
+body[data-baitna-surface=workspace] .overline{
+ color:#164ec6!important;font-size:11px!important;letter-spacing:.08em!important;
+ font-weight:800!important;margin-bottom:14px!important
+}
+body[data-baitna-surface=workspace] .main-top h1{
+ color:#0b2740!important;font-size:clamp(31px,3.7vw,56px)!important;
+ line-height:1.4!important;font-weight:800!important;letter-spacing:-.04em!important
+}
+body[data-baitna-surface=workspace] .subhead{
+ color:#607589!important;font-size:15px!important;max-width:65ch!important;line-height:1.95!important
+}
+body[data-baitna-surface=workspace] .selector-stack{
+ background:#fff!important;padding:13px 16px!important;border:1px solid #dce5f1!important;
+ box-shadow:0 9px 24px rgba(11,50,95,.045)!important;
+ border-radius:15px!important;gap:9px 12px!important
+}
+body[data-baitna-surface=workspace] .selector-stack label{
+ color:#587186!important;font-size:11px!important;font-weight:700
+}
+body[data-baitna-surface=workspace] :is(input,select,textarea){
+ background:#fff!important;color:#17354d!important;
+ border:1px solid #c4d4e5!important;border-radius:11px!important;
+ min-height:46px!important;padding:11px 14px!important;
+}
+body[data-baitna-surface=workspace] :is(input,select,textarea):focus{
+ border-color:#2364ea!important;box-shadow:0 0 0 3px rgba(35,100,234,.12)!important
+}
+body[data-baitna-surface=workspace] .stats{
+ grid-template-columns:repeat(4,minmax(0,1fr));gap:15px!important;margin-bottom:25px!important
+}
+body[data-baitna-surface=workspace] .stat{
+ min-height:139px;padding:24px 25px!important;background:#fff!important;
+ border:1px solid #dce5ef!important;border-radius:20px!important;
+ box-shadow:0 10px 23px rgba(13,47,86,.045)!important;
+ position:relative;overflow:hidden
+}
+body[data-baitna-surface=workspace] .stat::before{
+ content:"";position:absolute;inset-block-start:0;inset-inline:0;height:4px;
+ background:#1247cc
+}
+body[data-baitna-surface=workspace] .stat:nth-child(2)::before{background:#66a9ed}
+body[data-baitna-surface=workspace] .stat:nth-child(3)::before{background:#9cb5e8}
+body[data-baitna-surface=workspace] .stat:nth-child(4)::before{background:#b78a50}
+body[data-baitna-surface=workspace] .stat small{color:#62788b!important;font-size:12px!important;font-weight:650}
+body[data-baitna-surface=workspace] .stat b{
+ color:#0a2e54!important;font-size:clamp(25px,2.8vw,39px)!important;
+ font-weight:800!important;margin:12px 0 4px!important
+}
+body[data-baitna-surface=workspace] .stat em{
+ color:#6b8db3!important;font-size:10px!important;font-style:normal!important
+}
+body[data-baitna-surface=workspace] .grid{gap:19px!important}
+body[data-baitna-surface=workspace] .card{
+ background:#fff!important;border:1px solid #dce4ee!important;
+ border-radius:22px!important;padding:clamp(22px,2.4vw,35px)!important;
+ box-shadow:0 12px 28px rgba(11,48,93,.04)!important;color:#0f2e47!important
+}
+body[data-baitna-surface=workspace] .card h2{
+ color:#102f4b!important;font-size:clamp(18px,1.6vw,24px)!important;
+ font-weight:800!important;line-height:1.5!important
+}
+body[data-baitna-surface=workspace] .card h3{color:#24415c!important;font-size:15px!important}
+body[data-baitna-surface=workspace] :is(.card p,.card .small,.record small,.step small){
+ color:#65798b!important;line-height:1.9!important
+}
+body[data-baitna-surface=workspace] .card-head{
+ padding-bottom:15px!important;margin-bottom:17px!important;
+ border-bottom:1px solid #e9eef5!important
+}
+body[data-baitna-surface=workspace] .record{
+ background:#f8faff!important;border:1px solid #e1e9f5!important;
+ border-radius:15px!important;min-height:70px!important;
+ padding:17px 18px!important;gap:16px!important
+}
+body[data-baitna-surface=workspace] .record:hover{border-color:#aac5f1!important}
+body[data-baitna-surface=workspace] .record strong{
+ color:#173652!important;font-size:14px!important;font-weight:750!important
+}
+body[data-baitna-surface=workspace] .pill{
+ background:#eaf1ff!important;color:#1542a8!important;
+ border:1px solid #c5d9fe!important;border-radius:999px!important;
+ font-weight:700!important;font-size:11px!important;
+}
+body[data-baitna-surface=workspace] .pill.good{
+ color:#125945!important;background:#e9f7f1!important;border-color:#a7dac6!important
+}
+body[data-baitna-surface=workspace] .pill.muted{
+ color:#556678!important;background:#eef2f6!important;border-color:#cfd9e2!important
+}
+body[data-baitna-surface=workspace] .btn.primary{
+ background:#1247cc!important;color:#fff!important;border:1px solid #1247cc!important;
+ min-height:46px!important;padding:12px 19px!important;border-radius:11px!important;
+ font-weight:800!important;box-shadow:0 9px 18px rgba(18,71,204,.14)!important
+}
+body[data-baitna-surface=workspace] .btn.primary:hover{background:#0c359b!important}
+body[data-baitna-surface=workspace] .btn.minor{
+ background:#fff!important;color:#204a82!important;
+ border:1px solid #c5d5ed!important;border-radius:10px!important;min-height:43px!important
+}
+body[data-baitna-surface=workspace] .btn.minor:hover{background:#ecf2fe!important}
+body[data-baitna-surface=workspace] .btn.ghost{background:#fff!important;color:#906022!important;border:1px solid #ddc6a8!important}
+body[data-baitna-surface=workspace] .field label{
+ color:#3f5c77!important;font-weight:700!important;font-size:13px!important
+}
+body[data-baitna-surface=workspace] .note{
+ background:#fff8ed!important;color:#73531e!important;
+ border-inline-start:3px solid #c39251!important;border:1px solid #eed8b7!important;
+ border-inline-start-width:3px!important;padding:17px 19px!important;border-radius:12px!important
+}
+body[data-baitna-surface=workspace] .process{
+ gap:13px!important;margin-top:23px!important
+}
+body[data-baitna-surface=workspace] .step{
+ background:#f2f6ff!important;border:1px solid #d5e2fa!important;
+ border-radius:15px!important;min-height:112px;padding:22px!important
+}
+body[data-baitna-surface=workspace] .step b{
+ color:#1645af!important;font-size:17px!important
+}
+body[data-baitna-surface=workspace] .step small{font-size:12px!important;margin-top:9px!important}
+body[data-baitna-surface=workspace] .rail{background:#ecf1fa!important;border-radius:15px!important}
+body[data-baitna-surface=workspace] .rail>i{
+ background:linear-gradient(90deg,#1247cc,#73b8f8)!important
+}
+body[data-baitna-surface=workspace] .table-wrap{overflow:auto;max-width:100%}
+body[data-baitna-surface=workspace] table{font-size:13px!important;color:#173b54!important}
+body[data-baitna-surface=workspace] th{
+ color:#3f6084!important;background:#f5f8fd!important;
+ font-size:12px!important;font-weight:750!important
+}
+body[data-baitna-surface=workspace] td{color:#2e4b64!important;border-color:#e4eaf2!important}
+body[data-baitna-surface=workspace] .empty{
+ background:#f8faff!important;border:1px dashed #bdcee6!important;
+ color:#748ba0!important;border-radius:13px!important
+}
+body[data-baitna-surface=workspace] footer{
+ background:#f5f8fc!important;border-top:1px solid #dce4ee!important;
+ color:#698097!important;font-size:11px!important
+}
+body[data-baitna-surface=workspace] .toast{background:#164a40!important;color:#fff!important;border-color:#246f5d!important}
+@media(prefers-color-scheme:dark){
+ body[data-baitna-surface=workspace]{color-scheme:light!important}
+}
+
+/* OWNER REQUIREMENTS BRIEF — from cramped sidebar to calm five-step studio */
+body[data-baitna-surface=orb]{
+ --bg:#f6f8fc;--nav:#081e39;--panel:#fff;--panel2:#eff4fb;
+ --ink:#0f2940;--text:#0f2940;--muted:#5c7487;
+ --line:#dbe4ef;--gold:#b88647;--gold2:#1247cc;
+ background:#f6f8fc!important;color:#0d2b45!important;color-scheme:light!important
+}
+body[data-baitna-surface=orb] .top{
+ background:rgba(255,255,255,.97)!important;
+ border-bottom:1px solid #dce6f0!important;
+ box-shadow:0 8px 22px rgba(8,41,80,.035)!important
+}
+body[data-baitna-surface=orb] .top-inner{
+ max-width:1580px!important;min-height:82px!important;gap:20px!important;
+ padding-inline:clamp(20px,4.5vw,74px)!important;
+}
+body[data-baitna-surface=orb] .brand{
+ color:#092740!important;gap:13px!important
+}
+body[data-baitna-surface=orb] .brand .mark{
+ border:1px solid #bcd1f7!important;background:#eef4ff!important;
+ color:#1247cc!important;box-shadow:none!important;border-radius:12px!important
+}
+body[data-baitna-surface=orb] .brand b{color:#112f4b!important;font-size:24px!important;font-weight:800!important}
+body[data-baitna-surface=orb] .brand small{color:#658098!important}
+body[data-baitna-surface=orb] .top nav{gap:10px!important}
+body[data-baitna-surface=orb] .top nav a{
+ color:#255082!important;font-size:13px!important;font-weight:700!important;
+ min-height:44px;display:inline-flex;align-items:center;
+ border-radius:10px!important;padding:10px 13px!important
+}
+body[data-baitna-surface=orb] .top nav a:hover{color:#1247cc!important;background:#edf3ff!important}
+body[data-baitna-surface=orb] .top button{
+ background:#edf3ff!important;color:#1247b2!important;
+ border:1px solid #c8daf7!important;border-radius:10px!important;
+ min-height:43px!important
+}
+body[data-baitna-surface=orb] .notice{
+ background:#fff7e9!important;color:#73501f!important;
+ border-bottom:1px solid #ecd5b4!important
+}
+body[data-baitna-surface=orb] .notice-inner{line-height:1.9!important}
+body[data-baitna-surface=orb] .main{
+ max-width:1580px!important;padding:clamp(33px,5vw,79px) clamp(20px,4.5vw,74px) 100px!important
+}
+body[data-baitna-surface=orb] .intro{
+ margin-bottom:44px!important;gap:20px!important;align-items:center!important
+}
+body[data-baitna-surface=orb] .eyebrow{
+ color:#174cbd!important;font-size:12px!important;font-weight:800!important;letter-spacing:.06em!important
+}
+body[data-baitna-surface=orb] .intro h1{
+ color:#0b2943!important;font-size:clamp(35px,4.2vw,63px)!important;
+ line-height:1.4!important;letter-spacing:-.05em!important;font-weight:800!important
+}
+body[data-baitna-surface=orb] .intro p{
+ color:#63798e!important;line-height:2!important;font-size:15px!important
+}
+body[data-baitna-surface=orb] .status{
+ background:#e9f4fe!important;color:#1954a3!important;
+ border:1px solid #bddcf9!important;border-radius:13px!important;
+ padding:13px 17px!important;box-shadow:none!important
+}
+body[data-baitna-surface=orb] .workspace{
+ display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+ gap:21px!important;align-items:start
+}
+body[data-baitna-surface=orb] .sidebar{
+ position:static!important;width:100%!important;max-width:100%!important;
+ border:1px solid #d8e5f3!important;border-radius:22px!important;
+ background:#fff!important;padding:18px 22px!important;
+ box-shadow:0 13px 26px rgba(12,56,100,.04)!important;min-width:0
+}
+body[data-baitna-surface=orb] .side-title{
+ color:#5f7791!important;font-size:12px!important;font-weight:700!important;
+ margin:0 0 14px!important
+}
+body[data-baitna-surface=orb] .steps{
+ display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;
+ gap:10px!important;overflow:visible!important;width:100%;min-width:0
+}
+body[data-baitna-surface=orb] .steps button{
+ min-height:69px!important;width:auto!important;flex:1!important;
+ padding:13px 13px!important;background:#f5f7fb!important;
+ border:1px solid #dce5ef!important;border-radius:13px!important;
+ color:#55718b!important;font-weight:700!important;font-size:13px!important;
+ line-height:1.55!important;text-align:start!important
+}
+body[data-baitna-surface=orb] .steps button[aria-current=step]{
+ background:#1247cc!important;color:#fff!important;
+ border:1px solid #1247cc!important;box-shadow:0 9px 20px rgba(18,71,204,.19)!important
+}
+body[data-baitna-surface=orb] .steps button[aria-current=step] .step-no{
+ background:rgba(255,255,255,.2)!important;border-color:rgba(255,255,255,.45)!important;color:#fff!important
+}
+body[data-baitna-surface=orb] .step-no{
+ background:#fff!important;color:#1247cc!important;border:1px solid #c8daf3!important;
+ width:30px;height:30px!important;border-radius:10px!important;font-weight:800!important
+}
+body[data-baitna-surface=orb] .aside-note{
+ margin-top:18px!important;padding-top:14px!important;
+ border-top:1px solid #e9edf4!important;color:#708398!important;
+ font-size:12px!important;line-height:1.85!important
+}
+body[data-baitna-surface=orb] .content{min-width:0!important}
+body[data-baitna-surface=orb] .context{
+ background:linear-gradient(125deg,#092f71,#1451bf)!important;
+ border:1px solid #164caf!important;color:#fff!important;
+ border-radius:19px!important;padding:clamp(18px,2.5vw,28px)!important;
+ box-shadow:0 18px 32px rgba(16,65,160,.13)!important;
+ gap:22px!important
+}
+body[data-baitna-surface=orb] .context :is(p,span,label,small,b,strong){color:#e8f2ff!important}
+body[data-baitna-surface=orb] .home-ref{
+ background:rgba(255,255,255,.16)!important;border:1px solid rgba(255,255,255,.25)!important;
+ color:#fff!important;border-radius:11px!important
+}
+body[data-baitna-surface=orb] .progress{
+ background:rgba(255,255,255,.22)!important;height:10px!important;border-radius:999px!important
+}
+body[data-baitna-surface=orb] .progress span{
+ background:linear-gradient(90deg,#a0d5ff,#fff)!important;border-radius:999px!important
+}
+body[data-baitna-surface=orb] .form-section{
+ background:#fff!important;border:1px solid #dce6f1!important;
+ box-shadow:0 16px 33px rgba(13,52,96,.045)!important;
+ border-radius:23px!important;padding:clamp(24px,3.5vw,49px)!important;
+ color:#122d43!important;line-height:1.9!important
+}
+body[data-baitna-surface=orb] .form-section :is(h2,h3){color:#173653!important;font-weight:800!important}
+body[data-baitna-surface=orb] .form-section :is(p,small){color:#657b8d!important;line-height:1.95!important}
+body[data-baitna-surface=orb] .field label{
+ color:#3c5c79!important;font-weight:750!important;font-size:13px!important
+}
+body[data-baitna-surface=orb] :is(input,select,textarea){
+ background:#fcfdff!important;color:#1d3c54!important;
+ border:1px solid #c8d8e8!important;border-radius:11px!important;
+ min-height:47px!important;padding:11px 14px!important;
+}
+body[data-baitna-surface=orb] :is(input,select,textarea):focus{
+ border-color:#2364ef!important;box-shadow:0 0 0 3px rgba(35,100,239,.12)!important
+}
+body[data-baitna-surface=orb] .pager{
+ background:#fff!important;border:1px solid #dce4ed!important;
+ padding:17px 20px!important;border-radius:16px!important;
+ box-shadow:0 9px 22px rgba(11,51,96,.035)!important
+}
+body[data-baitna-surface=orb] .btn.primary{
+ background:#1247cc!important;color:#fff!important;border:1px solid #1247cc!important;
+ border-radius:11px!important;min-height:46px!important;box-shadow:0 9px 18px rgba(18,71,204,.14)!important
+}
+body[data-baitna-surface=orb] .btn.secondary{
+ background:#fff!important;color:#265081!important;border:1px solid #c8d8ed!important;
+ border-radius:11px!important;min-height:46px!important
+}
+body[data-baitna-surface=orb] .documents{
+ background:#fff!important;border:1px solid #dae4f0!important;
+ border-radius:21px!important;padding:clamp(21px,3vw,36px)!important;
+ color:#16334b!important;box-shadow:0 12px 27px rgba(14,53,98,.04)!important
+}
+body[data-baitna-surface=orb] .documents :is(h2,h3,p,small){color:#24425e!important}
+body[data-baitna-surface=orb] .toast{
+ background:#124a41!important;color:#fff!important;border-color:#296b5d!important
+}
