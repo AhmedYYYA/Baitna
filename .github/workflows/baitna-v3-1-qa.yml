@@ -1,0 +1,39 @@
+name: BAITNA V3.1 visual quality gate
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/baitna-v3-1.css'
+      - 'assets/baitna-v3-1-motion.js'
+      - 'index.html'
+      - 'demo/**'
+      - 'tests/ui-v3-1-*'
+      - '.github/workflows/baitna-v3-1-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preserve-governance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/ui-v3-1-smoke.test.cjs tests/ui-v3-redesign.test.cjs tests/ui-governance-lock.test.cjs tests/orb.test.cjs
+  browser-visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save --no-package-lock playwright
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/ui-v3-1-browser.mjs
