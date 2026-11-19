@@ -2,7 +2,7 @@ name: Render BAITNA social preview cover
 on:
   push:
     branches:
-      - feat/baitna-bilingual-share-preview-2026-11-18
+      - fix/share-card-professional-2026-11-19
     paths:
       - '.github/workflows/generate-social-preview.yml'
       - 'scripts/generate-social-card.py'
@@ -11,7 +11,7 @@ permissions:
   contents: write
 jobs:
   render-og-card:
-    if: github.ref == 'refs/heads/feat/baitna-bilingual-share-preview-2026-11-18'
+    if: github.ref == 'refs/heads/fix/share-card-professional-2026-11-19'
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
@@ -32,6 +32,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/baitna-share-cover.jpg
+          git add assets/baitna-share-cover-v2.jpg
           git diff --cached --quiet || git commit -m "asset(social): render approved bilingual share cover"
           git push origin "HEAD:$GITHUB_REF_NAME"
